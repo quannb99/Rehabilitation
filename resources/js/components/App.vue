@@ -1,27 +1,33 @@
 <template>
   <div>
-    <example-component
-    :title="title"
-    :content="content"
-    />
+    <nav-bar :user="user" />
+    <div class="py-5"></div>
+    <example-component :title="title" :content="user" />
+    <Footer />
   </div>
 </template>
 
 <script>
-import ExampleComponent from './ExampleComponent.vue';
 export default {
-  components: { ExampleComponent },
   data() {
     return {
       title: "Example title",
-      content: "Example content",
+      user: User,
     };
+  },
+
+  methods: {
+
   },
 
   mounted() {
     console.log("App mounted.");
   },
+
+  created() {
+    console.log("App created.");
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss"></style>
