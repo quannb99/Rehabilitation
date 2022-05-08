@@ -1,13 +1,16 @@
 <template>
   <div>
     <b-navbar id="navbar" class="navbar" fixed="top" toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="#">Rehab</b-navbar-brand>
+      <b-navbar-brand href="#">
+        <img src="../../images/hospital.png" class="d-inline-block align-middle logo" alt="logo">
+        Rehab
+      </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item href="#">Link</b-nav-item>
+        <b-navbar-nav class="nav-container">
+          <b-nav-item href="#">Diễn đàn</b-nav-item>
           <b-nav-item href="#" disabled>Disabled</b-nav-item>
         </b-navbar-nav>
 
@@ -68,5 +71,13 @@ export default {
   height: 70px;
   width: 100%;
   transition: top 0.3s ease-in-out 0.1s;
+}
+
+.logo {
+  width: 50px;
+}
+
+.nav-container {
+  margin-left: 100px;
 }
 </style>

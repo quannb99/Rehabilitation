@@ -1,13 +1,15 @@
 <template>
   <div>
     <nav-bar :user="user" />
-    <div class="py-5"></div>
+    <div class="divider"></div>
+    <Navigation :title="'Diễn đàn'"/>
     <example-component :title="title" :content="user" />
     <Footer />
   </div>
 </template>
 
 <script>
+import Navigation from '../components/Navigation'
 export default {
   data() {
     return {
@@ -30,4 +32,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.divider {
+  margin-top: 70px;
+}
+</style>
