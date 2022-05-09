@@ -1,8 +1,19 @@
 <template>
   <div>
-    <b-navbar id="navbar" class="navbar" fixed="top" toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="#">
-        <img src="../../images/hospital.png" class="d-inline-block align-middle logo" alt="logo">
+    <b-navbar
+      id="navbar"
+      class="navbar"
+      fixed="top"
+      toggleable="lg"
+      type="dark"
+      variant="dark"
+    >
+      <b-navbar-brand style="cursor: pointer;" @click="navigateTo('home')">
+        <img
+          src="../../images/hospital.png"
+          class="d-inline-block align-middle logo"
+          alt="logo"
+        />
         Rehab
       </b-navbar-brand>
 
@@ -10,7 +21,7 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="nav-container">
-          <b-nav-item href="#">Diễn đàn</b-nav-item>
+          <b-nav-item @click="navigateTo('forum')">Diễn đàn</b-nav-item>
           <b-nav-item href="#" disabled>Disabled</b-nav-item>
         </b-navbar-nav>
 
@@ -49,21 +60,20 @@
 </template>
 
 <script>
-export default {
-  props: [
-    "user",
-  ],
+import BaseComponent from '../base-component'
+export default BaseComponent.extend({
+  props: ["user"],
 
   data() {
-    return {
-
-    };
+    return {};
   },
 
-  mounted() {
+  methods: {
 
   },
-};
+
+  mounted() {},
+});
 </script>
 
 <style lang="scss" scoped>

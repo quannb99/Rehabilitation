@@ -2,15 +2,15 @@
   <div>
     <nav-bar :user="user" />
     <div class="divider"></div>
-    <Navigation :title="'Diễn đàn'"/>
+    <router-view />
     <example-component :title="title" :content="user" />
     <Footer />
   </div>
 </template>
 
 <script>
-import Navigation from '../components/Navigation'
-export default {
+import BaseComponent from '../base-component'
+export default BaseComponent.extend({
   data() {
     return {
       title: "Example title",
@@ -23,13 +23,13 @@ export default {
   },
 
   mounted() {
-    console.log("App mounted.");
+
   },
 
   created() {
-    console.log("App created.");
+
   },
-};
+});
 </script>
 
 <style lang="scss">

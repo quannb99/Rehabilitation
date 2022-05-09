@@ -10,10 +10,12 @@
                   <div class="widget-title uni-uppercase">
                     <a href="#"
                       ><img
-                        src="images/logowhite.png"
+                        src="../../images/hospital.png"
                         alt=""
-                        class="img-responsive"
-                    /></a>
+                        style="width:40px;"
+                      />
+                      <h3 style="display: inline" class="widget-title uni-uppercase">REHAB</h3>
+                    </a>
                   </div>
                   <div class="widget-content">
                     <p>

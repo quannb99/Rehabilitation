@@ -6,7 +6,9 @@
 
 require('./bootstrap');
 import BootstrapVue from 'bootstrap-vue'
-import Vue from 'vue';
+import Vue from 'vue'
+import router from './router'
+import store from './store'
 
 window.Vue = require('vue');
 Vue.use(BootstrapVue);
@@ -31,6 +33,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  */
 
 const app = new Vue({
+    router,
     render: h => h('App')
 }).$mount("#app")
 

@@ -12,8 +12,8 @@
 
         <!-- Breadcrumbs -->
         <ul class="breadcrumbs">
-          <li><a href="#">Trang chủ</a></li>
-          <li><a href="#">{{ title }}</a></li>
+          <li><a href="#" @click.prevent="navigateTo('home')">Trang chủ</a></li>
+          <li><a href="#" @click.prevent="navigateTo('forum')">{{ title }}</a></li>
           <!-- <li><a href="#">our doctor</a></li> -->
         </ul>
         <!-- End breadcrumbs -->
@@ -23,12 +23,13 @@
 </template>
 
 <script>
-export default {
+import BaseComponent from '../base-component'
+export default BaseComponent.extend({
   props: [
     "title",
-    "content",
+    "link",
   ],
-};
+});
 </script>
 
 <style lang="scss" scoped>
