@@ -8,7 +8,7 @@
       type="dark"
       variant="dark"
     >
-      <b-navbar-brand style="cursor: pointer;" @click="navigateTo('home')">
+      <b-navbar-brand style="cursor: pointer" @click="navigateTo('home')">
         <img
           src="../../images/hospital.png"
           class="d-inline-block align-middle logo"
@@ -27,7 +27,7 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-form>
+          <b-nav-form  v-if="user != null">
             <b-form-input
               size="sm"
               class="mr-sm-2"
@@ -38,6 +38,13 @@
             >
           </b-nav-form>
 
+          <b-button @click="navigateToPage('login')" style="margin-right: 1rem" v-if="user == null" size="md" class="my-2 my-sm-0"
+            >Đăng nhập</b-button
+          >
+          <b-button @click="navigateToPage('register')" v-if="user == null" size="md" class="my-2 my-sm-0"
+            >Đăng ký</b-button
+          >
+
           <!-- <b-nav-item-dropdown text="Lang" right>
             <b-dropdown-item href="#">EN</b-dropdown-item>
             <b-dropdown-item href="#">ES</b-dropdown-item>
@@ -45,13 +52,13 @@
             <b-dropdown-item href="#">FA</b-dropdown-item>
           </b-nav-item-dropdown> -->
 
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown right v-if="user != null">
             <!-- Using 'button-content' slot -->
             <template #button-content>
-              {{ user.name }}
+              {{ user ? user.name : "" }}
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+            <b-dropdown-item @click="logOut()">Đăng xuất</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -60,34 +67,31 @@
 </template>
 
 <script>
-import BaseComponent from '../base-component'
+import BaseComponent from "../base-component";
 export default BaseComponent.extend({
-  props: ["user"],
+  props: {
+    user: {
+      default: null,
+    },
+  },
 
   data() {
     return {};
   },
 
   methods: {
-
+    logOut() {
+      document.getElementById("logout-form").submit();
+    },
+    navigateToPage(des) {
+      window.location.href= window.location.origin + `/${des}`
+    }
   },
 
-  mounted() {},
+  mounted() {
+    console.log(window.location)
+  },
 });
 </script>
 
-<style lang="scss" scoped>
-.navbar {
-  height: 70px;
-  width: 100%;
-  transition: top 0.3s ease-in-out 0.1s;
-}
-
-.logo {
-  width: 50px;
-}
-
-.nav-container {
-  margin-left: 100px;
-}
-</style>
+<style lang="scss" scoped></style>

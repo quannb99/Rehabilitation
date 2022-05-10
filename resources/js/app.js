@@ -9,6 +9,9 @@ import BootstrapVue from 'bootstrap-vue'
 import Vue from 'vue'
 import router from './router'
 import store from './store'
+import App from './components/App.vue'
+import NavBar from './components/NavBar.vue'
+import VueFooter from './components/Footer.vue'
 
 window.Vue = require('vue');
 Vue.use(BootstrapVue);
@@ -32,11 +35,18 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    router,
-    render: h => h('App')
-}).$mount("#app")
-
 // const app = new Vue({
-//     el: '#app',
-// });
+//   router,
+//   store,
+//   render: h => h('App')
+// }).$mount("#app")
+
+var app = new Vue({
+  router,
+  store,
+  el: '#app',
+  components: {
+    NavBar,
+    VueFooter,
+  }
+});

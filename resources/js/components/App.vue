@@ -33,7 +33,5 @@ export default BaseComponent.extend({
 </script>
 
 <style lang="scss">
-.divider {
-  margin-top: 70px;
-}
+
 </style>

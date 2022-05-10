@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <div id="lapp">
+    <div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm d-none">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">

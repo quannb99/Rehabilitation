@@ -10998,3 +10998,315 @@ ul {
   list-style: none;
 }
 
+.footer-default {
+  position: relative;
+  padding-top: 3rem !important;
+}
+
+.footer-default .footer-main-content {
+  background-color: #2d3840;
+  padding: 80px 0;
+}
+
+@media screen and (max-width: 991px) {
+  .footer-default .footer-main-content .footer-main-content-element {
+    margin-bottom: 40px;
+  }
+}
+
+.footer-default .footer-main-content p {
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.footer-default .footer-main-content .uni-info-contact ul li {
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.14;
+  letter-spacing: normal;
+  text-align: left;
+  color: #3f97da;
+}
+
+.footer-default .footer-main-content .uni-info-contact ul li i {
+  font-family: FontAwesome;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.14;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.footer-default .footer-main-content .widget-title {
+  font-size: 24px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #3f97da;
+  margin: 0;
+  padding-bottom: 30px;
+}
+
+.footer-default .footer-main-content .uni-quick-link ul li {
+  border-bottom: 1px solid #44515a;
+}
+
+.footer-default .footer-main-content .uni-quick-link ul li a {
+  display: block;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 3;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+  text-transform: capitalize;
+  transition: all 0.5s;
+}
+
+.footer-default .footer-main-content .uni-quick-link ul li a:hover {
+  color: #3f97da;
+}
+
+.footer-default .footer-main-content .uni-quick-link ul li a span {
+  color: #3f97da;
+  margin-right: 5px;
+}
+
+.footer-default .footer-main-content .uni-footer-latest-post ul li {
+  padding-bottom: 20px;
+}
+
+.footer-default .footer-main-content .uni-footer-latest-post ul li h4 {
+  margin-bottom: 0;
+}
+
+.footer-default .footer-main-content .uni-footer-latest-post ul li h4 a {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+  text-transform: uppercase;
+  transition: all 0.5s;
+}
+
+.footer-default .footer-main-content .uni-footer-latest-post ul li h4 a:hover {
+  color: #3f97da;
+}
+
+.footer-default .footer-main-content .uni-footer-latest-post ul li .time {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 2;
+  color: #3f97da;
+  text-transform: uppercase;
+}
+
+.footer-default .footer-main-content .uni-footer-newletter .input-group .form-control {
+  display: block;
+  border: solid 1px #666666;
+  min-height: 50px;
+  background: transparent;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.14;
+  letter-spacing: normal;
+  text-align: left;
+  color: #adbcc6;
+  margin-bottom: 10px;
+}
+
+.footer-default .footer-main-content .uni-footer-newletter .input-group .btn-sub {
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.14;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+  height: 50px;
+  background-color: #3f97da;
+  border: 1px solid #3f97da;
+  border-radius: 0;
+  text-transform: uppercase;
+  transition: all 0.5s;
+}
+
+.footer-default .footer-main-content .uni-footer-newletter .input-group .btn-sub:hover {
+  background: transparent;
+  color: #3f97da;
+}
+
+.footer-default .footer-main-content .uni-footer-newletter .uni-social {
+  padding-top: 20px;
+}
+
+.footer-default .footer-main-content .uni-footer-newletter .uni-social h4 {
+  font-size: 16px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.14;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.footer-default .footer-main-content .uni-footer-newletter .uni-social ul {
+  display: inline-block;
+}
+
+.footer-default .footer-main-content .uni-footer-newletter .uni-social ul li {
+  float: left;
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 1199px) and (min-width: 992px) {
+  .footer-default .footer-main-content .uni-footer-newletter .uni-social ul li {
+    margin-right: 5px;
+  }
+}
+
+.footer-default .footer-main-content .uni-footer-newletter .uni-social ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: solid 1px #3f97da;
+  font-family: FontAwesome;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.86;
+  letter-spacing: normal;
+  text-align: center;
+  color: #fff;
+  transition: all 0.5s;
+}
+
+@media screen and (max-width: 1199px) and (min-width: 992px) {
+  .footer-default .footer-main-content .uni-footer-newletter .uni-social ul li a {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.footer-default .footer-main-content .uni-footer-newletter .uni-social ul li a:hover {
+  color: #fff;
+  background: #3f97da;
+}
+
+.footer-default .copyright-area {
+  background-image: linear-gradient(to right, #3f97da, #ffffff 50%, #3f97da), linear-gradient(#3f97da, #3f97da);
+  background-blend-mode: multiply, normal;
+}
+
+.footer-default .copyright-area p {
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.86;
+  letter-spacing: normal;
+  text-align: left;
+  color: #fff;
+  margin-bottom: 0;
+  padding: 26px 0;
+}
+
+.footer-default .copyright-area p a {
+  color: #fff;
+}
+
+.footer-default .copyright-area .copyright-menu {
+  text-align: right;
+}
+
+@media screen and (max-width: 767px) {
+  .footer-default .copyright-area .copyright-menu {
+    text-align: left;
+  }
+}
+
+.footer-default .copyright-area .copyright-menu li {
+  display: inline-block;
+}
+
+.footer-default .copyright-area .copyright-menu li a {
+  padding: 25px 10px;
+  display: block;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.14;
+  letter-spacing: normal;
+  text-align: right;
+  color: #ffffff;
+  transition: all 0.5s;
+}
+
+@media screen and (max-width: 767px) {
+  .footer-default .copyright-area .copyright-menu li a {
+    padding: 0px 5px 26px 5px;
+  }
+}
+
+@media screen and (max-width: 1199px) and (min-width: 992px) {
+  .footer-default .copyright-area .copyright-menu li a {
+    padding: 25px 5px;
+  }
+}
+
+.footer-default .copyright-area .copyright-menu li a:hover {
+  color: #333;
+}
+
+.divider {
+  margin-top: 70px;
+}
+
+.navbar {
+  height: 70px;
+  width: 100%;
+  transition: top 0.3s ease-in-out 0.1s;
+}
+
+.logo {
+  width: 50px;
+}
+
+.nav-container {
+  margin-left: 100px;
+}
+

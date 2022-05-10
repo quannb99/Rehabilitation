@@ -6,11 +6,11 @@ import App from "./components/App.vue"
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: App
-  },
+  // {
+  //   path: "/",
+  //   name: "home",
+  //   component: App
+  // },
   {
     path: "/forum",
     name: "forum",
