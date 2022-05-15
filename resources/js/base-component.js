@@ -3,6 +3,7 @@ const BaseComponent = Vue.extend({
   data() {
     return {
       routeName: "",
+      model: "",
     };
   },
 
@@ -15,6 +16,14 @@ const BaseComponent = Vue.extend({
           name: destination,
         })
         .catch(() => {});
+    },
+
+    handleErr(error) {
+      if (error.response.status === 401) window.location = '/'
+      const mess = error.response.data.message;
+      const title = error.response.data.title;
+      this.$refs["msg-modal"].handleShowMess(mess, title)
+      console.error(error)
     },
   },
 

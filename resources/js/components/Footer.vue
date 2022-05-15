@@ -176,5 +176,12 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+ul li {
+    list-style-type: none;
+}
 
+ol,
+ul {
+    list-style: none;
+}
 </style>

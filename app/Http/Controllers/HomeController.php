@@ -28,6 +28,11 @@ class HomeController extends Controller
 
     public function forum()
     {
-        return view('forum');
+        return view('common');
+    }
+
+    public function newPost()
+    {
+        return view('common');
     }
 }

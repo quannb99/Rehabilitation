@@ -89,7 +89,7 @@ export default BaseComponent.extend({
   },
 
   mounted() {
-    console.log(window.location)
+
   },
 });
 </script>
