@@ -99,14 +99,6 @@ export default BaseComponent.extend({
 @import '~quill/dist/quill.core.css';
 @import '~quill/dist/quill.bubble.css';
 @import '~quill/dist/quill.snow.css';
-.post-form {
-  // width: 60%;
-}
-
-#search-form {
-  flex-flow: row !important;
-  width: 100%;
-}
 
 .mt-30 {
   margin-top: 30px;

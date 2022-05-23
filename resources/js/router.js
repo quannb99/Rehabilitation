@@ -2,6 +2,7 @@ import Vue from "vue"
 import VueRouter from "vue-router"
 import Forum from "./components/Forum.vue"
 import NewPost from "./components/NewPost.vue"
+import Post from "./components/Post.vue"
 import App from "./components/App.vue"
 
 Vue.use(VueRouter)
@@ -21,6 +22,11 @@ const routes = [
     path: "/posts/new",
     name: "new-post",
     component: NewPost
+  },
+  {
+    path: "/posts/:id",
+    name: "show-post",
+    component: Post
   },
 //   {
 //     path: "/event/:id",

@@ -15,10 +15,11 @@ const BaseComponent = Vue.extend({
   mounted() {},
 
   methods: {
-    navigateTo(destination) {
+    navigateTo(destination, id) {
       this.$router
         .push({
           name: destination,
+          params: { id: id },
         })
         .catch(() => {});
     },

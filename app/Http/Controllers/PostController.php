@@ -25,13 +25,22 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $items = $this->postRepository->getCollection($request)
+        $id = $request['id'] ?? '';
+
+        $query = $this->postRepository->getCollection($request)
         ->select([
             'posts.*',
             'users.name as user_name',
             'users.role as user_role',
         ])
-        ->leftJoin('users', 'posts.user_id', 'users.id')->orderByDesc('created_at')->paginate(2);
+        ->leftJoin('users', 'posts.user_id', 'users.id');
+
+        if ($id) {
+            $query->where('posts.id', $id);
+        }
+
+        $items = $query->orderByDesc('created_at')->paginate(2);
+
         return $this->sendSuccess($items);
     }
 
@@ -55,12 +64,12 @@ class PostController extends Controller
     {
         try {
             $request->validate([
-                'title' => 'required|max:255',
+                'title' => 'required',
                 'content' => 'required',
             ]);
             $this->postRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError('Hãy nhập đầy đủ các trường', 'Kiểm tra lại');
+            return $this->sendError($e->getMessage(), 'Kiểm tra lại');
         }
 
         return $this->sendSuccess('ok');
@@ -74,7 +83,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('common');
     }
 
     /**

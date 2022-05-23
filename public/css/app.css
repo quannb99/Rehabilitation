@@ -10971,8 +10971,12 @@ a.text-dark:focus {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 16px;
   vertical-align: baseline;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 a:hover {
@@ -11299,5 +11303,25 @@ ul {
 
 .nav-container {
   margin-left: 100px;
+}
+
+.new-post-btn {
+  width: 100%;
+  height: 70px;
+  font-size: 20px;
+}
+
+.theme-icon-20 {
+  color: #3f97da;
+  font-size: 20px;
+}
+
+.theme-icon {
+  color: #3f97da;
+}
+
+#search-form {
+  flex-flow: row !important;
+  width: 100%;
 }
 
