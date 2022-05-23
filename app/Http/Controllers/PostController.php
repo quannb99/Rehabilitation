@@ -23,9 +23,16 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->sendSuccess('ok');
+        $items = $this->postRepository->getCollection($request)
+        ->select([
+            'posts.*',
+            'users.name as user_name',
+            'users.role as user_role',
+        ])
+        ->leftJoin('users', 'posts.user_id', 'users.id')->orderByDesc('created_at')->paginate(2);
+        return $this->sendSuccess($items);
     }
 
     /**

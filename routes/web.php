@@ -23,6 +23,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/forum', 'HomeController@forum');
 Route::get('/posts/new', 'HomeController@newPost');
+// Route::get('/posts', 'PostController@getPosts');
 Route::resources([
     'posts' => 'PostController'
 ]);

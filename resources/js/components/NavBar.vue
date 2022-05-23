@@ -22,7 +22,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="nav-container">
           <b-nav-item @click="navigateTo('forum')">Diễn đàn</b-nav-item>
-          <b-nav-item href="#" disabled>Disabled</b-nav-item>
+          <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navigation :title="'Đăng bài mới'" :link="'/posts/new'" />
+    <Navigation :title="'Diễn đàn'" :page="'forum'" :title2="'Đăng bài mới'" :page2="'new-post'" />
     <message-modal ref="msg-modal"></message-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
@@ -37,7 +37,17 @@
 
       <div class="col-lg-4">
         <b-card>
-          <b-button variant="primary">Tìm kiếm</b-button>
+          <b-nav-form id="search-form">
+            <b-form-input
+              size="md"
+              class="mr-3"
+              placeholder="Tìm kiếm bài viết"
+              style="width: 80%;"
+            ></b-form-input>
+            <b-button  style="width: 15%;" size="md" variant="primary" class="my-2 my-sm-0" type="submit"
+              ><i class="fa fa-search" aria-hidden="true"></i></b-button
+            >
+          </b-nav-form>
         </b-card>
       </div>
     </div>
@@ -91,6 +101,11 @@ export default BaseComponent.extend({
 @import '~quill/dist/quill.snow.css';
 .post-form {
   // width: 60%;
+}
+
+#search-form {
+  flex-flow: row !important;
+  width: 100%;
 }
 
 .mt-30 {

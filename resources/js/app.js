@@ -14,6 +14,7 @@ import NavBar from './components/NavBar.vue'
 import VueFooter from './components/Footer.vue'
 
 window.Vue = require('vue');
+Vue.prototype.moment = moment
 Vue.use(BootstrapVue);
 
 /**

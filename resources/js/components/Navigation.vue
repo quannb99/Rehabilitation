@@ -13,8 +13,8 @@
         <!-- Breadcrumbs -->
         <ul class="breadcrumbs">
           <li><a href="#" @click.prevent="navigateTo('home')">Trang chủ</a></li>
-          <li><a href="#" @click.prevent="navigateTo('forum')">{{ title }}</a></li>
-          <!-- <li><a href="#">our doctor</a></li> -->
+          <li v-if="page"><a href="#" @click.prevent="navigateTo(page)">{{ title }}</a></li>
+          <li v-if="page2"><a href="#" @click.prevent="navigateTo(page2)">{{ title2 }}</a></li>
         </ul>
         <!-- End breadcrumbs -->
       </div>
@@ -27,7 +27,9 @@ import BaseComponent from '../base-component'
 export default BaseComponent.extend({
   props: [
     "title",
-    "link",
+    "page",
+    "title2",
+    "page2",
   ],
 });
 </script>
