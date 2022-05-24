@@ -67,12 +67,12 @@ class PostController extends Controller
                 'title' => 'required',
                 'content' => 'required',
             ]);
-            $this->postRepository->create($request->all());
+            $post = $this->postRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), 'Kiểm tra lại');
+            return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');
         }
 
-        return $this->sendSuccess('ok');
+        return $this->sendSuccess($post->id);
     }
 
     /**
@@ -94,7 +94,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('common');
     }
 
     /**
@@ -106,7 +106,17 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $request->validate([
+                'title' => 'required',
+                'content' => 'required',
+            ]);
+            $post = $this->postRepository->update($request->all(), $id);
+        } catch (\Exception $e) {
+            return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');
+        }
+
+        return $this->sendSuccess('');
     }
 
     /**
@@ -117,6 +127,12 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $post = $this->postRepository->delete($id);
+        } catch (\Exception $e) {
+            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+        }
+
+        return $this->sendSuccess('');
     }
 }

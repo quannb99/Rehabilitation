@@ -30,7 +30,7 @@
             <b-form-group id="input-group-3" label="Nội dung:" label-for="input-3">
               <vue-editor v-model="form.content" required/>
             </b-form-group>
-            <b-button size="lg" class="float-right" type="submit" variant="primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng bài</b-button>
+            <b-button size="lg" class="float-right" type="submit" variant="theme"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng bài</b-button>
           </b-form>
         </b-card>
       </div>
@@ -44,7 +44,7 @@
               placeholder="Tìm kiếm bài viết"
               style="width: 80%;"
             ></b-form-input>
-            <b-button  style="width: 15%;" size="md" variant="primary" class="my-2 my-sm-0" type="submit"
+            <b-button  style="width: 15%;" size="md" variant="theme" class="my-2 my-sm-0" type="submit"
               ><i class="fa fa-search" aria-hidden="true"></i></b-button
             >
           </b-nav-form>
@@ -82,8 +82,9 @@ export default BaseComponent.extend({
   methods: {
     async addPost() {
       try {
-        await postModel(this.model, this.form)
-        console.log('ok')
+        let res = await postModel(this.model, this.form)
+        let id = res.data.data
+        this.navigateTo('show-post', id)
       } catch (error) {
         this.handleErr(error)
       }

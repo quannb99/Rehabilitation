@@ -10979,6 +10979,10 @@ img {
   max-height: 100%;
 }
 
+*:hover {
+  text-decoration: none !important;
+}
+
 a:hover {
   text-decoration: none;
 }
@@ -11323,5 +11327,23 @@ ul {
 #search-form {
   flex-flow: row !important;
   width: 100%;
+}
+
+.btn-theme {
+  background-color: #3f97da !important;
+  border-color: #3f97da !important;
+  color: #fff !important;
+  transition: all 0.5s !important;
+}
+
+.btn-theme:hover {
+  background-color: #2984ca !important;
+  border-color: #2984ca !important;
+}
+
+.badge-theme {
+  background-color: #3f97da !important;
+  border-color: #3f97da !important;
+  color: #fff !important;
 }
 

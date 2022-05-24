@@ -39,8 +39,6 @@ const BaseComponent = Vue.extend({
         }
       } catch (error) {
         this.handleErr(error)
-      } finally {
-        this.isLoading = false;
       }
     },
 
@@ -59,11 +57,15 @@ const BaseComponent = Vue.extend({
     },
 
     handleErr(error) {
-      if (error.response.status === 401) window.location = '/'
+      if (error.response && error.response.status === 401) window.location = '/'
       const mess = error.response.data.message;
       const title = error.response.data.title;
       this.$refs["msg-modal"].handleShowMess(mess, title)
       console.error(error)
+    },
+
+    showCfModal(msg, title) {
+      this.$refs["cf-modal"].handleShowMess(msg, title)
     },
   },
 

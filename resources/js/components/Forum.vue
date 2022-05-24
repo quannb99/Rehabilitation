@@ -40,7 +40,7 @@
 
       <div class="col-lg-4">
         <b-button
-            variant="primary"
+            variant="theme"
             class="new-post-btn"
             @click="navigateTo('new-post')"
             ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng bài
@@ -57,7 +57,7 @@
             <b-button
               style="width: 15%"
               size="md"
-              variant="primary"
+              variant="theme"
               class="my-2 my-sm-0"
               type="submit"
               ><i class="fa fa-search" aria-hidden="true"></i

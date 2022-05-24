@@ -19,6 +19,9 @@ img {
 // ul {
 //     list-style: none;
 // }
+*:hover {
+    text-decoration: none !important;
+}
 
 a:hover {
     text-decoration: none;
@@ -401,4 +404,24 @@ ul {
 #search-form {
     flex-flow: row !important;
     width: 100%;
+}
+
+.btn-theme {
+    // background-image: linear-gradient(to right, #3f97da, #552cda) !important;
+    background-color: #3f97da !important;
+    border-color: #3f97da !important;
+    color: #fff !important;
+    transition: all 0.5s !important;
+}
+
+.btn-theme:hover {
+    // background-image: linear-gradient(to right, #3f97da, #3f59da) !important;
+    background-color: #2984ca !important;
+    border-color: #2984ca !important;
+}
+
+.badge-theme {
+    background-color: #3f97da !important;
+    border-color: #3f97da !important;
+    color: #fff !important;
 }

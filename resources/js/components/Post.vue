@@ -2,10 +2,42 @@
   <div>
     <Navigation :title="'Diễn đàn'" :page="'forum'" />
     <message-modal ref="msg-modal"></message-modal>
+    <confirm-modal @confirm="deletePost(items[0].id)" ref="cf-modal"></confirm-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
         <b-list-group>
           <b-list-group-item v-if="items[0]">
+            <b-dropdown
+              id="ellipsis-dd"
+              style="float: right"
+              size="lg"
+              variant="link"
+              toggle-class="text-decoration-none"
+              no-caret
+            >
+              <template #button-content>
+                <i
+                  style="font-size: 26px"
+                  class="fa fa-ellipsis-h"
+                  aria-hidden="true"
+                ></i>
+              </template>
+              <b-dropdown-item
+                @click.prevent="navigateTo('edit-post', items[0].id)"
+                v-if="items[0].user_id == User.id"
+                href="#"
+                >Sửa bài viết</b-dropdown-item
+              >
+              <b-dropdown-item
+                @click.prevent="showCfModal('Bạn có muốn xóa bài viết này?')"
+                v-if="items[0].user_id == User.id"
+                href="#"
+                >Xóa bài viết</b-dropdown-item
+              >
+              <b-dropdown-item v-if="items[0].user_id != User.id" href="#"
+                >Báo cáo bài viết</b-dropdown-item
+              >
+            </b-dropdown>
             <h2>
               <strong>{{ items[0].title }}</strong>
             </h2>
@@ -28,21 +60,27 @@
               <span style="font-size: 14px">{{
                 moment(items[0].created_at).format("L")
               }}</span>
+              <b-badge style="font-size: 82%; cursor: pointer;" variant="theme">{{
+                items[0].type
+              }}</b-badge>
             </div>
           </b-list-group-item>
           <b-list-group-item v-if="items[0]" v-html="items[0].content">
           </b-list-group-item>
         </b-list-group>
+        <b-list-group class="mt-4">
+          <b-list-group-item> Comments </b-list-group-item>
+        </b-list-group>
       </div>
 
       <div class="col-lg-4">
         <b-button
-            variant="primary"
-            class="new-post-btn"
-            @click="navigateTo('new-post')"
-            ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng bài
-            mới</b-button
-          >
+          variant="theme"
+          class="new-post-btn"
+          @click="navigateTo('new-post')"
+          ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng bài
+          mới</b-button
+        >
         <b-card class="mt-3">
           <b-nav-form id="search-form">
             <b-form-input
@@ -54,7 +92,7 @@
             <b-button
               style="width: 15%"
               size="md"
-              variant="primary"
+              variant="theme"
               class="my-2 my-sm-0"
               type="submit"
               ><i class="fa fa-search" aria-hidden="true"></i
@@ -75,10 +113,20 @@ export default BaseComponent.extend({
   data() {
     return {
       model: "posts",
+      User: User,
     };
   },
 
-  methods: {},
+  methods: {
+    async deletePost(id) {
+      try {
+        await deleteModel(this.model, id)
+        this.navigateTo('forum')
+      } catch (error) {
+        this.handleErr(error)
+      }
+    },
+  },
   mounted() {
     this.fieldFilter.id = this.$route.params.id;
     this.getItems();
@@ -86,4 +134,18 @@ export default BaseComponent.extend({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../node_modules/bootstrap-vue/src/index.scss";
+
+#ellipsis-dd button.dropdown-toggle {
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #95a5a6;
+}
+#ellipsis-dd button.dropdown-toggle:hover {
+  color: #7f8c8d;
+}
+</style>
