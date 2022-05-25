@@ -1,8 +1,13 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Quicksand:wght@900&display=swap');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Styles
+@import 'style';
+
+@import '../assets/font-awesome-4.7.0/css/font-awesome.min.css'

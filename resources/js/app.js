@@ -5,8 +5,18 @@
  */
 
 require('./bootstrap');
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+import Vue from 'vue'
+import router from './router'
+import store from './store'
+import App from './components/App.vue'
+import NavBar from './components/NavBar.vue'
+import VueFooter from './components/Footer.vue'
 
 window.Vue = require('vue');
+Vue.prototype.moment = moment
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 
 /**
  * The following block of code may be used to automatically register your
@@ -27,6 +37,18 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    render: h => h('example-component')
-}).$mount("#app")
+// const app = new Vue({
+//   router,
+//   store,
+//   render: h => h('App')
+// }).$mount("#app")
+
+var app = new Vue({
+  router,
+  store,
+  el: '#app',
+  components: {
+    NavBar,
+    VueFooter,
+  }
+});

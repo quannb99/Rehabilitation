@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::group(['middleware' => 'auth'], function () {
+
+});
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/forum', 'HomeController@forum');
+Route::get('/posts/new', 'HomeController@newPost');
+// Route::get('/posts', 'PostController@getPosts');
+Route::resources([
+    'posts' => 'PostController',
+    'comments' => 'CommentController',
+]);
+Route::get('/csrf', function () {
+    return csrf_token();
 });
