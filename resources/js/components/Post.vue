@@ -79,7 +79,7 @@
           </b-list-group-item>
         </b-list-group>
         <b-list-group class="mt-4">
-          <b-list-group-item> <h4>Bình luận</h4> </b-list-group-item>
+          <b-list-group-item> <h4>Bình luận <span v-if="commentPaging.total">({{ commentPaging.total }})</span></h4> </b-list-group-item>
           <b-list-group-item>
             <b-form-textarea
               @keydown.enter="handleEnter"
@@ -168,10 +168,13 @@
                       {{ comment.content }}
                     </p>
                     <p class="mb-0" style="font-size: 15px">
-                      <a href="#" @click.prevent class="like">
+                      <a v-if="!comment.liked" href="#" @click.prevent="handleLike(index)" class="liked">
                         <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                       </a>
-                      0 &nbsp;·&nbsp;
+                      <a v-if="comment.liked" href="#" @click.prevent="handleLike(index)" class="not-liked">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                      </a>
+                      {{ comment.likes_count }} &nbsp;·&nbsp;
                       <!-- <i style="color: #898f96;" class="fa fa-clock-o" aria-hidden="true"></i> -->
                       <span style="font-size: 14px">{{
                         moment(comment.created_at).fromNow()
@@ -181,10 +184,10 @@
                 </b-media>
               </ul>
               <b-pagination
-                v-if="paging.last_page > 1"
-                v-model="paging.current_page"
-                :total-rows="paging.total"
-                :per-page="paging.per_page"
+                v-if="commentPaging.last_page > 1"
+                v-model="commentPaging.current_page"
+                :total-rows="commentPaging.total"
+                :per-page="commentPaging.per_page"
                 align="center"
                 @input="changeCommentPage"
               ></b-pagination>
@@ -236,11 +239,33 @@ export default BaseComponent.extend({
       User: User,
       content: "",
       comments: {},
-      paging: {},
+      commentPaging: {},
     };
   },
 
   methods: {
+    async handleLike(index) {
+      if (!this.comments[index].liked) {
+          try {
+          const form = {
+            user_id: User.id,
+            comment_id: this.comments[index].id,
+          };
+          await postModel("likes", form);
+          await this.getComments()
+        } catch (error) {
+          this.handleErr(error);
+        }
+      } else {
+        try {
+          await deleteModel("likes", this.comments[index].liked.id);
+          await this.getComments()
+        } catch (error) {
+          this.handleErr(error);
+        }
+      }
+
+    },
     editComment(index) {
       document.getElementById("comment-" + index).style.display = "none";
       document.getElementById("textarea-" + index).style.display = "block";
@@ -254,8 +279,8 @@ export default BaseComponent.extend({
         page: page,
       };
       let res = await getModel("comments", params);
-      this.paging = res.data.data;
-      this.comments = this.paging.data;
+      this.commentPaging = res.data.data;
+      this.comments = this.commentPaging.data;
     },
     async handleEnter(e) {
       if (e.ctrlKey) {
@@ -346,10 +371,19 @@ export default BaseComponent.extend({
   padding: 10px;
   border-radius: 10px;
 }
-.like {
+.liked {
   color: #898f96;
+  transition: all 0.5s;
 }
-.like:hover {
+.liked:hover {
   color: #3f97da;
+}
+
+.not-liked {
+  color: #3f97da;
+  transition: all 0.5s;
+}
+.not-liked:hover {
+  color: #898f96;
 }
 </style>

@@ -128,7 +128,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         try {
-            $post = $this->postRepository->delete($id);
+            $this->postRepository->delete($id);
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
         }

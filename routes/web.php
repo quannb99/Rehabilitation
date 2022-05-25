@@ -27,6 +27,7 @@ Route::get('/posts/new', 'HomeController@newPost');
 Route::resources([
     'posts' => 'PostController',
     'comments' => 'CommentController',
+    'likes' => 'LikeController',
 ]);
 Route::get('/csrf', function () {
     return csrf_token();
