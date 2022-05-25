@@ -39,7 +39,7 @@ class PostController extends Controller
             $query->where('posts.id', $id);
         }
 
-        $items = $query->orderByDesc('created_at')->paginate(2);
+        $items = $query->orderByDesc('created_at')->paginate(5);
 
         return $this->sendSuccess($items);
     }

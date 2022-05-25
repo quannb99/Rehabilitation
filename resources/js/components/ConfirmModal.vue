@@ -32,17 +32,19 @@ export default {
     return {
       message: "",
       title: "Xác nhận",
+      params: {},
     };
   },
   methods: {
     confirm() {
-      this.$emit('confirm')
+      this.$emit('confirm', this.params)
       this.$refs["cf-modal"].hide();
     },
 
-    handleShowMess(mess = "", title = "") {
+    handleShowMess(mess = "", title = "", params = {},) {
       this.title = title != "" ? title : 'Xác nhận';
       this.message = mess;
+      this.params = params;
       this.$refs["cf-modal"].show();
     },
 

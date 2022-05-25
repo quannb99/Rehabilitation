@@ -2,7 +2,7 @@
   <div>
     <Navigation :title="'Diễn đàn'" :page="'forum'" />
     <message-modal ref="msg-modal"></message-modal>
-    <confirm-modal @confirm="deletePost(items[0].id)" ref="cf-modal"></confirm-modal>
+    <confirm-modal @confirm="handleConfirm" ref="cf-modal"></confirm-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
         <b-list-group>
@@ -29,7 +29,11 @@
                 >Sửa bài viết</b-dropdown-item
               >
               <b-dropdown-item
-                @click.prevent="showCfModal('Bạn có muốn xóa bài viết này?')"
+                @click.prevent="
+                  showCfModal('Bạn có muốn xóa bài viết này?', '', {
+                    type: 'delete-post',
+                  })
+                "
                 v-if="items[0].user_id == User.id"
                 href="#"
                 >Xóa bài viết</b-dropdown-item
@@ -60,16 +64,132 @@
               <span style="font-size: 14px">{{
                 moment(items[0].created_at).format("L")
               }}</span>
-              <b-badge style="font-size: 82%; cursor: pointer;" variant="theme">{{
-                items[0].type
-              }}</b-badge>
+
+              <b-badge
+                class="ml-2 float-right"
+                style="font-size: 100%; cursor: pointer"
+                variant="theme"
+              >
+                <i class="fa fa-tag" aria-hidden="true"></i>
+                {{ items[0].type }}</b-badge
+              >
             </div>
           </b-list-group-item>
           <b-list-group-item v-if="items[0]" v-html="items[0].content">
           </b-list-group-item>
         </b-list-group>
         <b-list-group class="mt-4">
-          <b-list-group-item> Comments </b-list-group-item>
+          <b-list-group-item> <h4>Bình luận</h4> </b-list-group-item>
+          <b-list-group-item>
+            <b-form-textarea
+              @keydown.enter="handleEnter"
+              id="textarea-state"
+              v-model="content"
+              placeholder="Viết bình luận..."
+              rows="3"
+              max-rows="5"
+              no-resize
+            ></b-form-textarea>
+            <div id="comments-wrap">
+              <ul class="list-unstyled mt-3">
+                <b-media
+                  tag="li"
+                  class="mb-3"
+                  v-for="(comment, index) in comments"
+                  :key="index"
+                >
+                  <template #aside>
+                    <b-img
+                      src="../../images/user-default-ava.png"
+                      width="48"
+                      alt="avatar"
+                      rounded="circle"
+                    ></b-img>
+                  </template>
+                  <div :id="'textarea-' + index" style="display: none">
+                    <b-form-textarea
+                      @keydown.enter="handleEditComment($event, index)"
+                      v-model="comments[index].content"
+                      placeholder="Viết bình luận... (Bấm Ctrl+Enter để gửi)"
+                      rows="3"
+                      max-rows="5"
+                      no-resize
+                    ></b-form-textarea>
+                  </div>
+
+                  <div :id="'comment-' + index">
+                    <b-dropdown
+                      id="ellipsis-dd"
+                      style="float: right"
+                      size="lg"
+                      variant="link"
+                      toggle-class="text-decoration-none"
+                      no-caret
+                    >
+                      <template #button-content>
+                        <i
+                          style="font-size: 14px"
+                          class="fa fa-caret-down"
+                          aria-hidden="true"
+                        ></i>
+                      </template>
+                      <b-dropdown-item
+                        @click.prevent="editComment(index)"
+                        v-if="comment.user_id == User.id"
+                        href="#"
+                        >Sửa bình luận</b-dropdown-item
+                      >
+                      <b-dropdown-item
+                        @click.prevent="
+                          showCfModal('Bạn có muốn xóa bình luận này?', '', {
+                            type: 'delete-comment',
+                            id: comment.id,
+                          })
+                        "
+                        v-if="comment.user_id == User.id"
+                        href="#"
+                        >Xóa bình luận</b-dropdown-item
+                      >
+                      <b-dropdown-item
+                        v-if="comment.user_id != User.id"
+                        href="#"
+                        >Báo cáo bình luận</b-dropdown-item
+                      >
+                    </b-dropdown>
+
+                    <h6 class="mt-0 mb-1">
+                      <strong>
+                        <span v-if="comment.user_role == 2">Bs. </span
+                        >{{ comment.user_name }}
+                      </strong>
+                    </h6>
+
+                    <p class="mb-1 content-wrap">
+                      {{ comment.content }}
+                    </p>
+                    <p class="mb-0" style="font-size: 15px">
+                      <a href="#" @click.prevent class="like">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                      </a>
+                      0 &nbsp;·&nbsp;
+                      <!-- <i style="color: #898f96;" class="fa fa-clock-o" aria-hidden="true"></i> -->
+                      <span style="font-size: 14px">{{
+                        moment(comment.created_at).fromNow()
+                      }}</span>
+                    </p>
+                  </div>
+                </b-media>
+              </ul>
+              <b-pagination
+                v-if="paging.last_page > 1"
+                v-model="paging.current_page"
+                :total-rows="paging.total"
+                :per-page="paging.per_page"
+                align="center"
+                @input="changeCommentPage"
+              ></b-pagination>
+            </div>
+          </b-list-group-item>
         </b-list-group>
       </div>
 
@@ -114,22 +234,88 @@ export default BaseComponent.extend({
     return {
       model: "posts",
       User: User,
+      content: "",
+      comments: {},
+      paging: {},
     };
   },
 
   methods: {
-    async deletePost(id) {
-      try {
-        await deleteModel(this.model, id)
-        this.navigateTo('forum')
-      } catch (error) {
-        this.handleErr(error)
+    editComment(index) {
+      document.getElementById("comment-" + index).style.display = "none";
+      document.getElementById("textarea-" + index).style.display = "block";
+    },
+    changeCommentPage(page) {
+      this.getComments(page);
+    },
+    async getComments(page = 1) {
+      const params = {
+        post_id: this.$route.params.id,
+        page: page,
+      };
+      let res = await getModel("comments", params);
+      this.paging = res.data.data;
+      this.comments = this.paging.data;
+    },
+    async handleEnter(e) {
+      if (e.ctrlKey) {
+        try {
+          const form = {
+            user_id: User.id,
+            post_id: this.$route.params.id,
+            content: this.content,
+          };
+          this.content = "";
+          await postModel("comments", form);
+          await this.getComments();
+        } catch (error) {
+          this.handleErr(error);
+        }
+      }
+    },
+    async handleEditComment(e, index) {
+      if (e.ctrlKey) {
+        try {
+          const form = {
+            user_id: User.id,
+            post_id: this.$route.params.id,
+            content: this.comments[index].content,
+          };
+          await updateModel("comments", form, this.comments[index].id);
+          document.getElementById("comment-" + index).style.display = "block";
+          document.getElementById("textarea-" + index).style.display = "none";
+          this.makeToast("Sửa bình luận thành công");
+        } catch (error) {
+          this.handleErr(error);
+        }
+      }
+    },
+    async handleConfirm(params) {
+      if (params.type == "delete-post") {
+        try {
+          await deleteModel(this.model, this.$route.params.id);
+          // this.makeToast('Xóa bài viết thành công')
+          this.navigateTo("forum");
+        } catch (error) {
+          this.handleErr(error);
+        }
+      }
+
+      if (params.type == "delete-comment") {
+        try {
+          await deleteModel("comments", params.id);
+          this.makeToast("Xóa bình luận thành công");
+          await this.getComments();
+        } catch (error) {
+          this.handleErr(error);
+        }
       }
     },
   },
   mounted() {
     this.fieldFilter.id = this.$route.params.id;
     this.getItems();
+    this.getComments();
   },
 });
 </script>
@@ -137,6 +323,13 @@ export default BaseComponent.extend({
 <style lang="scss">
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 @import "../../../node_modules/bootstrap-vue/src/index.scss";
+
+.content-wrap {
+  font-size: 18px;
+  word-break: break-word;
+  max-height: 160px;
+  overflow: auto;
+}
 
 #ellipsis-dd button.dropdown-toggle {
   padding: 0;
@@ -147,5 +340,16 @@ export default BaseComponent.extend({
 }
 #ellipsis-dd button.dropdown-toggle:hover {
   color: #7f8c8d;
+}
+#comments-wrap div.media-body {
+  background: #e6e6e6;
+  padding: 10px;
+  border-radius: 10px;
+}
+.like {
+  color: #898f96;
+}
+.like:hover {
+  color: #3f97da;
 }
 </style>

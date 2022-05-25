@@ -64,8 +64,16 @@ const BaseComponent = Vue.extend({
       console.error(error)
     },
 
-    showCfModal(msg, title) {
-      this.$refs["cf-modal"].handleShowMess(msg, title)
+    showCfModal(msg, title, params) {
+      this.$refs["cf-modal"].handleShowMess(msg, title, params)
+    },
+
+    makeToast(msg) {
+      this.$bvToast.toast(msg, {
+        title: "Thông báo",
+        autoHideDelay: 5000,
+        toaster: 'b-toaster-bottom-right',
+      });
     },
   },
 

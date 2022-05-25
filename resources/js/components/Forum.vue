@@ -21,7 +21,7 @@
                 ><span v-if="item.user_role == 2">Bs. </span>
                 {{ item.user_name }}</strong
               >
-              <i class="theme-icon fa fa-calendar" aria-hidden="true"></i>
+              <i class="theme-icon fa fa-clock-o" aria-hidden="true"></i>
               <span style="font-size: 14px">{{
                 moment(item.created_at).fromNow()
               }}</span>
@@ -30,6 +30,7 @@
         </b-list-group>
         <div class="mt-5"></div>
         <b-pagination
+          v-if="paging.last_page > 1"
           v-model="paging.current_page"
           :total-rows="paging.total"
           :per-page="paging.per_page"
@@ -77,7 +78,9 @@ export default BaseComponent.extend({
       model: "posts",
     };
   },
-  mounted() {},
+  mounted() {
+    this.getItems()
+  },
 });
 </script>
 

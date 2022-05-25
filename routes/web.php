@@ -25,7 +25,8 @@ Route::get('/forum', 'HomeController@forum');
 Route::get('/posts/new', 'HomeController@newPost');
 // Route::get('/posts', 'PostController@getPosts');
 Route::resources([
-    'posts' => 'PostController'
+    'posts' => 'PostController',
+    'comments' => 'CommentController',
 ]);
 Route::get('/csrf', function () {
     return csrf_token();

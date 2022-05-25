@@ -27,7 +27,7 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-form  v-if="user != null">
+          <!-- <b-nav-form  v-if="user != null">
             <b-form-input
               size="sm"
               class="mr-sm-2"
@@ -36,7 +36,7 @@
             <b-button size="sm" class="my-2 my-sm-0" type="submit"
               >Search</b-button
             >
-          </b-nav-form>
+          </b-nav-form> -->
 
           <b-button @click="navigateToPage('login')" style="margin-right: 1rem" v-if="user == null" size="md" class="my-2 my-sm-0"
             >Đăng nhập</b-button

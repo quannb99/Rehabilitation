@@ -5,7 +5,7 @@
  */
 
 require('./bootstrap');
-import BootstrapVue from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import Vue from 'vue'
 import router from './router'
 import store from './store'
@@ -16,6 +16,7 @@ import VueFooter from './components/Footer.vue'
 window.Vue = require('vue');
 Vue.prototype.moment = moment
 Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 
 /**
  * The following block of code may be used to automatically register your
