@@ -33,12 +33,9 @@ class CommentController extends Controller
         $query->select([
             'comments.*',
             'users.name as user_name',
-            'users.role as user_role',
-            DB::raw('count(likes.id) as likes_count')
+            'users.role as user_role'
         ])
-            ->leftJoin('users', 'comments.user_id', 'users.id')
-            ->leftJoin('likes', 'comments.id', 'likes.comment_id')
-            ->groupBy('comments.id', 'comments.user_id', 'comments.post_id', 'comments.content', 'comments.created_at', 'comments.updated_at', 'users.name', 'users.role');
+            ->leftJoin('users', 'comments.user_id', 'users.id');
 
         if ($id) {
             $query->where('comments.id', $id);
@@ -47,6 +44,7 @@ class CommentController extends Controller
         $items = $query->orderByDesc('comments.created_at')->paginate(5);
 
         $items->map(function ($item) {
+            $item->likes_count = $this->commentRepository->detail($item->id)->likes()->count();
             $item->liked = $this->commentRepository->detail($item->id)->isAuthUserLikedComment();
         });
 

@@ -4,6 +4,7 @@ import Forum from "./components/Forum.vue"
 import NewPost from "./components/NewPost.vue"
 import Post from "./components/Post.vue"
 import EditPost from "./components/EditPost.vue"
+import Schedule from "./components/Schedule.vue"
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,11 @@ const routes = [
     path: "/forum",
     name: "forum",
     component: Forum
+  },
+  {
+    path: "/schedule",
+    name: "schedule",
+    component: Schedule
   },
   {
     path: "/posts/new",

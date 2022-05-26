@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+import { SchedulePlugin } from '@syncfusion/ej2-vue-schedule';
 import Vue from 'vue'
 import router from './router'
 import store from './store'
@@ -17,6 +18,7 @@ window.Vue = require('vue');
 Vue.prototype.moment = moment
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
+Vue.use(SchedulePlugin);
 
 /**
  * The following block of code may be used to automatically register your
