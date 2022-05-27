@@ -24,11 +24,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/forum', 'HomeController@index');
 Route::get('/posts/new', 'HomeController@index');
 Route::get('/schedule', 'HomeController@index');
-// Route::get('/posts', 'PostController@getPosts');
+Route::post('/getSchedule', 'ScheduleController@getSchedule');
 Route::resources([
     'posts' => 'PostController',
     'comments' => 'CommentController',
     'likes' => 'LikeController',
+    'schedules' => 'ScheduleController',
 ]);
 Route::get('/csrf', function () {
     return csrf_token();

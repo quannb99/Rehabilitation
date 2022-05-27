@@ -3,6 +3,7 @@
     <Navigation :title="'Lịch làm việc'" :page="'schedule'" />
     <div class="row col-lg-11 m-auto pt-5">
       <ejs-schedule
+        ref='scheduleObj'
         id="schedule"
         height="550px"
         :rowAutoHeight="true"
@@ -36,6 +37,7 @@ import {
   Resize,
 } from "@syncfusion/ej2-vue-schedule";
 import { L10n, loadCldr, setCulture } from "@syncfusion/ej2-base";
+import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 import * as localeText from "../locale.json";
 
 L10n.load(localeText.default);
@@ -46,61 +48,41 @@ loadCldr(
   require("cldr-data/main/vi/timeZoneNames.json")
 );
 setCulture("vi");
-let scheduleData = [
-  {
-    Id: 1,
-    Subject: "Explosion of Betelgeuse Star",
-    StartTime: new Date(2018, 1, 15, 9, 30),
-    EndTime: new Date(2018, 1, 15, 11, 0),
-  },
-  {
-    Id: 2,
-    Subject: "Thule Air Crash Report",
-    StartTime: new Date(2018, 1, 12, 12, 0),
-    EndTime: new Date(2018, 1, 12, 14, 0),
-  },
-  {
-    Id: 3,
-    Subject: "Blue Moon Eclipse",
-    StartTime: new Date(2018, 1, 13, 9, 30),
-    EndTime: new Date(2018, 1, 13, 11, 0),
-  },
-  {
-    Id: 4,
-    Subject: "Meteor Showers in 2018",
-    StartTime: new Date(2018, 1, 14, 13, 0),
-    EndTime: new Date(2018, 1, 14, 14, 30),
-  },
-];
+let dataManager = new DataManager({
+   url: 'getSchedule',
+   crudUrl: 'schedules',
+   adaptor: new UrlAdaptor
+});
 
 export default BaseComponent.extend({
   data() {
     return {
       model: "schedules",
       dateFormat: "dd/MM/yyyy",
-      selectedDate: new Date(2018, 1, 12),
+      selectedDate: new Date(),
       timeScale: {
         slotCount: 2,
       },
       minDate: moment(new Date()).subtract(1, "days"),
       maxDate: moment(new Date()).add(1, "months"),
       eventSettings: {
-        dataSource: scheduleData,
+        dataSource: dataManager,
         enableTooltip: true,
       },
     };
   },
   methods: {
-    onPopupOpen(arg) {
-      if (arg.type == "Editor") {
-        // arg.cancel = true;
-      }
-    },
+    // onPopupOpen(arg) {
+    //   if (arg.type == "Editor") {
+    //     // arg.cancel = true;
+    //   }
+    // },
   },
   provide: {
     schedule: [Day, Week, WorkWeek, Month, Agenda, DragAndDrop, Resize],
   },
-  mounted() {},
+  mounted() {
+  },
 });
 </script>
 
@@ -122,9 +104,9 @@ div.e-all-day-time-zone-row {
 .e-control.e-recurrenceeditor.e-lib {
   display: none !important;
 }
-.e-description-row {
-  display: none !important;
-}
+// .e-description-row {
+//   display: none !important;
+// }
 .e-location-container {
   display: none !important;
 }
