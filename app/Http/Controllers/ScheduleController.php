@@ -57,7 +57,8 @@ class ScheduleController extends Controller
         //
     }
 
-    public function formatDateTime($dateTime) {
+    public function formatDateTime($dateTime)
+    {
         return Carbon::parse($dateTime)->format('Y-m-d H:i:s');
     }
 
@@ -105,12 +106,14 @@ class ScheduleController extends Controller
         }
 
         if ($params['deleted']) {
-            $param = $params['deleted'][0];
-            $id = $param['Id'];
-            try {
-                $this->scheduleRepository->delete($id);
-            } catch (\Exception $e) {
-                return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
+            // $param = $params['deleted'][0];
+            foreach ($params['deleted'] as $param) {
+                $id = $param['Id'];
+                try {
+                    $this->scheduleRepository->delete($id);
+                } catch (\Exception $e) {
+                    return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
+                }
             }
         }
 

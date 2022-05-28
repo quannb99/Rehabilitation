@@ -3,7 +3,7 @@
     <Navigation :title="'Lịch làm việc'" :page="'schedule'" />
     <div class="row col-lg-11 m-auto pt-5">
       <ejs-schedule
-        ref='scheduleObj'
+        ref="scheduleObj"
         id="schedule"
         height="550px"
         :rowAutoHeight="true"
@@ -12,7 +12,7 @@
         :eventSettings="eventSettings"
         :quickInfoOnSelectionEnd="true"
         :timeScale="timeScale"
-        :popupOpen="onPopupOpen"
+        :workHours="workHours"
       >
         <e-views>
           <e-view option="Day"></e-view>
@@ -37,7 +37,7 @@ import {
   Resize,
 } from "@syncfusion/ej2-vue-schedule";
 import { L10n, loadCldr, setCulture } from "@syncfusion/ej2-base";
-import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
+import { DataManager, UrlAdaptor } from "@syncfusion/ej2-data";
 import * as localeText from "../locale.json";
 
 L10n.load(localeText.default);
@@ -49,9 +49,9 @@ loadCldr(
 );
 setCulture("vi");
 let dataManager = new DataManager({
-   url: 'getSchedule',
-   crudUrl: 'schedules',
-   adaptor: new UrlAdaptor
+  url: "getSchedule",
+  crudUrl: "schedules",
+  adaptor: new UrlAdaptor(),
 });
 
 export default BaseComponent.extend({
@@ -65,6 +65,11 @@ export default BaseComponent.extend({
       },
       minDate: moment(new Date()).subtract(1, "days"),
       maxDate: moment(new Date()).add(1, "months"),
+      workHours: {
+        highlight: true,
+        start: "8:00",
+        end: "18:00",
+      },
       eventSettings: {
         dataSource: dataManager,
         enableTooltip: true,
@@ -81,8 +86,7 @@ export default BaseComponent.extend({
   provide: {
     schedule: [Day, Week, WorkWeek, Month, Agenda, DragAndDrop, Resize],
   },
-  mounted() {
-  },
+  mounted() {},
 });
 </script>
 
