@@ -7,6 +7,7 @@
 require('./bootstrap');
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import { SchedulePlugin } from '@syncfusion/ej2-vue-schedule';
+import Chat from 'vue-beautiful-chat'
 import Vue from 'vue'
 import router from './router'
 import store from './store'
@@ -19,6 +20,7 @@ Vue.prototype.moment = moment
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(SchedulePlugin);
+Vue.use(Chat);
 
 /**
  * The following block of code may be used to automatically register your

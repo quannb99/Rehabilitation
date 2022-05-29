@@ -6,6 +6,7 @@
         ref="scheduleObj"
         id="schedule"
         height="550px"
+        cssClass="custom-class"
         :rowAutoHeight="true"
         :locale="'vi'"
         :selectedDate="selectedDate"
@@ -102,6 +103,29 @@ export default BaseComponent.extend({
 </style>
 
 <style lang="scss">
+// .custom-class.e-schedule
+//   .e-vertical-view
+//   .e-all-day-appointment-wrapper
+//   .e-appointment,
+// .custom-class.e-schedule .e-vertical-view .e-day-wrapper .e-appointment,
+// .custom-class.e-schedule .e-month-view .e-appointment {
+//   background: #3f97da;
+// }
+
+.custom-class.e-schedule
+  .e-vertical-view
+  .e-day-wrapper
+  .e-appointment
+  .e-subject {
+  font-size: 16px;
+}
+.custom-class.e-schedule
+  .e-vertical-view
+  .e-day-wrapper
+  .e-appointment
+  .e-time {
+  font-size: 13px;
+}
 div.e-all-day-time-zone-row {
   display: none !important;
 }

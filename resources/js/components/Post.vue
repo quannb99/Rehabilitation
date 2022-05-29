@@ -100,7 +100,7 @@
                 >
                   <template #aside>
                     <b-img
-                      src="../../images/user-default-ava.png"
+                      src="../../images/user-default-ava.jpg"
                       width="48"
                       alt="avatar"
                       rounded="circle"

@@ -24,14 +24,13 @@ const BaseComponent = Vue.extend({
         .catch(() => {});
     },
 
-    async getItems(page = 1) {
+    async getItems(model = this.model, page = 1) {
       this.isLoading = true;
       let params = { ...this.fieldFilter, page };
       try {
-        const res = await getModel(this.model, params);
+        const res = await getModel(model, params);
         const data = res.data.data;
         this.setPagingInformation(data);
-        this.list_status_manage_id = [];
         if (!_.isEmpty(data)) {
           this.items = data.data.map((item, index) => {
             return { ...item, index: this.getIndexOfItemInPage(index) }
@@ -57,11 +56,11 @@ const BaseComponent = Vue.extend({
     },
 
     handleErr(error) {
-      if (error.response && error.response.status === 401) window.location = '/'
-      const mess = error.response.data.message;
-      const title = error.response.data.title;
-      this.$refs["msg-modal"].handleShowMess(mess, title)
-      console.error(error)
+        if (error.response.status === 401) window.location = '/'
+        const mess = error.response.data.message;
+        const title = error.response.data.title;
+        this.$refs["msg-modal"].handleShowMess(mess, title)
+        console.error(error)
     },
 
     showCfModal(msg, title, params) {

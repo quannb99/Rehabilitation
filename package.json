@@ -39,6 +39,8 @@
         "cldr-data": "^36.0.1",
         "laravel-echo": "^1.11.5",
         "pusher-js": "^7.0.6",
+        "vue-beautiful-chat": "^2.5.0",
+        "vue-quick-chat": "^1.2.8",
         "vue2-editor": "^2.10.3"
     }
 }

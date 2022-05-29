@@ -39,4 +39,13 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Comment');
     }
+
+    // public function getNameAttribute()
+    // {
+    //     if ($this->role == 2) {
+    //         return "Bs. {$this->name}";
+    //     }
+
+    //     return "{$this->name}";
+    // }
 }

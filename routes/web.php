@@ -30,6 +30,7 @@ Route::resources([
     'comments' => 'CommentController',
     'likes' => 'LikeController',
     'schedules' => 'ScheduleController',
+    'messages' => 'MessageController',
 ]);
 Route::get('/csrf', function () {
     return csrf_token();
