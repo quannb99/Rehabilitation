@@ -59,7 +59,7 @@ export default BaseComponent.extend({
     return {
       isMsgLoading: false,
       user: User,
-      chatVisible: true,
+      chatVisible: false,
       participants: [
         {
           name: "José",

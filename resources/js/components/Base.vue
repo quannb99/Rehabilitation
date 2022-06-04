@@ -1,17 +1,19 @@
 <template>
-  <div>
-
-  </div>
+  <div></div>
 </template>
 
 <script>
-import BaseComponent from '../base-component'
+import BaseComponent from "../base-component";
 import { postModel, getModel, updateModel, deleteModel } from "../service";
-  export default BaseComponent.extend({
-
-  })
+export default BaseComponent.extend({
+  data() {
+    return {
+      model: "posts",
+    };
+  },
+  mounted() {
+  },
+});
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
