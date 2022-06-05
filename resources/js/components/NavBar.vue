@@ -24,6 +24,7 @@
           <b-nav-item @click="navigateTo('forum')">Diễn đàn</b-nav-item>
           <b-nav-item @click="navigateTo('schedule')">Lịch làm việc</b-nav-item>
           <b-nav-item @click="navigateTo('doctors')">Danh sách bác sĩ</b-nav-item>
+          <b-nav-item @click="navigateTo('appointments')">Lịch hẹn</b-nav-item>
           <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
         </b-navbar-nav>
 

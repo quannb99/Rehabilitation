@@ -23,17 +23,17 @@ class ScheduleController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $this->scheduleRepository->getCollection($request);
-        $items = $query->where('user_id', auth()->user()->id)->get();
+        // $query = $this->scheduleRepository->getCollection($request);
+        // $items = $query->where('user_id', auth()->user()->id)->get();
 
-        return $this->sendSuccess($items);
+        // return $this->sendSuccess($items);
     }
 
 
     public function getSchedule(Request $request)
     {
         $query = $this->scheduleRepository->getCollection($request);
-        $res = $query->get();
+        $res = $query->where('user_id', auth()->user()->id)->get();
 
         $items = $res->map(function ($item) {
             $item['Id'] = $item['id'];
@@ -41,7 +41,10 @@ class ScheduleController extends Controller
             $item['StartTime'] = $item['start_at'];
             $item['EndTime'] = $item['end_at'];
             $item['Description'] = $item['content'] ?? null;
-            unset($item['id'], $item['title'], $item['start_at'], $item['end_at'], $item['content']);
+            $item['RecurrenceRule'] = $item['recurrence_rule'] ?? null;
+            $item['RecurrenceException'] = $item['recurrence_exception'] ?? null;
+            $item['RecurrenceID'] = $item['recurrence_id'] ?? null;
+            unset($item['id'], $item['title'], $item['start_at'], $item['end_at'], $item['content'], $item['recurrence_rule']);
             return $item;
         });
         return response()->json($items);
@@ -79,6 +82,9 @@ class ScheduleController extends Controller
                 'start_at' => $param['StartTime'],
                 'end_at' => $param['EndTime'],
                 'content' => $param['Description'] ?? null,
+                'recurrence_rule' => $param['RecurrenceRule'] ?? null,
+                'recurrence_exception' => $param['RecurrenceException'] ?? null,
+                'recurrence_id' => $param['RecurrenceID'] ?? null,
             ];
 
             try {
@@ -97,6 +103,9 @@ class ScheduleController extends Controller
                 'start_at' => $param['StartTime'],
                 'end_at' => $param['EndTime'],
                 'content' => $param['Description'] ?? null,
+                'recurrence_rule' => $param['RecurrenceRule'] ?? null,
+                'recurrence_exception' => $param['RecurrenceException'] ?? null,
+                'recurrence_id' => $param['RecurrenceID'] ?? null,
             ];
             try {
                 $this->scheduleRepository->update($data, $id);

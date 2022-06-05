@@ -1,7 +1,6 @@
 <template>
   <div>
     <Navigation :title="'Diễn đàn'" :page="'forum'" :title2="'Đăng bài mới'" :page2="'new-post'" />
-    <message-modal ref="msg-modal"></message-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
         <b-card>

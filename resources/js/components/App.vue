@@ -1,6 +1,7 @@
 <template>
   <div>
     <nav-bar :user="user" />
+    <message-modal ref="msg-modal"></message-modal>
     <div class="divider"></div>
     <router-view />
     <Footer />
@@ -62,10 +63,10 @@ export default BaseComponent.extend({
       chatVisible: false,
       participants: [
         {
-          name: "José",
+          name: "Nguyễn Thanh Liêm",
           id: 2,
           profilePicture:
-            "https://lh3.googleusercontent.com/-G1d4-a7d_TY/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPez_wX5UCJztzEUeCxOd7HBK7-jA.CMID/s83-c/photo.jpg",
+            "https://vinmec-prod.s3.amazonaws.com/images/12_01_2019_11_08_53_877612.jpeg",
         },
       ],
       myself: {
@@ -299,6 +300,8 @@ export default BaseComponent.extend({
   top: 15vh;
   left: 63vw;
   border-bottom: 1px solid #d0d0d0;
+  border-left: 1px solid #d0d0d0;
+  border-right: 1px solid #d0d0d0;
 }
 .header-paticipants-text {
   display: none;

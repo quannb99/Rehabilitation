@@ -28,11 +28,11 @@ class UserController extends Controller
         $doctor_name = $request['doctor_name'] ?? '';
 
         $query = $this->userRepository->getCollection($request)
-        ->select([
-            'users.*',
-            'specialists.name as specialist_name',
-        ])
-        ->leftJoin('specialists', 'specialists.id', 'users.specialist_id');
+            ->select([
+                'users.*',
+                'specialists.name as specialist_name',
+            ])
+            ->leftJoin('specialists', 'specialists.id', 'users.specialist_id');
 
         if ($id) {
             $query->where('id', $id);
@@ -51,6 +51,15 @@ class UserController extends Controller
         }
 
         $items = $query->orderByDesc('created_at')->paginate(10);
+
+        $items->map(function ($item) {
+            $item->schedules = $this->userRepository->detail($item->id)->schedules()
+                ->where('recurrence_rule', 'like', 'FREQ=WEEKLY%')
+                ->where('title', 'like', '%bệnh%')
+                ->whereNull('recurrence_id')
+                ->orderBy('start_at')
+                ->get();
+        });
 
         return $this->sendSuccess($items);
     }

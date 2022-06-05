@@ -1,6 +1,36 @@
 <template>
   <div>
     <Navigation :title="'Lịch làm việc'" :page="'schedule'" />
+    <b-modal
+      ref="appointment-modal"
+      :title="'Danh sách lịch hẹn'"
+      :hide-footer="true"
+      :no-close-on-backdrop="true"
+      centered
+      no-fade
+      size="md"
+    >
+      <div class="d-block text-center">
+        <div class="modal-body d-block text-center">
+          <div v-if="!appointments[0]">Hiện chưa có lịch hẹn nào được tạo</div>
+          <div v-if="appointments[0]" >
+            <b-list-group class="mb-3">
+              <b-list-group-item v-for="(item, index) in appointments" :key="index">
+                <span>{{ item.user_name }}</span> đã đặt lịch hẹn lúc {{  moment(item.created_at).format('HH:mm DD-MM-YYYY')  }}
+              </b-list-group-item>
+            </b-list-group>
+            <b-pagination
+              v-if="appointments_paging.last_page > 1"
+              v-model="appointments_paging.current_page"
+              :total-rows="appointments_paging.total"
+              :per-page="appointments_paging.per_page"
+              align="center"
+              @input="changeAppointmentPage"
+            ></b-pagination>
+          </div>
+        </div>
+      </div>
+    </b-modal>
     <div class="row col-lg-11 m-auto pt-5">
       <ejs-schedule
         ref="scheduleObj"
@@ -14,6 +44,7 @@
         :quickInfoOnSelectionEnd="true"
         :timeScale="timeScale"
         :workHours="workHours"
+        :popupOpen="onPopupOpen"
       >
         <e-views>
           <e-view option="Day"></e-view>
@@ -28,6 +59,7 @@
 
 <script>
 import BaseComponent from "../base-component";
+import { postModel, getModel, updateModel, deleteModel } from "../service";
 import {
   Day,
   Week,
@@ -75,17 +107,57 @@ export default BaseComponent.extend({
         dataSource: dataManager,
         enableTooltip: true,
       },
+      appointments: {},
+      appointments_paging: {},
+      start_at: '',
+      end_at: '',
     };
   },
   methods: {
-    // onPopupOpen(arg) {
-    //   if (arg.type == "Editor") {
-    //     // arg.cancel = true;
-    //   }
-    // },
+    async changeAppointmentPage(page) {
+      const params = {
+          start_at: this.start_at,
+          end_at: this.end_at,
+          doctor_id: User.id,
+          page: page
+        }
+        const res = await getModel("appointments", params)
+        this.appointments_paging = res.data.data
+        this.appointments = res.data.data.data
+    },
+    async onPopupOpen(arg) {
+      if (arg.type == 'QuickInfo') {
+        arg.cancel = true;
+        this.start_at = moment(arg.data.StartTime).toISOString()
+        this.end_at = moment(arg.data.EndTime).toISOString()
+        const params = {
+          start_at: this.start_at,
+          end_at: this.end_at,
+          doctor_id: User.id
+        }
+        const res = await getModel("appointments", params)
+        this.appointments_paging = res.data.data
+        this.appointments = res.data.data.data
+        this.$refs["appointment-modal"].show();
+      }
+      if (arg.type == "RecurrenceAlert") {
+
+        document.getElementById("scheduleQuickDialog_title").innerHTML =
+          "Xác nhận";
+      }
+
+      if (arg.type == "RecurrenceValidationAlert") {
+        document.querySelector(
+          ".e-control.e-btn.e-lib.e-quick-alertcancel.e-flat"
+        ).style.display = "none";
+        document.querySelector(
+          ".e-control.e-btn.e-lib.e-quick-alertok.e-flat.e-primary.e-quick-dialog-alert-btn"
+        ).innerHTML = "OK";
+      }
+    },
   },
   provide: {
-    schedule: [Day, Week, WorkWeek, Month, Agenda, DragAndDrop, Resize],
+    schedule: [Day, Week, WorkWeek, Month, Agenda],
   },
   mounted() {},
 });
@@ -117,24 +189,37 @@ export default BaseComponent.extend({
   .e-day-wrapper
   .e-appointment
   .e-subject {
-  font-size: 16px;
+  font-size: 18px;
 }
 .custom-class.e-schedule
   .e-vertical-view
   .e-day-wrapper
   .e-appointment
   .e-time {
+  margin-top: 5px;
   font-size: 13px;
 }
 div.e-all-day-time-zone-row {
   display: none !important;
 }
-.e-control.e-recurrenceeditor.e-lib {
-  display: none !important;
-}
+// .e-control.e-recurrenceeditor.e-lib {
+//   display: none !important;
+// }
 // .e-description-row {
 //   display: none !important;
 // }
+.e-input-wrapper-side.e-days.e-form-left {
+  display: none !important;
+}
+.e-input-wrapper.e-interval.e-form-right {
+  display: none !important;
+}
+.e-input-wrapper-side.e-non-week.e-form-left {
+  display: none !important;
+}
+.e-input-wrapper-side.e-end-on {
+  display: none !important;
+}
 .e-location-container {
   display: none !important;
 }

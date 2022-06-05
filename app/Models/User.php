@@ -40,6 +40,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Comment');
     }
 
+    public function schedules()
+    {
+        return $this->hasMany('App\Models\Schedule');
+    }
+
     // public function getNameAttribute()
     // {
     //     if ($this->role == 2) {

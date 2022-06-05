@@ -1,7 +1,6 @@
 <template>
   <div>
     <Navigation :title="'Diễn đàn'" :page="'forum'" />
-    <message-modal ref="msg-modal"></message-modal>
     <confirm-modal @confirm="handleConfirm" ref="cf-modal"></confirm-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
