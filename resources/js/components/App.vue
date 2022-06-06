@@ -3,7 +3,7 @@
     <nav-bar :user="user" />
     <message-modal ref="msg-modal"></message-modal>
     <div class="divider"></div>
-    <router-view />
+    <router-view @setChatParticipant="setChatParticipant"/>
     <Footer />
     <b-button
       v-if="!chatVisible"
@@ -16,7 +16,7 @@
       :participants="participants"
       :myself="myself"
       :messages="messages"
-      :chat-title="chatTitle"
+      :chat-title="chatTitle()"
       :placeholder="placeholder"
       :colors="colors"
       :border-style="borderStyle"
@@ -63,10 +63,9 @@ export default BaseComponent.extend({
       chatVisible: false,
       participants: [
         {
-          name: "Nguyễn Thanh Liêm",
-          id: 2,
-          profilePicture:
-            "https://vinmec-prod.s3.amazonaws.com/images/12_01_2019_11_08_53_877612.jpeg",
+          name: User.name,
+          id: User.id,
+          profilePicture: "../../images/user-default-ava.jpg",
         },
       ],
       myself: {
@@ -125,7 +124,7 @@ export default BaseComponent.extend({
         },
       },
       timestampConfig: {
-        format: "HH:mm",
+        format: "HH:mm dd-MM-yyyy",
         relative: false,
       },
       linkOptions: {
@@ -266,12 +265,21 @@ export default BaseComponent.extend({
        */
       console.log("Image clicked", message.src);
     },
-  },
+    setChatParticipant(param) {
+      // console.log(param)
+      this.participants[0] = param;
+      console.log(this.participants)
+      this.getMessages();
+      this.chatVisible = true;
+    },
 
-  computed: {
     chatTitle() {
       return this.participants[0].name;
     },
+  },
+
+  computed: {
+
   },
 
   mounted() {

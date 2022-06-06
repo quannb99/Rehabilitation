@@ -8,14 +8,14 @@
       :no-close-on-backdrop="true"
       centered
       no-fade
-      size="md"
+      size="lg"
     >
       <div class="d-block text-center">
         <div class="modal-body d-block text-center">
           <div v-if="!appointments[0]">Hiện chưa có lịch hẹn nào được tạo</div>
           <div v-if="appointments[0]" >
             <b-list-group class="mb-3">
-              <b-list-group-item v-for="(item, index) in appointments" :key="index">
+              <b-list-group-item style="text-align: left;" v-for="(item, index) in appointments" :key="index">
                 <span>{{ item.user_name }}</span> đã đặt lịch hẹn lúc {{  moment(item.created_at).format('HH:mm DD-MM-YYYY')  }}
               </b-list-group-item>
             </b-list-group>

@@ -128,6 +128,18 @@
                   </div>
                 </b-media>
               </ul>
+              <b-button
+                variant="theme"
+                @click.prevent="
+                  setChatParticipant({
+                    name: item.name,
+                    id: item.id,
+                    profilePicture: item.avatar,
+                  })
+                "
+              >
+                <i class="fa fa-comments" aria-hidden="true"></i>Nhắn tin
+              </b-button>
             </div>
           </b-list-group-item>
         </b-list-group>
@@ -238,8 +250,8 @@ export default BaseComponent.extend({
       ).toISOString();
       this.form.user_id = User.id;
       try {
-        await postModel('appointments', this.form)
-        this.makeToast('Đặt lịch hẹn thành công')
+        await postModel("appointments", this.form);
+        this.makeToast("Đặt lịch hẹn thành công");
       } catch (error) {
         this.handleErr(error);
       }
@@ -271,6 +283,10 @@ export default BaseComponent.extend({
       const res = await getModel("specialists", { id: id });
       this.specialist_name = res.data.data[0].name;
     },
+    setChatParticipant(param) {
+      console.log(param)
+      this.$emit("setChatParticipant", param);
+    }
   },
   async mounted() {
     this.fieldFilter.role = 2;
