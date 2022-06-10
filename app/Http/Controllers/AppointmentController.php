@@ -31,6 +31,7 @@ class AppointmentController extends Controller
             ->select([
                 'appointments.*',
                 'users.name as user_name',
+                'users.avatar as user_avatar',
             ])
             ->leftJoin('users', 'appointments.user_id', 'users.id')
             ->where('doctor_id', $doctorId)

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\MessageRepository;
+use App\Events\MessageSent;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -58,9 +60,13 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->messageRepository->create($request->all());
+            $user = Auth::user();
+            $message = $this->messageRepository->create($request->all());
+            // $message = $query->get();
+            broadcast(new MessageSent($user, $message))->toOthers();
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            dd($e);
+            return $this->sendError($e, 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');

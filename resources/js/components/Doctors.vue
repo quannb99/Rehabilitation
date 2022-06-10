@@ -284,7 +284,6 @@ export default BaseComponent.extend({
       this.specialist_name = res.data.data[0].name;
     },
     setChatParticipant(param) {
-      console.log(param)
       this.$emit("setChatParticipant", param);
     }
   },

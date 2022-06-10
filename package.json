@@ -37,7 +37,7 @@
         "@syncfusion/ej2-vue-schedule": "^20.1.57",
         "bootstrap-vue": "^2.22.0",
         "cldr-data": "^36.0.1",
-        "laravel-echo": "^1.11.5",
+        "laravel-echo": "^1.11.7",
         "pusher-js": "^7.0.6",
         "vue-beautiful-chat": "^2.5.0",
         "vue-quick-chat": "^1.2.8",

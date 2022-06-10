@@ -3,7 +3,7 @@
     <nav-bar :user="user" />
     <message-modal ref="msg-modal"></message-modal>
     <div class="divider"></div>
-    <router-view @setChatParticipant="setChatParticipant"/>
+    <router-view @setChatParticipant="setChatParticipant" />
     <Footer />
     <b-button
       v-if="!chatVisible"
@@ -12,7 +12,7 @@
       ><i class="fa fa-comments" aria-hidden="true"></i
     ></b-button>
     <Chat
-      v-if="chatVisible"
+      :class="{'d-none': !chatVisible}"
       :participants="participants"
       :myself="myself"
       :messages="messages"
@@ -65,13 +65,13 @@ export default BaseComponent.extend({
         {
           name: User.name,
           id: User.id,
-          profilePicture: "../../images/user-default-ava.jpg",
+          profilePicture: User.avatar,
         },
       ],
       myself: {
         name: User.name,
         id: User.id,
-        profilePicture: "../../images/user-default-ava.jpg",
+        profilePicture: User.avatar,
       },
       messages: [],
       placeholder: "Nhập tin nhắn...",
@@ -268,7 +268,6 @@ export default BaseComponent.extend({
     setChatParticipant(param) {
       // console.log(param)
       this.participants[0] = param;
-      console.log(this.participants)
       this.getMessages();
       this.chatVisible = true;
     },
@@ -278,15 +277,25 @@ export default BaseComponent.extend({
     },
   },
 
-  computed: {
-
-  },
+  computed: {},
 
   mounted() {
     this.getMessages();
   },
 
-  created() {},
+  created() {
+    window.Echo.private("chat").listen("MessageSent", (e) => {
+      if (this.participants[0].id == e.message.user_a_id && User.id == e.message.user_b_id) {
+        e.message.participantId = e.message.user_a_id
+        e.message.timestamp = moment(e.message.created_at).toISOString();
+        this.messages.push(e.message)
+        let obj = document.getElementsByClassName("container-message-display")[0];
+        setTimeout(() => {
+          obj.scrollTop = obj.scrollHeight;
+        }, 500)
+      }
+    });
+  },
 });
 </script>
 
@@ -294,7 +303,7 @@ export default BaseComponent.extend({
 .btn-chat {
   position: fixed;
   top: 90vh;
-  left: 94vw;
+  right: 10px;
   z-index: 1050;
   width: 60px;
   border-radius: 50%;
@@ -303,10 +312,10 @@ export default BaseComponent.extend({
 .quick-chat-container {
   position: fixed;
   z-index: 1050;
-  width: 35vw;
+  width: 450px;
   height: 80vh;
   top: 15vh;
-  left: 63vw;
+  right: 10px;
   border-bottom: 1px solid #d0d0d0;
   border-left: 1px solid #d0d0d0;
   border-right: 1px solid #d0d0d0;

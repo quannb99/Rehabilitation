@@ -27,6 +27,7 @@ Route::get('/schedule', 'HomeController@index');
 Route::post('/getSchedule', 'ScheduleController@getSchedule');
 Route::get('/doctors', 'HomeController@index');
 Route::get('/appointments', 'HomeController@index');
+// Route::post('/broadcasting/auth', 'HomeController@checkAuth');
 Route::resources([
     'posts' => 'PostController',
     'comments' => 'CommentController',

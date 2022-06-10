@@ -17,6 +17,19 @@
             <b-list-group class="mb-3">
               <b-list-group-item style="text-align: left;" v-for="(item, index) in appointments" :key="index">
                 <span>{{ item.user_name }}</span> đã đặt lịch hẹn lúc {{  moment(item.created_at).format('HH:mm DD-MM-YYYY')  }}
+                <b-button
+                class="float-right"
+                variant="theme"
+                @click.prevent="
+                  setChatParticipant({
+                    name: item.user_name,
+                    id: item.user_id,
+                    profilePicture: item.user_avatar,
+                  })
+                "
+              >
+                <i class="fa fa-comments" aria-hidden="true"></i>Nhắn tin
+              </b-button>
               </b-list-group-item>
             </b-list-group>
             <b-pagination
@@ -114,6 +127,10 @@ export default BaseComponent.extend({
     };
   },
   methods: {
+    setChatParticipant(param) {
+      this.$emit("setChatParticipant", param);
+    },
+
     async changeAppointmentPage(page) {
       const params = {
           start_at: this.start_at,
