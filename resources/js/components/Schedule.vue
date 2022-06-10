@@ -7,29 +7,33 @@
       :hide-footer="true"
       :no-close-on-backdrop="true"
       centered
-      no-fade
       size="lg"
     >
       <div class="d-block text-center">
         <div class="modal-body d-block text-center">
           <div v-if="!appointments[0]">Hiện chưa có lịch hẹn nào được tạo</div>
-          <div v-if="appointments[0]" >
+          <div v-if="appointments[0]">
             <b-list-group class="mb-3">
-              <b-list-group-item style="text-align: left;" v-for="(item, index) in appointments" :key="index">
-                <span>{{ item.user_name }}</span> đã đặt lịch hẹn lúc {{  moment(item.created_at).format('HH:mm DD-MM-YYYY')  }}
-                <b-button
-                class="float-right"
-                variant="theme"
-                @click.prevent="
-                  setChatParticipant({
-                    name: item.user_name,
-                    id: item.user_id,
-                    profilePicture: item.user_avatar,
-                  })
-                "
+              <b-list-group-item
+                style="text-align: left"
+                v-for="(item, index) in appointments"
+                :key="index"
               >
-                <i class="fa fa-comments" aria-hidden="true"></i>Nhắn tin
-              </b-button>
+                <span>{{ item.user_name }}</span> đã đặt lịch hẹn lúc
+                {{ moment(item.created_at).format("HH:mm DD-MM-YYYY") }}
+                <b-button
+                  class="float-right"
+                  variant="theme"
+                  @click.prevent="
+                    setChatParticipant({
+                      name: item.user_name,
+                      id: item.user_id,
+                      profilePicture: item.user_avatar,
+                    })
+                  "
+                >
+                  <i class="fa fa-comments" aria-hidden="true"></i>Nhắn tin
+                </b-button>
               </b-list-group-item>
             </b-list-group>
             <b-pagination
@@ -122,8 +126,8 @@ export default BaseComponent.extend({
       },
       appointments: {},
       appointments_paging: {},
-      start_at: '',
-      end_at: '',
+      start_at: "",
+      end_at: "",
     };
   },
   methods: {
@@ -133,32 +137,41 @@ export default BaseComponent.extend({
 
     async changeAppointmentPage(page) {
       const params = {
-          start_at: this.start_at,
-          end_at: this.end_at,
-          doctor_id: User.id,
-          page: page
-        }
-        const res = await getModel("appointments", params)
-        this.appointments_paging = res.data.data
-        this.appointments = res.data.data.data
+        start_at: this.start_at,
+        end_at: this.end_at,
+        doctor_id: User.id,
+        page: page,
+      };
+      const res = await getModel("appointments", params);
+      this.appointments_paging = res.data.data;
+      this.appointments = res.data.data.data;
     },
     async onPopupOpen(arg) {
-      if (arg.type == 'QuickInfo') {
-        arg.cancel = true;
-        this.start_at = moment(arg.data.StartTime).toISOString()
-        this.end_at = moment(arg.data.EndTime).toISOString()
-        const params = {
-          start_at: this.start_at,
-          end_at: this.end_at,
-          doctor_id: User.id
-        }
-        const res = await getModel("appointments", params)
-        this.appointments_paging = res.data.data
-        this.appointments = res.data.data.data
-        this.$refs["appointment-modal"].show();
+      if (arg.type == "QuickInfo") {
+        if (arg.data.Id) {
+          arg.cancel = true;
+          this.start_at = moment(arg.data.StartTime).toISOString();
+          this.end_at = moment(arg.data.EndTime).toISOString();
+          const params = {
+            start_at: this.start_at,
+            end_at: this.end_at,
+            doctor_id: User.id,
+          };
+          const res = await getModel("appointments", params);
+          this.appointments_paging = res.data.data;
+          this.appointments = res.data.data.data;
+          this.$refs["appointment-modal"].show();
+          setTimeout(() => {
+            document.querySelector('.modal-content').removeAttribute('tabindex');
+          }, 200)
+
+        // if (!_.isEmpty(this.appointments)) {
+        //   arg.cancel = true;
+        //   this.$refs["appointment-modal"].show();
+        // }
+      }
       }
       if (arg.type == "RecurrenceAlert") {
-
         document.getElementById("scheduleQuickDialog_title").innerHTML =
           "Xác nhận";
       }

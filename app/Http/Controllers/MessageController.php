@@ -65,8 +65,7 @@ class MessageController extends Controller
             // $message = $query->get();
             broadcast(new MessageSent($user, $message))->toOthers();
         } catch (\Exception $e) {
-            dd($e);
-            return $this->sendError($e, 'Có lỗi xảy ra');
+            return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');

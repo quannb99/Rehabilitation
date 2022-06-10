@@ -6,13 +6,14 @@
     <router-view @setChatParticipant="setChatParticipant" />
     <Footer />
     <b-button
-      v-if="!chatVisible"
+      v-if="!chatVisible && participants[0].id != user.id"
       @click="toggleChat()"
       class="btn-chat btn-theme"
-      ><i class="fa fa-comments" aria-hidden="true"></i
-    ></b-button>
+      ><i class="fa fa-comments" aria-hidden="true"></i>
+      <div class="new-msg" v-if="isNewMessage"></div>
+    </b-button>
     <Chat
-      :class="{'d-none': !chatVisible}"
+      :class="{ 'd-none': !chatVisible }"
       :participants="participants"
       :myself="myself"
       :messages="messages"
@@ -49,7 +50,6 @@
 import BaseComponent from "../base-component";
 import { postModel, getModel, updateModel, deleteModel } from "../service";
 import { Chat } from "vue-quick-chat";
-import { throttle } from "lodash";
 import "vue-quick-chat/dist/vue-quick-chat.css";
 
 export default BaseComponent.extend({
@@ -58,6 +58,7 @@ export default BaseComponent.extend({
   },
   data() {
     return {
+      isNewMessage: false,
       isMsgLoading: false,
       user: User,
       chatVisible: false,
@@ -111,7 +112,7 @@ export default BaseComponent.extend({
       toLoad: [],
       scrollBottom: {
         messageSent: true,
-        messageReceived: false,
+        messageReceived: true,
       },
       displayHeader: true,
       profilePictureConfig: {
@@ -168,9 +169,10 @@ export default BaseComponent.extend({
   methods: {
     toggleChat() {
       this.chatVisible = !this.chatVisible;
+      this.setScrollToBottom();
     },
     onType: function (event) {
-      //here you can set any behavior
+      //
     },
     async getMessagesNextPage() {
       if (this.paging.current_page + 1 <= this.paging.last_page) {
@@ -238,6 +240,7 @@ export default BaseComponent.extend({
       message.uploaded = true;
     },
     onClose() {
+      this.isNewMessage = false;
       this.chatVisible = false;
     },
     onImageSelected(files, message) {
@@ -265,11 +268,18 @@ export default BaseComponent.extend({
        */
       console.log("Image clicked", message.src);
     },
-    setChatParticipant(param) {
-      // console.log(param)
+    setScrollToBottom() {
+      let obj = document.getElementsByClassName("container-message-display")[0];
+      setTimeout(() => {
+        obj.scrollTop = obj.scrollHeight;
+      }, 200);
+    },
+
+    async setChatParticipant(param, chatVisible = true) {
       this.participants[0] = param;
-      this.getMessages();
-      this.chatVisible = true;
+      await this.getMessages();
+      this.chatVisible = chatVisible;
+      this.setScrollToBottom();
     },
 
     chatTitle() {
@@ -284,15 +294,26 @@ export default BaseComponent.extend({
   },
 
   created() {
-    window.Echo.private("chat").listen("MessageSent", (e) => {
-      if (this.participants[0].id == e.message.user_a_id && User.id == e.message.user_b_id) {
-        e.message.participantId = e.message.user_a_id
+    window.Echo.private("chat").listen("MessageSent", async (e) => {
+      if (this.participants[0].id == User.id) {
+        const param = {
+          id: e.user.id,
+          name: e.user.name,
+          profilePicture: e.user.avatar,
+        };
+        await this.setChatParticipant(param, false);
+        this.isNewMessage = true;
+        return;
+      }
+      if (
+        this.participants[0].id == e.message.user_a_id &&
+        User.id == e.message.user_b_id
+      ) {
+        e.message.participantId = e.message.user_a_id;
         e.message.timestamp = moment(e.message.created_at).toISOString();
-        this.messages.push(e.message)
-        let obj = document.getElementsByClassName("container-message-display")[0];
-        setTimeout(() => {
-          obj.scrollTop = obj.scrollHeight;
-        }, 500)
+        this.messages.push(e.message);
+        this.isNewMessage = true;
+        this.setScrollToBottom();
       }
     });
   },
@@ -325,5 +346,14 @@ export default BaseComponent.extend({
 }
 .header-title-text {
   font-size: 20px;
+}
+.new-msg {
+  width: 20px;
+  height: 20px;
+  background-color: #dc3545;
+  border-radius: 50%;
+  position: absolute;
+  top: -4px;
+  left: 38px;
 }
 </style>
