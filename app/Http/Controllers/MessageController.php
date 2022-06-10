@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\MessageRepository;
 use App\Events\MessageSent;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
     protected $messageRepository;
+    protected $userRepository;
 
     public function __construct(
-        MessageRepository $messageRepository
+        MessageRepository $messageRepository,
+        UserRepository $userRepository
     ) {
         $this->messageRepository = $messageRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -37,6 +41,61 @@ class MessageController extends Controller
             ->paginate(20);
 
         // $items = $query->orderByDesc('created_at')->paginate(5);
+
+        return $this->sendSuccess($res);
+    }
+
+    public function getmessagesHistory(Request $request)
+    {
+        $res = $this->messageRepository->getCollection($request)
+            ->where([
+                ['user_a_id', '=', auth()->user()->id],
+            ])
+            ->orWhere([
+                ['user_b_id', '=', auth()->user()->id],
+            ])
+            ->orderByDesc('created_at')
+            ->get();
+
+        $res = $res->map(function ($item) {
+            if ($item->user_a_id == auth()->user()->id) {
+                return $item->user_b_id;
+            } else {
+                return $item->user_a_id;
+            }
+        })->toArray();
+
+        $listUsersId = array_unique($res);
+        $listUsers = [];
+        foreach ($listUsersId as $key => $value) {
+            $temp = $this->userRepository->getCollection('')
+            ->select('name', 'role', 'avatar', 'id')
+            ->where('id', $value)->get()->first();
+            array_push($listUsers, $temp);
+        }
+
+        $res = [];
+        foreach ($listUsersId as $key => $value) {
+            $temp = $this->messageRepository->getCollection($request)
+            ->where([
+                ['user_a_id', '=', auth()->user()->id],
+                ['user_b_id', $value]
+            ])
+            ->orWhere([
+                ['user_b_id', '=', auth()->user()->id],
+                ['user_a_id', $value]
+            ])
+            ->orderByDesc('created_at')
+            ->first();
+            array_push($res, $temp);
+        }
+
+        for ($i = 0; $i < count($res); $i++) {
+            $res[$i]['user_name'] = $listUsers[$i]['name'];
+            $res[$i]['role'] = $listUsers[$i]['role'];
+            $res[$i]['avatar'] = $listUsers[$i]['avatar'];
+            $res[$i]['user_id'] = $listUsers[$i]['id'];
+        }
 
         return $this->sendSuccess($res);
     }

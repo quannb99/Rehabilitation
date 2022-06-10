@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar :user="user" />
+    <nav-bar :user="user" @setChatParticipant="setChatParticipant" />
     <message-modal ref="msg-modal"></message-modal>
     <div class="divider"></div>
     <router-view @setChatParticipant="setChatParticipant" />
