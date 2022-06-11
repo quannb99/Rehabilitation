@@ -6,20 +6,33 @@ import Post from "./components/Post.vue"
 import EditPost from "./components/EditPost.vue"
 import Schedule from "./components/Schedule.vue"
 import Doctors from "./components/Doctors.vue"
+import Home from "./components/Home.vue"
 import Appointments from "./components/Appointments.vue"
+import CreateMedicalRecord from "./components/CreateMedicalRecord.vue"
+import UserInfo from "./components/UserInfo.vue"
 
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: "/",
-  //   name: "home",
-  //   component: App
-  // },
+  {
+    path: "/",
+    name: "home",
+    component: Home
+  },
+  {
+    path: "/userInfo",
+    name: "userInfo",
+    component: UserInfo
+  },
   {
     path: "/forum",
     name: "forum",
     component: Forum
+  },
+  {
+    path: "/createMedicalRecord",
+    name: "createMedicalRecord",
+    component: CreateMedicalRecord
   },
   {
     path: "/appointments",

@@ -21,12 +21,21 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="nav-container">
-          <b-nav-item @click="navigateTo('forum')">Diễn đàn</b-nav-item>
-          <b-nav-item v-if="user.role == 2" @click="navigateTo('schedule')"
+          <b-nav-item v-if="user != null" @click="navigateTo('forum')"
+            >Diễn đàn</b-nav-item
+          >
+          <b-nav-item
+            v-if="user && user.role == 2"
+            @click="navigateTo('schedule')"
             >Lịch làm việc</b-nav-item
           >
-          <b-nav-item @click="navigateTo('doctors')"
+          <b-nav-item v-if="user != null" @click="navigateTo('doctors')"
             >Danh sách bác sĩ</b-nav-item
+          >
+          <b-nav-item
+            v-if="user && user.role == 2"
+            @click="navigateTo('createMedicalRecord')"
+            >Tạo hồ sơ</b-nav-item
           >
           <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
         </b-navbar-nav>
@@ -60,7 +69,13 @@
             >Đăng ký</b-button
           >
 
-          <b-nav-item-dropdown size="md" right no-caret class="msg-history">
+          <b-nav-item-dropdown
+            v-if="user != null"
+            size="md"
+            right
+            no-caret
+            class="msg-history"
+          >
             <template #button-content>
               <b-button pill
                 ><i
@@ -70,6 +85,9 @@
                 ></i
               ></b-button>
             </template>
+            <b-dropdown-item :disabled="true" v-if="messagesHistory.length == 0">
+              <p style="color: #000 !important; margin-top: 12px;">Không có lịch sử trò chuyện</p>
+            </b-dropdown-item>
             <b-dropdown-item
               v-for="(item, index) in messagesHistory"
               :key="index"
@@ -113,7 +131,7 @@
             <template #button-content>
               {{ user ? user.name : "" }}
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item @click.prevent="navigateTo('userInfo')" href="#">Thông tin cá nhân</b-dropdown-item>
             <b-dropdown-item @click="logOut()">Đăng xuất</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -151,8 +169,10 @@ export default BaseComponent.extend({
   },
 
   async mounted() {
-    let res = await getModel("messagesHistory");
-    this.messagesHistory = res.data.data;
+    if (this.user != null) {
+      let res = await getModel("messagesHistory");
+      this.messagesHistory = res.data.data;
+    }
   },
 });
 </script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -123,13 +124,14 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $request->validate([
-                'title' => 'required',
-                'content' => 'required',
-            ]);
-            $post = $this->userRepository->update($request->all(), $id);
+            // $file = $request->file('image') ;
+            // $fileName = uniqid() . $file->getClientOriginalName(); ;
+            // $destinationPath = public_path().'/uploads' ;
+            // $file->move($destinationPath, $fileName);
+            // $avatar = '../../uploads/' . $fileName;
+            $user = $this->userRepository->update($request->all(), $id);
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');
+            return $this->sendError($e->getMessage(), 'Kiểm tra lại');
         }
 
         return $this->sendSuccess('');

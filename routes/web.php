@@ -27,6 +27,8 @@ Route::get('/schedule', 'HomeController@index');
 Route::post('/getSchedule', 'ScheduleController@getSchedule');
 Route::get('/doctors', 'HomeController@index');
 Route::get('/appointments', 'HomeController@index');
+Route::get('/userInfo', 'HomeController@index');
+Route::get('/createMedicalRecord', 'HomeController@index');
 Route::get('/messagesHistory', 'MessageController@getmessagesHistory');
 // Route::post('/broadcasting/auth', 'HomeController@checkAuth');
 Route::resources([
@@ -38,6 +40,7 @@ Route::resources([
     'users' => 'UserController',
     'specialists' => 'SpecialistController',
     'appointments' => 'AppointmentController',
+    'medicalRecord' => 'MedicalRecordController',
 ]);
 Route::get('/csrf', function () {
     return csrf_token();
