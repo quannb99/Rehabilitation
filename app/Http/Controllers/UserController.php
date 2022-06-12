@@ -26,7 +26,7 @@ class UserController extends Controller
         $id = $request['id'] ?? '';
         $role = $request['role'] ?? '';
         $specialist_id = $request['specialist_id'] ?? '';
-        $doctor_name = $request['doctor_name'] ?? '';
+        $user_name = $request['user_name'] ?? '';
 
         $query = $this->userRepository->getCollection($request)
             ->select([
@@ -47,8 +47,8 @@ class UserController extends Controller
             $query->where('specialist_id', $specialist_id);
         }
 
-        if ($doctor_name) {
-            $query->where('users.name', 'like', '%' . $doctor_name . '%');
+        if ($user_name) {
+            $query->where('users.name', 'like', '%' . $user_name . '%');
         }
 
         $items = $query->orderByDesc('created_at')->paginate(10);

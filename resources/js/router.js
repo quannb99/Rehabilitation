@@ -36,7 +36,7 @@ const routes = [
     component: Forum
   },
   {
-    path: "/create-medial-record",
+    path: "/create-medical-record",
     name: "createMedicalRecord",
     component: CreateMedicalRecord
   },

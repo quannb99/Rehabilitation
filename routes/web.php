@@ -28,7 +28,7 @@ Route::post('/getSchedule', 'ScheduleController@getSchedule');
 Route::get('/doctors', 'HomeController@index');
 Route::get('/appointments', 'HomeController@index');
 Route::get('/user-info', 'HomeController@index');
-Route::get('/create-redical-record', 'HomeController@index');
+Route::get('/create-medical-record', 'HomeController@index');
 Route::get('/messagesHistory', 'MessageController@getmessagesHistory');
 Route::get('/user-info/{id}', 'HomeController@index');
 // Route::post('/broadcasting/auth', 'HomeController@checkAuth');

@@ -48,10 +48,10 @@
             </h4>
             <h4
               style="display: inline-block"
-              v-if="this.fieldFilter.doctor_name"
+              v-if="this.fieldFilter.user_name"
             >
               Kết quả tìm kiếm bác sĩ theo từ khóa: "{{
-                fieldFilter.doctor_name
+                fieldFilter.user_name
               }}":
             </h4>
             <b-button
@@ -71,10 +71,10 @@
             </h4>
             <h4
               style="display: inline-block"
-              v-if="this.fieldFilter.doctor_name"
+              v-if="this.fieldFilter.user_name"
             >
               Không có kết quả nào khi tìm kiếm bác sĩ theo từ khóa: "{{
-                fieldFilter.doctor_name
+                fieldFilter.user_name
               }}"
             </h4>
           </div>
@@ -162,7 +162,7 @@
               class="mr-3"
               placeholder="Tìm kiếm bác sĩ theo tên"
               style="width: 80%"
-              v-model="doctor_name"
+              v-model="user_name"
               @input="getDoctorsByName()"
             ></b-form-input>
             <b-button
@@ -205,7 +205,7 @@ export default BaseComponent.extend({
       model: "users",
       specialists: [],
       specialist_name: "",
-      doctor_name: "",
+      user_name: "",
       date_booking: "",
       current_week_date: "",
       doctor_booking: "",
@@ -264,7 +264,7 @@ export default BaseComponent.extend({
     },
 
     getDoctorsByName() {
-      this.fieldFilter.doctor_name = this.doctor_name;
+      this.fieldFilter.user_name = this.user_name;
       this.getItems();
     },
 
