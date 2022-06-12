@@ -10,6 +10,7 @@ import Home from "./components/Home.vue"
 import Appointments from "./components/Appointments.vue"
 import CreateMedicalRecord from "./components/CreateMedicalRecord.vue"
 import UserInfo from "./components/UserInfo.vue"
+import OtherUserInfo from "./components/OtherUserInfo.vue"
 
 Vue.use(VueRouter)
 
@@ -20,9 +21,14 @@ const routes = [
     component: Home
   },
   {
-    path: "/userInfo",
+    path: "/user-info",
     name: "userInfo",
     component: UserInfo
+  },
+  {
+    path: "/user-info/:id",
+    name: "otherUserInfo",
+    component: OtherUserInfo
   },
   {
     path: "/forum",
@@ -30,7 +36,7 @@ const routes = [
     component: Forum
   },
   {
-    path: "/createMedicalRecord",
+    path: "/create-medial-record",
     name: "createMedicalRecord",
     component: CreateMedicalRecord
   },

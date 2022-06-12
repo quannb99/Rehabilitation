@@ -19,8 +19,17 @@
                 v-for="(item, index) in appointments"
                 :key="index"
               >
-                <span>{{ item.user_name }}</span> đã đặt lịch hẹn lúc
-                {{ moment(item.created_at).format("HH:mm DD-MM-YYYY") }}
+                <b-img
+                  style="width: 60px; height: 60px"
+                  left
+                  :src="item.user_avatar"
+                  rounded="circle"
+                  class="mr-2"
+                ></b-img>
+                <span style="display: inline-block"
+                  > <a target="_blank" :href="'/user-info/' + item.user_id"><strong>{{ item.user_name }}</strong></a> đã đặt lịch hẹn <br />
+                  <span style="font-size: 14px">lúc {{ moment(item.created_at).format("HH:mm DD-MM-YYYY") }}</span></span
+                >
                 <b-button
                   class="float-right"
                   variant="theme"
@@ -162,14 +171,16 @@ export default BaseComponent.extend({
           this.appointments = res.data.data.data;
           this.$refs["appointment-modal"].show();
           setTimeout(() => {
-            document.querySelector('.modal-content').removeAttribute('tabindex');
-          }, 200)
+            document
+              .querySelector(".modal-content")
+              .removeAttribute("tabindex");
+          }, 200);
 
-        // if (!_.isEmpty(this.appointments)) {
-        //   arg.cancel = true;
-        //   this.$refs["appointment-modal"].show();
-        // }
-      }
+          // if (!_.isEmpty(this.appointments)) {
+          //   arg.cancel = true;
+          //   this.$refs["appointment-modal"].show();
+          // }
+        }
       }
       if (arg.type == "RecurrenceAlert") {
         document.getElementById("scheduleQuickDialog_title").innerHTML =

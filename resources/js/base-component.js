@@ -16,6 +16,7 @@ const BaseComponent = Vue.extend({
 
   methods: {
     navigateTo(destination, id) {
+      if (destination == null) return;
       this.$router
         .push({
           name: destination,

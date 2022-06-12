@@ -36,7 +36,7 @@ class UserController extends Controller
             ->leftJoin('specialists', 'specialists.id', 'users.specialist_id');
 
         if ($id) {
-            $query->where('id', $id);
+            $query->where('users.id', $id);
         }
 
         if ($role) {
@@ -129,7 +129,7 @@ class UserController extends Controller
             // $destinationPath = public_path().'/uploads' ;
             // $file->move($destinationPath, $fileName);
             // $avatar = '../../uploads/' . $fileName;
-            $user = $this->userRepository->update($request->all(), $id);
+            $user = $this->userRepository->update($request->except(['schedules', 'specialist_name']), $id);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), 'Kiểm tra lại');
         }

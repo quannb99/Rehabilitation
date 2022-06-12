@@ -13,7 +13,7 @@
         <!-- Breadcrumbs -->
         <ul class="breadcrumbs">
           <li><a href="#" @click.prevent="navigateTo('home')">Trang chủ</a></li>
-          <li v-if="page"><a href="#" @click.prevent="navigateTo(page)">{{ title }}</a></li>
+          <li><a href="#" @click.prevent="navigateTo(page)">{{ title }}</a></li>
           <li v-if="page2"><a href="#" @click.prevent="navigateTo(page2)">{{ title2 }}</a></li>
         </ul>
         <!-- End breadcrumbs -->

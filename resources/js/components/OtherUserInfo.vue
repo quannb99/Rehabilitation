@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navigation :title="'Thông tin cá nhân'" :page="'userInfo'" />
+    <Navigation :title="'Thông tin người dùng'" :page="null" />
     <message-modal ref="msg-modal"></message-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-4">
@@ -37,13 +37,14 @@
           <h2 class="mb-4" style="display: inline-block">
             Thông tin tài khoản
           </h2>
-          <b-button
+          <!-- <b-button
+            v-if="user.id == authUser.id"
             variant="theme"
             class="float-right"
             @click="toggleEditMode()"
             ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Chỉnh
             sửa</b-button
-          >
+          > -->
           <h6 class="mb-3"><strong>Họ tên: </strong>{{ user.name }}</h6>
           <h6 class="mb-3"><strong>Email: </strong>{{ user.email }}</h6>
           <h6 class="mb-3">
@@ -146,6 +147,7 @@ export default BaseComponent.extend({
     return {
       model: "posts",
       user: User,
+      authUser: User,
       isEditMode: false,
       genders: {
         1: "Nam",
@@ -224,10 +226,14 @@ export default BaseComponent.extend({
     },
   },
 
-  async created() {
-  },
-
   async mounted() {
+    if (this.$route.params.id) {
+      const form = {
+        id: this.$route.params.id,
+      };
+      let res = await getModel("users", form);
+      this.user = res.data.data.data[0];
+    }
   },
 });
 </script>
