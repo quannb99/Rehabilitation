@@ -78,6 +78,7 @@
           >
             <template #button-content>
               <b-button pill
+              @click="getMsgHistory()"
                 ><i
                   style="font-size: 20px"
                   class="fa fa-comments"
@@ -166,12 +167,15 @@ export default BaseComponent.extend({
     setChatParticipant(param) {
       this.$emit("setChatParticipant", param);
     },
+    async getMsgHistory() {
+      let res = await getModel("messagesHistory");
+      this.messagesHistory = res.data.data;
+    }
   },
 
   async mounted() {
     if (this.user != null) {
-      let res = await getModel("messagesHistory");
-      this.messagesHistory = res.data.data;
+      await this.getMsgHistory()
     }
   },
 });

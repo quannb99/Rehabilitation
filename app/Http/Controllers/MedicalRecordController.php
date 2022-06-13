@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\UserRepository;
+use App\Repositories\MedicalRecordRepository;
 
 class MedicalRecordController extends Controller
 {
-    protected $userRepository;
+    protected $medicalRecordRepository;
 
     public function __construct(
-        UserRepository $userRepository
+        MedicalRecordRepository $medicalRecordRepository
     ) {
-        $this->userRepository = $userRepository;
+        $this->medicalRecordRepository = $medicalRecordRepository;
     }
 
     /**
@@ -23,43 +23,14 @@ class MedicalRecordController extends Controller
     public function index(Request $request)
     {
         $id = $request['id'] ?? '';
-        $role = $request['role'] ?? '';
-        $specialist_id = $request['specialist_id'] ?? '';
-        $doctor_name = $request['doctor_name'] ?? '';
 
-        $query = $this->userRepository->getCollection($request)
-            ->select([
-                'users.*',
-                'specialists.name as specialist_name',
-            ])
-            ->leftJoin('specialists', 'specialists.id', 'users.specialist_id');
+        $query = $this->medicalRecordRepository->getCollection($request);
 
         if ($id) {
             $query->where('id', $id);
         }
 
-        if ($role) {
-            $query->where('role', $role);
-        }
-
-        if ($specialist_id) {
-            $query->where('specialist_id', $specialist_id);
-        }
-
-        if ($doctor_name) {
-            $query->where('users.name', 'like', '%' . $doctor_name . '%');
-        }
-
-        $items = $query->orderByDesc('created_at')->paginate(10);
-
-        $items->map(function ($item) {
-            $item->schedules = $this->userRepository->detail($item->id)->schedules()
-                ->where('recurrence_rule', 'like', 'FREQ=WEEKLY%')
-                ->where('title', 'like', '%bệnh%')
-                ->whereNull('recurrence_id')
-                ->orderBy('start_at')
-                ->get();
-        });
+        $items = $query->orderByDesc('created_at')->paginate(5);
 
         return $this->sendSuccess($items);
     }
@@ -83,7 +54,7 @@ class MedicalRecordController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->userRepository->create($request->all());
+            $this->medicalRecordRepository->create($request->all());
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
         }
@@ -127,7 +98,7 @@ class MedicalRecordController extends Controller
                 'title' => 'required',
                 'content' => 'required',
             ]);
-            $post = $this->userRepository->update($request->all(), $id);
+            $post = $this->medicalRecordRepository->update($request->all(), $id);
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');
         }
@@ -144,7 +115,7 @@ class MedicalRecordController extends Controller
     public function destroy($id)
     {
         try {
-            $this->userRepository->delete($id);
+            $this->medicalRecordRepository->delete($id);
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
         }

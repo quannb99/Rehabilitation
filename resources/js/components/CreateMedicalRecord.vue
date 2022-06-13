@@ -4,7 +4,7 @@
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
         <b-card>
-          <b-form class="post-form" @submit.prevent="addPost()">
+          <b-form class="post-form" @submit.prevent="createMedicalRecord()">
             <b-form-group
               id="input-group-1"
               label="Chọn người dùng:"
@@ -20,7 +20,7 @@
                 @input="getUsersByName()"
                 v-model="userNameQuery"
               ></b-form-input>
-              <b-list-group v-if="isInput" class="user-select">
+              <b-list-group v-show="isInput" class="user-select">
                 <b-list-group-item
                   button
                   v-for="(item, index) in usersList"
@@ -45,7 +45,8 @@
               class="float-right"
               type="submit"
               variant="theme"
-              ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tạo hồ sơ</b-button
+              ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tạo hồ
+              sơ</b-button
             >
           </b-form>
         </b-card>
@@ -54,20 +55,14 @@
       <div class="col-lg-4">
         <b-card>
           <b-nav-form id="search-form">
-            <b-form-input
-              size="md"
-              class="mr-3"
-              placeholder="Tìm kiếm bài viết"
-              style="width: 80%"
-            ></b-form-input>
             <b-button
-              style="width: 15%"
-              size="md"
+              style="width: 100%"
+              size="lg"
               variant="theme"
               class="my-2 my-sm-0"
-              type="submit"
-              ><i class="fa fa-search" aria-hidden="true"></i
-            ></b-button>
+              ><i class="fa fa-history" aria-hidden="true"></i>
+              Hồ sơ đã tạo
+            </b-button>
           </b-nav-form>
         </b-card>
       </div>
@@ -82,21 +77,34 @@ export default BaseComponent.extend({
   data() {
     return {
       model: "posts",
-      userSelected: "",
+      userIdSelected: "",
       usersList: [],
       isInput: false,
       userNameQuery: "",
     };
   },
   methods: {
+    async createMedicalRecord() {
+      const form = {
+        user_id: this.userIdSelected,
+        doctor_id: User.id,
+      };
+      try {
+        await postModel("medicalRecords", form);
+        this.makeToast("Tạo hồ sơ bệnh án thành công");
+      } catch (error) {
+        this.handleErr(error);
+      }
+    },
+
     onInputBlur() {
       setTimeout(() => {
         this.isInput = false;
-      }, 100)
+      }, 100);
     },
     userSelect(id, name) {
       this.isInput = false;
-      this.userSelected = id;
+      this.userIdSelected = id;
       this.userNameQuery = name;
       this.getUsersByName();
     },
@@ -122,8 +130,9 @@ export default BaseComponent.extend({
 <style lang="scss" scoped>
 .user-select {
   overflow-y: auto;
-  height: 200px;
+  height: 197px;
   position: absolute;
   width: 50%;
+  z-index: 1000;
 }
 </style>
