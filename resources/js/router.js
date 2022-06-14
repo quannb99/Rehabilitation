@@ -9,6 +9,7 @@ import Doctors from "./components/Doctors.vue"
 import Home from "./components/Home.vue"
 import Appointments from "./components/Appointments.vue"
 import CreateMedicalRecord from "./components/CreateMedicalRecord.vue"
+import ShowMedicalRecord from "./components/ShowMedicalRecord.vue"
 import UserInfo from "./components/UserInfo.vue"
 import OtherUserInfo from "./components/OtherUserInfo.vue"
 
@@ -39,6 +40,11 @@ const routes = [
     path: "/create-medical-record",
     name: "createMedicalRecord",
     component: CreateMedicalRecord
+  },
+  {
+    path: "/show-medical-record/:id",
+    name: "showMedicalRecord",
+    component: ShowMedicalRecord
   },
   {
     path: "/appointments",

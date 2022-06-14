@@ -31,6 +31,7 @@ Route::get('/user-info', 'HomeController@index');
 Route::get('/create-medical-record', 'HomeController@index');
 Route::get('/messagesHistory', 'MessageController@getmessagesHistory');
 Route::get('/user-info/{id}', 'HomeController@index');
+Route::get('/show-medical-record/{id}', 'HomeController@index');
 // Route::post('/broadcasting/auth', 'HomeController@checkAuth');
 Route::resources([
     'posts' => 'PostController',
