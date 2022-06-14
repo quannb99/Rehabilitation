@@ -10,6 +10,7 @@
             center
             :src="user.avatar"
             rounded="circle"
+            onerror="this.src = '../../images/user-default-ava.jpg'; this.onerror='';"
           ></b-img>
           <br />
           <h5>Ảnh đại diện</h5>
@@ -24,7 +25,7 @@
             class="mt-3 mb-3"
             v-model="file"
             :state="Boolean(file)"
-            accept=".jpg, .png, .gif"
+            accept=".jpg, .png, .gif, .jpeg"
             placeholder="Chọn ảnh đại diện"
             @change="uploadImage"
           ></b-form-file>
@@ -175,18 +176,18 @@ export default BaseComponent.extend({
     async saveInfo() {
       if (this.phoneState == false) return;
       try {
-        // let formData = new FormData();
-        // for (var key in this.user) {
-        //   formData.append(key, this.user[key]);
-        // }
-        // formData.append("image", this.file);
-        // formData.append("_method", "PUT");
-        // axios.post(`/users/${this.user.id}`, formData, {
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //   },
-        // });
-        await updateModel("users", this.user, this.user.id);
+        let formData = new FormData();
+        for (var key in this.user) {
+          formData.append(key, this.user[key]);
+        }
+        formData.append("image", this.file);
+        formData.append("_method", "PUT");
+        await axios.post(`/users/${this.user.id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        // await updateModel("users", this.user, this.user.id);
         this.makeToast("Cập nhật thông tin thành công");
         this.toggleEditMode();
       } catch (e) {

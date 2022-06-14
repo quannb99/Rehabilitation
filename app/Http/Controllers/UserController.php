@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -124,12 +125,21 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            // $file = $request->file('image') ;
-            // $fileName = uniqid() . $file->getClientOriginalName(); ;
-            // $destinationPath = public_path().'/uploads' ;
-            // $file->move($destinationPath, $fileName);
-            // $avatar = '../../uploads/' . $fileName;
-            $user = $this->userRepository->update($request->except(['schedules', 'specialist_name']), $id);
+            if ($request->image) {
+                $file = $request->file('image');
+                $fileName = uniqid() . $file->getClientOriginalName();;
+                $destinationPath = public_path() . '/uploads';
+                $file->move($destinationPath, $fileName);
+                $avatar = '../../uploads/' . $fileName;
+                $request['avatar'] = $avatar;
+                $currentAvatar = $this->userRepository->detail($request->id)->avatar;
+                if ($currentAvatar != config('common.ava_default')) {
+                    $currentFileName = substr($currentAvatar, 5);
+                    File::delete(public_path() . $currentFileName);
+                }
+            }
+
+            $user = $this->userRepository->update($request->except(['schedules', 'specialist_name', 'image', '_method', 'email_verified_at']), $id);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), 'Kiểm tra lại');
         }
