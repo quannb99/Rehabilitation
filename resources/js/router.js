@@ -12,6 +12,7 @@ import CreateMedicalRecord from "./components/CreateMedicalRecord.vue"
 import ShowMedicalRecord from "./components/ShowMedicalRecord.vue"
 import UserInfo from "./components/UserInfo.vue"
 import OtherUserInfo from "./components/OtherUserInfo.vue"
+import MedicalRecordList from "./components/MedicalRecordList.vue"
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,11 @@ const routes = [
     path: "/show-medical-record/:id",
     name: "showMedicalRecord",
     component: ShowMedicalRecord
+  },
+  {
+    path: "/medical-record-list",
+    name: "MedicalRecordList",
+    component: MedicalRecordList
   },
   {
     path: "/appointments",

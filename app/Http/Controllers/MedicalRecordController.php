@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\MedicalRecordRepository;
+use App\Repositories\UserRepository;
 
 class MedicalRecordController extends Controller
 {
     protected $medicalRecordRepository;
+    protected $userRepository;
 
     public function __construct(
-        MedicalRecordRepository $medicalRecordRepository
+        MedicalRecordRepository $medicalRecordRepository,
+        UserRepository $userRepository
     ) {
         $this->medicalRecordRepository = $medicalRecordRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -23,14 +27,27 @@ class MedicalRecordController extends Controller
     public function index(Request $request)
     {
         $id = $request['id'] ?? '';
+        $user_id = $request['user_id'] ?? '';
+        $doctor_id = $request['doctor_id'] ?? '';
 
         $query = $this->medicalRecordRepository->getCollection($request);
 
         if ($id) {
             $query->where('id', $id);
         }
+        if ($user_id) {
+            $query->where('user_id', $user_id);
+        }
+        if ($doctor_id) {
+            $query->where('doctor_id', $doctor_id);
+        }
 
         $items = $query->orderByDesc('created_at')->paginate(5);
+
+        $items->map(function ($item) {
+            $item->user_name = $this->userRepository->detail($item->user_id)->name;
+            $item->doctor_name = $this->userRepository->detail($item->doctor_id)->name;
+        });
 
         return $this->sendSuccess($items);
     }

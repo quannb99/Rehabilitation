@@ -58,6 +58,7 @@
               class="float-right"
               type="submit"
               variant="theme"
+              v-if="getRole() == 2"
               ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Cập nhật</b-button
             >
           </b-form>
@@ -85,9 +86,7 @@
 <script>
 import BaseComponent from "../base-component";
 import { postModel, getModel, updateModel, deleteModel } from "../service";
-import { VueEditor } from "vue2-editor/dist/vue2-editor.core.js";
 export default BaseComponent.extend({
-  components: { VueEditor },
   data() {
     return {
       model: "posts",
@@ -102,6 +101,7 @@ export default BaseComponent.extend({
         status: "",
         diagnose: "",
         method: "",
+        note: "",
       },
     };
   },
@@ -152,12 +152,6 @@ export default BaseComponent.extend({
 </script>
 
 <style lang="scss" scoped>
-@import "~vue2-editor/dist/vue2-editor.css";
-
-/* Import the Quill styles you want */
-@import "~quill/dist/quill.core.css";
-@import "~quill/dist/quill.bubble.css";
-@import "~quill/dist/quill.snow.css";
 
 .user-select {
   overflow-y: auto;

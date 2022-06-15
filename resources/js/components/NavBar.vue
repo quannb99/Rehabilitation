@@ -37,6 +37,11 @@
             @click="navigateTo('createMedicalRecord')"
             >Tạo hồ sơ</b-nav-item
           >
+          <b-nav-item
+            v-if="user && user.role == 1"
+            @click="navigateTo('MedicalRecordList')"
+            >Hồ sơ của tôi</b-nav-item
+          >
           <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
         </b-navbar-nav>
 
