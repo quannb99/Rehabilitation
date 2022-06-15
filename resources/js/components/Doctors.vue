@@ -46,10 +46,7 @@
             >
               Các bác sĩ chuyên khoa {{ items[0].specialist_name }}:
             </h4>
-            <h4
-              style="display: inline-block"
-              v-if="this.fieldFilter.user_name"
-            >
+            <h4 style="display: inline-block" v-if="this.fieldFilter.user_name">
               Kết quả tìm kiếm bác sĩ theo từ khóa: "{{
                 fieldFilter.user_name
               }}":
@@ -69,10 +66,7 @@
             >
               Hiện không có bác sĩ nào thuộc chuyên khoa {{ specialist_name }}
             </h4>
-            <h4
-              style="display: inline-block"
-              v-if="this.fieldFilter.user_name"
-            >
+            <h4 style="display: inline-block" v-if="this.fieldFilter.user_name">
               Không có kết quả nào khi tìm kiếm bác sĩ theo từ khóa: "{{
                 fieldFilter.user_name
               }}"
@@ -145,6 +139,7 @@
         </b-list-group>
         <div class="mt-5"></div>
         <b-pagination
+          pills
           v-if="paging.last_page > 1"
           v-model="paging.current_page"
           :total-rows="paging.total"
@@ -285,7 +280,7 @@ export default BaseComponent.extend({
     },
     setChatParticipant(param) {
       this.$emit("setChatParticipant", param);
-    }
+    },
   },
   async mounted() {
     this.fieldFilter.role = 2;

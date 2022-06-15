@@ -26,9 +26,14 @@
                   rounded="circle"
                   class="mr-2"
                 ></b-img>
-                <span style="display: inline-block"
-                  > <a target="_blank" :href="'/user-info/' + item.user_id"><strong>{{ item.user_name }}</strong></a> đã đặt lịch hẹn <br />
-                  <span style="font-size: 14px">lúc {{ moment(item.created_at).format("HH:mm DD-MM-YYYY") }}</span></span
+                <span style="display: inline-block"></span>
+                <a target="_blank" :href="'/user-info/' + item.user_id"
+                  ><strong>{{ item.user_name }}</strong></a
+                >
+                đã đặt lịch hẹn <br />
+                <span style="font-size: 14px"
+                  >lúc
+                  {{ moment(item.created_at).format("HH:mm DD-MM-YYYY") }}</span
                 >
                 <b-button
                   class="float-right"
@@ -46,6 +51,7 @@
               </b-list-group-item>
             </b-list-group>
             <b-pagination
+              pills
               v-if="appointments_paging.last_page > 1"
               v-model="appointments_paging.current_page"
               :total-rows="appointments_paging.total"

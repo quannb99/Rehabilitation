@@ -54,12 +54,12 @@ class MedicalRecordController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->medicalRecordRepository->create($request->all());
+            $item = $this->medicalRecordRepository->create($request->all());
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
         }
 
-        return $this->sendSuccess('');
+        return $this->sendSuccess($item->id);
     }
 
     /**

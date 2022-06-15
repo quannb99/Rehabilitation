@@ -30,6 +30,7 @@
         </b-list-group>
         <div class="mt-5"></div>
         <b-pagination
+                pills
           v-if="paging.last_page > 1"
           v-model="paging.current_page"
           :total-rows="paging.total"

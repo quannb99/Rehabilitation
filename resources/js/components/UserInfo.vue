@@ -22,11 +22,13 @@
             style="width: 200px; height: 200px; border-radius: 50%"
           ></b-img>
           <b-form-file
+            style="margin-left: 15%"
             class="mt-3 mb-3"
             v-model="file"
             :state="Boolean(file)"
             accept=".jpg, .png, .gif, .jpeg"
             placeholder="Chọn ảnh đại diện"
+            plain
             @change="uploadImage"
           ></b-form-file>
           <br />
@@ -146,7 +148,7 @@ export default BaseComponent.extend({
   data() {
     return {
       model: "posts",
-      user: User,
+      user: _.cloneDeep(User),
       isEditMode: false,
       genders: {
         1: "Nam",
@@ -225,11 +227,9 @@ export default BaseComponent.extend({
     },
   },
 
-  async created() {
-  },
+  async created() {},
 
-  async mounted() {
-  },
+  async mounted() {},
 });
 </script>
 

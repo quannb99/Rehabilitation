@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer style="z-index: -1" class="site-footer footer-default">
+    <footer class="site-footer footer-default">
       <div class="footer-main-content">
         <div class="container">
           <div class="row">

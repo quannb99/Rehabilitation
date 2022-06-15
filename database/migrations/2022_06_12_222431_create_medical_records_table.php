@@ -17,6 +17,10 @@ class CreateMedicalRecordsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->nullable();
             $table->bigInteger('doctor_id')->nullable();
+            $table->longText('status')->nullable();
+            $table->longText('diagnose')->nullable();
+            $table->longText('method')->nullable();
+            $table->longText('note')->nullable();
             $table->timestamps();
         });
     }

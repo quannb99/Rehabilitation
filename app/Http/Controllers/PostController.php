@@ -69,7 +69,7 @@ class PostController extends Controller
             ]);
             $post = $this->postRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');
+            return $this->sendError($e->getMessage(), 'Kiểm tra lại');
         }
 
         return $this->sendSuccess($post->id);

@@ -78,7 +78,14 @@
           </b-list-group-item>
         </b-list-group>
         <b-list-group class="mt-4">
-          <b-list-group-item> <h4>Bình luận <span v-if="commentPaging.total">({{ commentPaging.total }})</span></h4> </b-list-group-item>
+          <b-list-group-item>
+            <h4>
+              Bình luận
+              <span v-if="commentPaging.total"
+                >({{ commentPaging.total }})</span
+              >
+            </h4>
+          </b-list-group-item>
           <b-list-group-item>
             <b-form-textarea
               @keydown.enter="handleEnter"
@@ -167,10 +174,20 @@
                       {{ comment.content }}
                     </p>
                     <p class="mb-0" style="font-size: 15px">
-                      <a v-if="!comment.liked" href="#" @click.prevent="handleLike(index)" class="liked">
+                      <a
+                        v-if="!comment.liked"
+                        href="#"
+                        @click.prevent="handleLike(index)"
+                        class="liked"
+                      >
                         <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                       </a>
-                      <a v-if="comment.liked" href="#" @click.prevent="handleLike(index)" class="not-liked">
+                      <a
+                        v-if="comment.liked"
+                        href="#"
+                        @click.prevent="handleLike(index)"
+                        class="not-liked"
+                      >
                         <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                       </a>
                       {{ comment.likes_count }} &nbsp;·&nbsp;
@@ -183,6 +200,7 @@
                 </b-media>
               </ul>
               <b-pagination
+                pills
                 v-if="commentPaging.last_page > 1"
                 v-model="commentPaging.current_page"
                 :total-rows="commentPaging.total"
@@ -245,25 +263,24 @@ export default BaseComponent.extend({
   methods: {
     async handleLike(index) {
       if (!this.comments[index].liked) {
-          try {
+        try {
           const form = {
             user_id: User.id,
             comment_id: this.comments[index].id,
           };
           await postModel("likes", form);
-          await this.getComments()
+          await this.getComments();
         } catch (error) {
           this.handleErr(error);
         }
       } else {
         try {
           await deleteModel("likes", this.comments[index].liked.id);
-          await this.getComments()
+          await this.getComments();
         } catch (error) {
           this.handleErr(error);
         }
       }
-
     },
     editComment(index) {
       document.getElementById("comment-" + index).style.display = "none";
