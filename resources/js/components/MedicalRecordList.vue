@@ -1,13 +1,13 @@
 <template>
   <div>
-    <Navigation :title="'Tạo hồ sơ bệnh án'" :page="null" />
+    <Navigation :title="'Danh sách hồ sơ bệnh án'" :page="null" />
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
         <b-list-group>
           <b-list-group-item
             style="cursor: pointer"
             @click.prevent="navigateTo('showMedicalRecord', item.id)"
-            v-for="(item, index) in listRecords"
+            v-for="(item, index) in items"
             :key="index"
           >
             <h4>Hồ sơ bệnh án của bệnh nhân {{ item.user_name }}</h4>
@@ -44,14 +44,20 @@
       <div class="col-lg-4">
         <b-card>
           <b-nav-form id="search-form">
+            <b-form-input
+              size="md"
+              class="mr-3"
+              placeholder="Tìm kiếm"
+              style="width: 80%"
+            ></b-form-input>
             <b-button
-              style="width: 100%"
-              size="lg"
+              style="width: 15%"
+              size="md"
               variant="theme"
               class="my-2 my-sm-0"
-              ><i class="fa fa-history" aria-hidden="true"></i>
-              Hồ sơ đã tạo
-            </b-button>
+              type="submit"
+              ><i class="fa fa-search" aria-hidden="true"></i
+            ></b-button>
           </b-nav-form>
         </b-card>
       </div>
@@ -65,7 +71,7 @@ import { postModel, getModel, updateModel, deleteModel } from "../service";
 export default BaseComponent.extend({
   data() {
     return {
-      model: "posts",
+      model: "medicalRecords",
       userIdSelected: "",
       usersList: [],
       isInput: false,
@@ -116,22 +122,14 @@ export default BaseComponent.extend({
   },
   async mounted() {
     if (User.role == 1) {
-      const params = {
-        user_id: User.id,
-      };
-      let res = await getModel("medicalRecords", params);
-      this.recordsPaging = res.data.data;
-      this.listRecords = res.data.data.data;
+      this.fieldFilter.user_id = User.id
+      await this.getItems();
     }
-    const params = {
-      id: this.$route.params.id,
-    };
-    let res = await getModel("medicalRecords", params);
-    this.medicalRecord = res.data.data.data[0];
-    if (this.getRole() == 0) {
-      this.navigateTo("home");
+    if (User.role == 2) {
+      this.fieldFilter.doctor_id = User.id
+      await this.getItems();
     }
-    await this.getUserById(this.medicalRecord.user_id);
+
   },
 });
 </script>

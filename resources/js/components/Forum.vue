@@ -4,7 +4,12 @@
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
         <b-list-group>
-          <b-list-group-item style="cursor: pointer;" @click.prevent="navigateTo('show-post', item.id)" v-for="(item, index) in items" :key="index">
+          <b-list-group-item
+            style="cursor: pointer"
+            @click.prevent="navigateTo('show-post', item.id)"
+            v-for="(item, index) in items"
+            :key="index"
+          >
             <h4>{{ item.title }}</h4>
             <div>
               <i
@@ -30,7 +35,7 @@
         </b-list-group>
         <div class="mt-5"></div>
         <b-pagination
-                pills
+          pills
           v-if="paging.last_page > 1"
           v-model="paging.current_page"
           :total-rows="paging.total"
@@ -42,12 +47,12 @@
 
       <div class="col-lg-4">
         <b-button
-            variant="theme"
-            class="new-post-btn"
-            @click="navigateTo('new-post')"
-            ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng bài
-            mới</b-button
-          >
+          variant="theme"
+          class="new-post-btn"
+          @click="navigateTo('new-post')"
+          ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng bài
+          mới</b-button
+        >
         <b-card class="mt-3">
           <b-nav-form id="search-form">
             <b-form-input
@@ -80,7 +85,7 @@ export default BaseComponent.extend({
     };
   },
   mounted() {
-    this.getItems()
+    this.getItems();
   },
 });
 </script>
