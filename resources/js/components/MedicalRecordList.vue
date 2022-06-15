@@ -11,7 +11,22 @@
             :key="index"
           >
             <h4>Hồ sơ bệnh án của bệnh nhân {{ item.user_name }}</h4>
-            <i class="fa fa-user-md" aria-hidden="true"></i> Bác sĩ {{ item.doctor_name }} · <i class="fa fa-refresh" aria-hidden="true"></i> Cập nhật lúc {{ moment(item.updated_at).format("HH:mm DD-MM-YYYY") }}
+            <p>
+              <i class="theme-icon fa fa-stethoscope" aria-hidden="true"></i>
+              Chẩn đoán: {{ item.diagnose }}
+            </p>
+            <a
+              @click.stop
+              target="_blank"
+              :href="'/user-info/' + item.doctor_id"
+              ><i class="theme-icon-20 fa fa-user-md" aria-hidden="true"></i>
+              Bác sĩ {{ item.doctor_name }}</a
+            >
+            <span class="float-right"
+              ><i class="theme-icon fa fa-refresh" aria-hidden="true"></i> Cập
+              nhật lúc
+              {{ moment(item.updated_at).format("HH:mm DD-MM-YYYY") }}</span
+            >
           </b-list-group-item>
         </b-list-group>
         <div class="mt-5"></div>

@@ -63,6 +63,10 @@
             <strong>Năm sinh: </strong
             >{{ user.birthyear ? user.birthyear : "Chưa xác định" }}
           </h6>
+          <h6 class="mb-3" v-if="user.specialist_id">
+            <strong>Chuyên khoa: </strong
+            >{{ specialist_name }}
+          </h6>
         </b-card>
         <b-card class="text-left" v-if="isEditMode">
           <h2 class="mb-4" style="display: inline-block">
@@ -157,6 +161,7 @@ export default BaseComponent.extend({
       },
       file: [],
       previewImage: null,
+      specialist_name: ''
     };
   },
   computed: {
@@ -167,6 +172,11 @@ export default BaseComponent.extend({
     },
   },
   methods: {
+    async getSpecialistName(id) {
+      let res = await getModel("specialists", { id: id });
+      this.specialist_name = res.data.data[0].name;
+    },
+
     uploadImage(e) {
       const image = e.target.files[0];
       const reader = new FileReader();
@@ -235,6 +245,7 @@ export default BaseComponent.extend({
       };
       let res = await getModel("users", form);
       this.user = res.data.data.data[0];
+      await this.getSpecialistName(this.user.specialist_id)
     }
   },
 });

@@ -12,30 +12,31 @@
             <h5 class="mt-5 mb-3"><b>I. THÔNG TIN BỆNH NHÂN</b></h5>
             <div class="d-flex">
               <div style="width: 50%">
-                <p>Họ và tên: {{ upperCase(currentUser.name) }}</p>
+                <p><b>Họ và tên:</b> {{ upperCase(currentUser.name) }}</p>
                 <p v-if="currentUser.birthyear">
-                  Năm sinh: {{ currentUser.birthyear }}
+                  <b>Năm sinh:</b> {{ currentUser.birthyear }}
                 </p>
                 <p v-if="currentUser.birthyear">
-                  Tuổi: {{ moment().diff(currentUser.birthyear, "years") }}
+                  <b>Tuổi:</b>
+                  {{ moment().diff(currentUser.birthyear, "years") }}
                 </p>
                 <p v-if="currentUser.gender">
-                  Giới tính: {{ getGender(currentUser.gender) }}
+                  <b>Giới tính:</b> {{ getGender(currentUser.gender) }}
                 </p>
                 <p v-if="currentUser.phone">
-                  Số điện thoại: {{ currentUser.phone }}
+                  <b>Số điện thoại:</b> {{ currentUser.phone }}
                 </p>
-                <p>Email: {{ currentUser.email }}</p>
+                <p><b>Email:</b> {{ currentUser.email }}</p>
               </div>
               <div>
                 <p>
-                  Thời điểm tạo hồ sơ:
+                  <b>Thời điểm tạo hồ sơ:</b>
                   {{
                     moment(medicalRecord.created_at).format("HH:mm DD-MM-YYYY")
                   }}
                 </p>
                 <p>
-                  Cập nhật lần cuối:
+                  <b>Cập nhật lần cuối:</b>
                   {{
                     moment(medicalRecord.updated_at).format("HH:mm DD-MM-YYYY")
                   }}
@@ -43,15 +44,17 @@
               </div>
             </div>
             <h5 class="mt-2 mb-3"><b>II. THÔNG TIN KHÁM CHỮA BỆNH</b></h5>
-            <h6>Tình trạng bệnh nhân:</h6>
-            <p>{{ medicalRecord.status }}</p>
-            <h6>Chẩn đoán bệnh:</h6>
-            <p>{{ medicalRecord.diagnose }}</p>
-            <h6>Phương pháp điều trị bệnh:</h6>
-            <p>{{ medicalRecord.method }}</p>
-            <div v-if="medicalRecord.note">
-              <h6>Ghi chú:</h6>
-              <p>{{ medicalRecord.note }}</p>
+            <div>
+              <h6><b>Tình trạng bệnh nhân:</b></h6>
+              <p>{{ medicalRecord.status }}</p>
+              <h6><b>Chẩn đoán bệnh:</b></h6>
+              <p>{{ medicalRecord.diagnose }}</p>
+              <h6><b>Phương pháp điều trị bệnh:</b></h6>
+              <p>{{ medicalRecord.method }}</p>
+              <div v-if="medicalRecord.note">
+                <h6><b>Ghi chú:</b></h6>
+                <p>{{ medicalRecord.note }}</p>
+              </div>
             </div>
             <b-button
               size="lg"
@@ -59,7 +62,8 @@
               type="submit"
               variant="theme"
               v-if="getRole() == 2"
-              ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Cập nhật</b-button
+              ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Cập
+              nhật</b-button
             >
           </b-form>
         </b-card>
@@ -152,7 +156,6 @@ export default BaseComponent.extend({
 </script>
 
 <style lang="scss" scoped>
-
 .user-select {
   overflow-y: auto;
   height: 197px;
