@@ -1,6 +1,7 @@
 <template>
   <div>
     <Navigation :title="'Danh sách hồ sơ bệnh án'" :page="null" />
+    <message-modal ref="msg-modal"></message-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
         <b-list-group>

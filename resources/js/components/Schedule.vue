@@ -19,22 +19,27 @@
                 v-for="(item, index) in appointments"
                 :key="index"
               >
-                <b-img
-                  style="width: 60px; height: 60px"
-                  left
-                  :src="item.user_avatar"
-                  rounded="circle"
-                  class="mr-2"
-                ></b-img>
-                <span style="display: inline-block"></span>
-                <a target="_blank" :href="'/user-info/' + item.user_id"
-                  ><strong>{{ item.user_name }}</strong></a
-                >
-                đã đặt lịch hẹn <br />
-                <span style="font-size: 14px"
-                  >lúc
-                  {{ moment(item.created_at).format("HH:mm DD-MM-YYYY") }}</span
-                >
+                <div class="d-inline-block">
+                  <b-img
+                    style="width: 60px; height: 60px"
+                    left
+                    :src="item.user_avatar"
+                    rounded="circle"
+                    class="mr-2"
+                  ></b-img>
+                  <span style="display: inline-block"></span>
+                  <a target="_blank" :href="'/user-info/' + item.user_id"
+                    ><strong>{{ item.user_name }}</strong></a
+                  >
+                  đã đặt lịch hẹn <br />
+                  <span style="font-size: 14px"
+                    >lúc
+                    {{
+                      moment(item.created_at).format("HH:mm DD-MM-YYYY")
+                    }}</span
+                  >
+                  <p v-if="item.note"><b>Ghi chú: </b>{{ item.note }}</p>
+                </div>
                 <b-button
                   class="float-right"
                   variant="theme"

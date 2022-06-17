@@ -12,7 +12,7 @@
     >
       <div class="d-block text-center">
         <div class="modal-body d-block text-center">
-          <b-form class="post-form" @submit.prevent="addPost()">
+          <b-form class="text-left" @submit.prevent="addPost()">
             <b-form-group
               id="input-group-1"
               label="Chọn ngày:"
@@ -25,6 +25,20 @@
                 :disabled-date="disableDate"
                 :input-error="'Kiểm tra lại'"
               ></date-picker>
+            </b-form-group>
+            <b-form-group
+              id="input-group-2"
+              label="Ghi chú:"
+              label-for="input-2"
+            >
+              <b-form-textarea
+                id="textarea"
+                v-model="form.note"
+                placeholder="Nhập ghi chú cho bác sĩ..."
+                rows="3"
+                max-rows="6"
+                required
+              ></b-form-textarea>
             </b-form-group>
           </b-form>
         </div>
@@ -208,6 +222,7 @@ export default BaseComponent.extend({
         doctor_id: "",
         start_at: "",
         end_at: "",
+        note: "",
       },
     };
   },

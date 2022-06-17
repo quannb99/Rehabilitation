@@ -44,6 +44,7 @@ Route::resources([
     'specialists' => 'SpecialistController',
     'appointments' => 'AppointmentController',
     'medicalRecords' => 'MedicalRecordController',
+    'progress' => 'ProgressController',
 ]);
 Route::get('/csrf', function () {
     return csrf_token();

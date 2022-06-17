@@ -1,6 +1,7 @@
 <template>
   <div>
     <Navigation :title="'Tạo hồ sơ bệnh án'" :page="null" />
+    <message-modal ref="msg-modal"></message-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
         <b-card>
@@ -43,7 +44,7 @@
                 </p>
               </div>
             </div>
-            <h5 class="mt-2 mb-3"><b>II. THÔNG TIN KHÁM CHỮA BỆNH</b></h5>
+            <h5 class="mt-2 mb-3"><b>II. THÔNG TIN BỆNH LÝ</b></h5>
             <div>
               <h6><b>Tình trạng bệnh nhân:</b></h6>
               <p>{{ medicalRecord.status }}</p>
@@ -56,12 +57,82 @@
                 <p>{{ medicalRecord.note }}</p>
               </div>
             </div>
+            <div v-if="isEdit">
+              <h5 class="mt-2 mb-3"><b>III. TIẾN ĐỘ HỒI PHỤC</b></h5>
+              <b-form @submit.prevent="createProgress()">
+                <b-form-group
+                  id="input-group-4"
+                  label="Tiến độ:"
+                  label-for="input-4"
+                >
+                  <b-form-textarea
+                    id="textarea"
+                    v-model="form.progress"
+                    placeholder="Nhập tiến độ..."
+                    rows="3"
+                    max-rows="6"
+                    required
+                  ></b-form-textarea>
+                </b-form-group>
+                <b-form-group
+                  id="input-group-4"
+                  label="Ghi chú:"
+                  label-for="input-4"
+                >
+                  <b-form-textarea
+                    id="textarea"
+                    v-model="form.note"
+                    placeholder="Nhập ghi chú..."
+                    rows="3"
+                    max-rows="6"
+                  ></b-form-textarea>
+                </b-form-group>
+                <b-button
+                  size="lg"
+                  class="float-right"
+                  type="submit"
+                  variant="theme"
+                  v-if="getRole() == 2 && isEdit"
+                  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  Lưu</b-button
+                >
+              </b-form>
+            </div>
+            <div v-if="!isEdit">
+              <h5 class="mt-2 mb-3"><b>III. TIẾN ĐỘ HỒI PHỤC</b></h5>
+              <b-list-group>
+                <b-list-group-item v-for="(item, index) in items" :key="index">
+                  <h6 class="d-inline-block"><b>Tiến độ phục hồi:</b></h6>
+                  <span class="float-right"
+                    ><i class="theme-icon fa fa-clock-o" aria-hidden="true"></i>
+                    {{
+                      moment(item.created_at).format("HH:mm DD-MM-YYYY")
+                    }}</span
+                  >
+                  <p>{{ item.progress }}</p>
+                  <div v-if="item.note">
+                    <h6><b>Ghi chú:</b></h6>
+                    <p>{{ item.note }}</p>
+                  </div>
+                </b-list-group-item>
+              </b-list-group>
+              <b-pagination
+              class="mt-3"
+                pills
+                v-if="paging.last_page > 1"
+                v-model="paging.current_page"
+                :total-rows="paging.total"
+                :per-page="paging.per_page"
+                align="center"
+                @input="changePage"
+              ></b-pagination>
+            </div>
             <b-button
               size="lg"
-              class="float-right"
-              type="submit"
+              class="float-right mt-3"
               variant="theme"
-              v-if="getRole() == 2"
+              v-if="getRole() == 2 && !isEdit"
+              @click="toggleEditMode()"
               ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Cập
               nhật</b-button
             >
@@ -93,23 +164,38 @@ import { postModel, getModel, updateModel, deleteModel } from "../service";
 export default BaseComponent.extend({
   data() {
     return {
-      model: "posts",
+      model: "progress",
       userIdSelected: "",
       usersList: [],
-      isInput: false,
       userNameQuery: "",
       medicalRecord: "",
       currentUser: "",
       authUser: User,
       form: {
-        status: "",
-        diagnose: "",
-        method: "",
+        progress: "",
         note: "",
       },
+      isEdit: false,
     };
   },
   methods: {
+    async createProgress() {
+      const form = {
+        record_id: this.medicalRecord.id,
+        progress: this.form.progress,
+        note: this.form.note,
+      };
+      let res = await postModel("progress", form);
+      console.log(res);
+      this.medicalRecord.updated_at = res.data.data.created_at;
+      this.makeToast("Cập nhật tiến độ thành công");
+      this.fieldFilter.record_id = form.record_id;
+      this.getItems();
+      this.isEdit = false;
+    },
+    toggleEditMode() {
+      this.isEdit = !this.isEdit;
+    },
     async getUserById(id) {
       const params = {
         id: id,
@@ -151,6 +237,8 @@ export default BaseComponent.extend({
       this.navigateTo("home");
     }
     await this.getUserById(this.medicalRecord.user_id);
+    this.fieldFilter.record_id = this.$route.params.id;
+    this.getItems();
   },
 });
 </script>

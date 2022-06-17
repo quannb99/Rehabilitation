@@ -43,7 +43,7 @@ const BaseComponent = Vue.extend({
     },
 
     changePage(current_page) {
-      this.getItems(current_page);
+      this.getItems(this.model, current_page);
     },
 
     getIndexOfItemInPage(index) {
