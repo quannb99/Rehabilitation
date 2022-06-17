@@ -14,6 +14,7 @@ import store from './store'
 import App from './components/App.vue'
 import NavBar from './components/NavBar.vue'
 import VueFooter from './components/Footer.vue'
+import WebRTC from 'vue-webrtc'
 
 window.Vue = require('vue');
 Vue.prototype.moment = moment
@@ -21,6 +22,7 @@ Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(SchedulePlugin);
 Vue.use(Chat);
+Vue.use(WebRTC);
 
 /**
  * The following block of code may be used to automatically register your

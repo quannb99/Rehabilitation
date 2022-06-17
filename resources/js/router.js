@@ -13,6 +13,7 @@ import ShowMedicalRecord from "./components/ShowMedicalRecord.vue"
 import UserInfo from "./components/UserInfo.vue"
 import OtherUserInfo from "./components/OtherUserInfo.vue"
 import MedicalRecordList from "./components/MedicalRecordList.vue"
+import VideoCall from "./components/VideoCall.vue"
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/",
     name: "home",
     component: Home
+  },
+  {
+    path: "/call",
+    name: "videoCall",
+    component: VideoCall
   },
   {
     path: "/user-info",

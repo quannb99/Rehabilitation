@@ -33,6 +33,7 @@ Route::get('/messagesHistory', 'MessageController@getmessagesHistory');
 Route::get('/user-info/{id}', 'HomeController@index');
 Route::get('/show-medical-record/{id}', 'HomeController@index');
 Route::get('/medical-record-list', 'HomeController@index');
+Route::get('/call', 'HomeController@index');
 // Route::post('/broadcasting/auth', 'HomeController@checkAuth');
 Route::resources([
     'posts' => 'PostController',
