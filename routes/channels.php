@@ -20,3 +20,11 @@ use Illuminate\Support\Facades\Auth;
 Broadcast::channel('chat', function ($user) {
     return Auth::check();
 });
+
+Broadcast::channel('call', function ($user) {
+    return true;
+});
+
+Broadcast::channel('call-response', function ($user) {
+    return true;
+});

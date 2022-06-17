@@ -42,7 +42,93 @@
       @onMessageSubmit="onMessageSubmit"
       @onType="onType"
       @onClose="onClose"
-    />
+    >
+      <template v-slot:header>
+        <div class="header-title">
+          <p
+            class="header-title-text d-inline-block"
+            style="color: rgb(255, 255, 255)"
+          >
+            {{ participants[0].name }}
+          </p>
+          <b-button
+            @click.prevent="videoCall(participants[0].id)"
+            variant="theme"
+            class="float-right"
+          >
+            <i
+              style="color: #fff; font-size: 20px"
+              class="fa fa-video-camera"
+              aria-hidden="true"
+            ></i>
+          </b-button>
+        </div>
+        <div class="header-exit">
+          <a
+            @click.prevent="onClose()"
+            href="#"
+            class="header-exit-button"
+            style="font-size: 20px"
+            >✕</a
+          >
+        </div>
+        <b-modal
+          ref="calling-modal"
+          :title="'Cuộc gọi đi'"
+          :hide-footer="true"
+          :no-close-on-backdrop="true"
+          centered
+          no-fade
+          size="sm"
+        >
+          <div class="d-block text-center">
+            <div class="modal-body d-block text-center">
+              <template v-if="participants[0]">
+                <b-img
+                  style="margin-top: -20px; width: 80px; height: 80px"
+                  center
+                  :src="participants[0].profilePicture"
+                  rounded="circle"
+                  class="mb-2"
+                ></b-img>
+                <h4>Đang gọi cho {{ participants[0].name }}</h4>
+              </template>
+            </div>
+            <div class="text-center">
+              <b-button variant="primary" @click="endCall()">Kết thúc</b-button>
+            </div>
+          </div>
+        </b-modal>
+        <b-modal
+          ref="call-modal"
+          :title="'Cuộc gọi đến'"
+          :hide-footer="true"
+          :no-close-on-backdrop="true"
+          centered
+          no-fade
+          size="sm"
+        >
+          <div class="d-block text-center">
+            <div class="modal-body d-block text-center">
+              <template v-if="callingUser">
+                <b-img
+                  style="margin-top: -20px; width: 80px; height: 80px"
+                  center
+                  :src="callingUser.avatar"
+                  rounded="circle"
+                  class="mb-2"
+                ></b-img>
+                <h4>{{ callingUser.name }} đang gọi cho bạn</h4>
+              </template>
+            </div>
+            <div class="text-center">
+              <b-button variant="primary" @click="accept()">Chấp nhận</b-button>
+              <b-button variant="light" @click="decline()">Từ chối</b-button>
+            </div>
+          </div>
+        </b-modal>
+      </template>
+    </Chat>
   </div>
 </template>
 
@@ -58,6 +144,9 @@ export default BaseComponent.extend({
   },
   data() {
     return {
+      receiveUser: "",
+      otherUserId: "",
+      callingUser: "",
       isNewMessage: false,
       isMsgLoading: false,
       user: User,
@@ -164,9 +253,33 @@ export default BaseComponent.extend({
           },
         },
       },
+      audio: new Audio("../../audio/skype_short.mp3"),
     };
   },
   methods: {
+    endCall() {
+      this.$refs["calling-modal"].hide();
+    },
+    async accept() {
+      this.$refs["call-modal"].hide();
+      let ids = [User.id, this.callingUser.id];
+      ids.sort();
+      let roomId = ids.join("");
+      this.audio.pause();
+      window.open(window.location.origin + "/call/" + roomId);
+      await postModel("callResponse", { response: 'accepted' });
+    },
+    async decline() {
+      this.$refs["call-modal"].hide();
+      this.audio.pause();
+      await postModel("callResponse", { response: 'declined' });
+    },
+    async videoCall(id) {
+      this.$refs["calling-modal"].show();
+      this.chatVisible = false;
+      await postModel("call", { id: id });
+    },
+
     toggleChat() {
       this.chatVisible = !this.chatVisible;
       this.setScrollToBottom();
@@ -294,6 +407,32 @@ export default BaseComponent.extend({
   },
 
   created() {
+    this.audio.loop = false;
+    window.Echo.private("call-response").listen("CallResponse", async (e) => {
+      console.log(e);
+      if (e.user.id == this.participants[0].id) {
+        this.$refs["calling-modal"].hide();
+        let ids = [User.id, e.user.id];
+        ids.sort();
+        let roomId = ids.join("");
+        window.open(window.location.origin + "/call/" + roomId);
+      }
+    });
+
+    window.Echo.private("call").listen("IncomingCall", async (e) => {
+      console.log(e);
+      if (e.otherUser.id == User.id) {
+        this.otherUserId = e.user.id;
+        setTimeout(() => {
+          this.audio.play();
+          this.callingUser = e.user;
+          this.$refs["call-modal"].show();
+        }, 1000);
+        this.audio.onended = function () {
+          console.log("The audio has ended");
+        };
+      }
+    });
     window.Echo.private("chat").listen("MessageSent", async (e) => {
       if (this.participants[0].id == User.id) {
         const param = {

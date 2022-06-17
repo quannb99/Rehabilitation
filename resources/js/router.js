@@ -24,7 +24,7 @@ const routes = [
     component: Home
   },
   {
-    path: "/call",
+    path: "/call/:id",
     name: "videoCall",
     component: VideoCall
   },

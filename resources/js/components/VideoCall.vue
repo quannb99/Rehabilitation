@@ -1,19 +1,19 @@
 <template>
   <div>
-    <vue-webrtc ref="webrtc" width="100%" roomId="sample-room"> </vue-webrtc>
+    <vue-webrtc ref="webrtc" width="100%" :roomId="roomId"> </vue-webrtc>
     <div class="row">
       <div class="col-md-12 my-3">
         <button type="button" class="btn btn-primary" @click="onJoin">
-          Join
+          Tham gia
         </button>
         <button type="button" class="btn btn-primary" @click="onLeave">
-          Leave
+          Rời khỏi
         </button>
         <button type="button" class="btn btn-primary" @click="onCapture">
           Capture Photo
         </button>
         <button type="button" class="btn btn-primary" @click="onShareScreen">
-          Share Screen
+          Chia sẻ màn hình
         </button>
       </div>
     </div>
@@ -23,12 +23,12 @@
 <script>
 import BaseComponent from "../base-component";
 import { postModel, getModel, updateModel, deleteModel } from "../service";
-// import * as io from 'socket.io-client'
-// window.io = io
+
 export default BaseComponent.extend({
   data() {
     return {
       model: "posts",
+      roomId: this.$route.params.id
     };
   },
   methods: {
