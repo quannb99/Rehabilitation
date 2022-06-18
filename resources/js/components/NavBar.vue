@@ -20,33 +20,6 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <!-- <b-navbar-nav
-          v-if="user != null && user.role == 3"
-          style="margin-left: 250px"
-        >
-          <b-nav-item v-if="user != null" @click="navigateTo('forum')"
-            >Diễn đàn</b-nav-item
-          >
-          <b-nav-item
-            v-if="user && user.role == 2"
-            @click="navigateTo('schedule')"
-            >Lịch làm việc</b-nav-item
-          >
-          <b-nav-item v-if="user != null" @click="navigateTo('doctors')"
-            >Danh sách bác sĩ</b-nav-item
-          >
-          <b-nav-item
-            v-if="user && user.role == 2"
-            @click="navigateTo('createMedicalRecord')"
-            >Tạo hồ sơ</b-nav-item
-          >
-          <b-nav-item
-            v-if="user && user.role == 1"
-            @click="navigateTo('MedicalRecordList')"
-            >Hồ sơ bệnh án</b-nav-item
-          >
-
-        </b-navbar-nav> -->
         <b-navbar-nav
           v-if="user != null && user.role != 3"
           class="nav-container"
@@ -168,42 +141,42 @@
             size="md"
             right
             no-caret
-            class="msg-history"
+            class="noti-list"
           >
             <template #button-content>
-              <b-button pill @click="getMsgHistory()"
+              <b-button pill @click="getNotifications()"
                 ><i class="fa fa-bell" aria-hidden="true"></i
               ></b-button>
             </template>
             <b-dropdown-item
               :disabled="true"
-              v-if="messagesHistory.length == 0"
+              v-if="notifications.length == 0"
             >
               <p style="color: #000 !important; margin-top: 12px">
                 Không có thông báo nào
               </p>
             </b-dropdown-item>
             <b-dropdown-item
-              v-for="(item, index) in messagesHistory"
+              v-for="(item, index) in notifications"
               :key="index"
               href="#"
-              @click.prevent="
-                setChatParticipant({
-                  name: item.user_name,
-                  id: item.user_id,
-                  profilePicture: item.avatar,
-                })
-              "
+              @click.prevent="navigateTo('show-post', item.data.id)"
             >
               <div>
                 <b-media>
-
-                  <h5>{{ item.user_name }}</h5>
-                  <div class="d-flex">
-                    <p class="ellipsis-text">
-                      {{ item.content }}
+                  <template #aside>
+                    <b-img
+                      :src="item.data.avatar"
+                      width="50"
+                      alt="avatar"
+                      rounded="circle"
+                    ></b-img>
+                  </template>
+                  <div>
+                    <p class="ellipsis-text-310">
+                      <b>{{ item.data.user_name }}</b> đã báo cáo 1 bài viết <br>
+                      {{ moment(item.created_at).fromNow() }}
                     </p>
-                    <span>{{ moment(item.created_at).fromNow() }}</span>
                   </div>
                 </b-media>
               </div>
@@ -248,6 +221,7 @@ export default BaseComponent.extend({
 
   data() {
     return {
+      notifications: "",
       messagesHistory: [],
     };
   },
@@ -266,11 +240,17 @@ export default BaseComponent.extend({
       let res = await getModel("messagesHistory");
       this.messagesHistory = res.data.data;
     },
+
+    async getNotifications() {
+      let $res = await postModel("getNotifications");
+      this.notifications = $res.data.data;
+    },
   },
 
   async mounted() {
     if (this.user != null) {
       await this.getMsgHistory();
+      await this.getNotifications();
     }
   },
 });
@@ -279,6 +259,12 @@ export default BaseComponent.extend({
 .msg-history ul.dropdown-menu {
   width: 500px !important;
   max-height: 500px;
+  overflow: auto;
+}
+
+.noti-list ul.dropdown-menu {
+  width: 428px !important;
+  max-height: 428px;
   overflow: auto;
 }
 
@@ -291,6 +277,13 @@ export default BaseComponent.extend({
 .ellipsis-text {
   white-space: nowrap;
   width: 285px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+.ellipsis-text-310 {
+  white-space: nowrap;
+  width: 310px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-block;

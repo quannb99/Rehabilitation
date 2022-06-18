@@ -37,7 +37,10 @@
                 href="#"
                 >Xóa bài viết</b-dropdown-item
               >
-              <b-dropdown-item @click="reportPost()" v-if="items[0].user_id != User.id" href="#"
+              <b-dropdown-item
+                @click="reportPost()"
+                v-if="items[0].user_id != User.id"
+                href="#"
                 >Báo cáo bài viết</b-dropdown-item
               >
             </b-dropdown>
@@ -261,8 +264,9 @@ export default BaseComponent.extend({
   },
 
   methods: {
-    reportPost() {
-
+    async reportPost() {
+      await postModel("reportPost", { id: this.fieldFilter.id, user_id: User.id });
+      this.makeToast('Báo cáo bài viết thành công')
     },
     async handleLike(index) {
       if (!this.comments[index].liked) {

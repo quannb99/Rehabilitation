@@ -40,6 +40,9 @@ Route::get('/medical-record-list', 'HomeController@index');
 Route::get('/call/{id}', 'HomeController@index');
 Route::post('/call', 'HomeController@call');
 Route::post('/callResponse', 'HomeController@callResponse');
+Route::post('/reportPost', 'HomeController@reportPost');
+Route::post('/reportComment', 'HomeController@reportComment');
+Route::post('/getNotifications', 'HomeController@getNotifications');
 // Route::post('/broadcasting/auth', 'HomeController@checkAuth');
 Route::resources([
     'posts' => 'PostController',

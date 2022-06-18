@@ -4,25 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Events\IncomingCall;
 use App\Events\CallResponse;
+use App\Notifications\ReportPost;
 use App\Repositories\MessageRepository;
+use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class HomeController extends Controller
 {
     protected $userRepository;
     protected $messageRepository;
+    protected $postRepository;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository, MessageRepository $messageRepository)
+    public function __construct(UserRepository $userRepository, MessageRepository $messageRepository, PostRepository $postRepository)
     {
         $this->userRepository = $userRepository;
         $this->messageRepository = $messageRepository;
+        $this->postRepository = $postRepository;
         $this->middleware('auth');
     }
 
@@ -38,7 +43,12 @@ class HomeController extends Controller
         } else {
             return view('admin');
         }
+    }
 
+    public function getAdmins() {
+        $admin = $this->userRepository->getCollection('')->where('role', 3)->get();
+
+        return $admin;
     }
 
     public function checkAuth()
@@ -46,7 +56,8 @@ class HomeController extends Controller
         return Auth::check();
     }
 
-    public function call(Request $request) {
+    public function call(Request $request)
+    {
         $user = Auth::user();
         $otherUserId = $request->id;
         $form = [
@@ -59,7 +70,8 @@ class HomeController extends Controller
         broadcast(new IncomingCall($user, $otherUser))->toOthers();
     }
 
-    public function callResponse(Request $request) {
+    public function callResponse(Request $request)
+    {
         $user = Auth::user();
         $res = $request->response;
         if ($res == 'abort') {
@@ -71,5 +83,19 @@ class HomeController extends Controller
             $this->messageRepository->create($form);
         }
         broadcast(new CallResponse($user, $res))->toOthers();
+    }
+
+    public function reportPost(Request $request)
+    {
+        $admins = $this->getAdmins();
+        $post = $this->postRepository->detail($request->id);
+        $user = $this->userRepository->detail($request->user_id);
+        Notification::send($admins, new ReportPost($post, $user));
+    }
+
+    public function getNotifications(Request $request) {
+        $notifications = Auth::user()->notifications;
+
+        return $this->sendSuccess($notifications);
     }
 }

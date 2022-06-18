@@ -27,7 +27,7 @@ const routes = [
   {
     path: "/admin",
     name: "adminHome",
-    component: AdminHome
+    component: AdminHome,
   },
   {
     path: "/call/:id",
@@ -106,5 +106,12 @@ const router = new VueRouter({
   mode: "history",
   routes
 })
+
+// router.beforeEach((to, from) => {
+//   console.log(to);
+//   console.log(from);
+//   console.log(window.User);
+//   return { name:'home'}
+// })
 
 export default router

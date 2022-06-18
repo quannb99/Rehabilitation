@@ -2,23 +2,29 @@
 
 namespace App\Notifications;
 
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class Report extends Notification
+class ReportPost extends Notification
 {
     use Queueable;
+
+    protected $post;
+    protected $user;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Post $post, User $user)
     {
-        //
+        $this->post = $post;
+        $this->user = $user;
     }
 
     /**
@@ -56,7 +62,12 @@ class Report extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'id' => $this->post->id,
+            'user_id' => $this->post->user_id,
+            'title' => $this->post->title,
+            'type' => $this->post->type,
+            'user_name' => $this->user->name,
+            'avatar' => $this->user->avatar,
         ];
     }
 }

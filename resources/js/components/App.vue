@@ -1,10 +1,51 @@
 <template>
   <div>
+    <template v-if="user.role != 3">
+      <nav-bar :user="user" @setChatParticipant="setChatParticipant" />
+      <message-modal ref="msg-modal"></message-modal>
+      <div class="divider"></div>
+      <router-view @setChatParticipant="setChatParticipant" />
+      <Footer />
+    </template>
+    <template v-if="user.role == 3">
     <nav-bar :user="user" @setChatParticipant="setChatParticipant" />
-    <message-modal ref="msg-modal"></message-modal>
-    <div class="divider"></div>
-    <router-view @setChatParticipant="setChatParticipant" />
-    <Footer />
+      <b-sidebar
+        id="sidebar-no-header"
+        aria-labelledby="sidebar-no-header-title"
+        no-header
+        shadow
+        :aria-expanded="true"
+        visible
+        noCloseOnRouteChange
+      >
+        <template>
+          <div class="p-2">
+            <b-navbar-brand id="logo-admin" @click="navigateTo('adminHome')">
+              <img
+                src="../../images/hospital.png"
+                class="d-inline-block align-middle logo"
+                alt="logo"
+              />
+              Rehab
+            </b-navbar-brand>
+            <nav class="mt-2 mb-3">
+              <b-nav tabs vertical>
+                <b-nav-item>Active</b-nav-item>
+                <b-nav-item href="#link-1">Link</b-nav-item>
+                <b-nav-item href="#link-2">Another Link</b-nav-item>
+              </b-nav>
+            </nav>
+          </div>
+        </template>
+      </b-sidebar>
+      <message-modal ref="msg-modal"></message-modal>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <router-view class="col-lg-10" />
+      </div>
+      <div class="shadow admin-footer"></div>
+    </template>
     <b-button
       v-if="!chatVisible && participants[0].id != user.id"
       @click="toggleChat()"
@@ -54,7 +95,12 @@
           </p>
           <i
             @click.prevent="videoCall(participants[0].id)"
-            style="color: #fff; font-size: 20px; cursor: pointer; margin-top: 5px"
+            style="
+              color: #fff;
+              font-size: 20px;
+              cursor: pointer;
+              margin-top: 5px;
+            "
             class="fa fa-video-camera float-right mr-3"
             aria-hidden="true"
           ></i>
@@ -472,7 +518,7 @@ export default BaseComponent.extend({
 
   computed: {},
 
-  mounted() {
+  async mounted() {
     this.getMessages();
   },
 

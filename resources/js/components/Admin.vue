@@ -49,9 +49,12 @@ export default BaseComponent.extend({
     return {
       model: "posts",
       user: User,
+      notifications: ''
     };
   },
-  mounted() {},
+  async mounted() {
+    await this.checkAdmin()
+  },
 });
 </script>
 

@@ -25,7 +25,9 @@ export default BaseComponent.extend({
     },
   },
 
-  mounted() {},
+  mounted() {
+    this.checkAdmin();
+  },
 });
 </script>
 
