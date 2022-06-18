@@ -33,17 +33,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('common');
-    }
+        if (Auth::user()->role != 3) {
+            return view('common');
+        } else {
+            return view('admin');
+        }
 
-    public function forum()
-    {
-        return view('common');
-    }
-
-    public function newPost()
-    {
-        return view('common');
     }
 
     public function checkAuth()

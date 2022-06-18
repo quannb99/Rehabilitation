@@ -4,20 +4,21 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
-import { SchedulePlugin } from '@syncfusion/ej2-vue-schedule';
-import Chat from 'vue-beautiful-chat'
-import Vue from 'vue'
-import router from './router'
-import store from './store'
-import App from './components/App.vue'
-import NavBar from './components/NavBar.vue'
-import VueFooter from './components/Footer.vue'
-import WebRTC from 'vue-webrtc'
+require("./bootstrap");
+import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
+import { SchedulePlugin } from "@syncfusion/ej2-vue-schedule";
+import Chat from "vue-beautiful-chat";
+import Vue from "vue";
+import router from "./router";
+import store from "./store";
+import App from "./components/App.vue";
+import Admin from "./components/Admin.vue";
+import NavBar from "./components/NavBar.vue";
+import VueFooter from "./components/Footer.vue";
+import WebRTC from "vue-webrtc";
 
-window.Vue = require('vue');
-Vue.prototype.moment = moment
+window.Vue = require("vue");
+Vue.prototype.moment = moment;
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(SchedulePlugin);
@@ -32,8 +33,12 @@ Vue.use(WebRTC);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-const files = require.context('./', true, /\.vue$/i);
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+const files = require.context("./", true, /\.vue$/i);
+files
+  .keys()
+  .map((key) =>
+    Vue.component(key.split("/").pop().split(".")[0], files(key).default)
+  );
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
@@ -43,18 +48,19 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// const app = new Vue({
+// const admin = new Vue({
 //   router,
 //   store,
-//   render: h => h('App')
-// }).$mount("#app")
+//   render: h => h('Admin')
+// }).$mount("#admin")
 
 var app = new Vue({
   router,
   store,
-  el: '#app',
+  el: "#app",
   components: {
     NavBar,
     VueFooter,
-  }
+    Admin,
+  },
 });

@@ -14,6 +14,7 @@ import UserInfo from "./components/UserInfo.vue"
 import OtherUserInfo from "./components/OtherUserInfo.vue"
 import MedicalRecordList from "./components/MedicalRecordList.vue"
 import VideoCall from "./components/VideoCall.vue"
+import AdminHome from "./components/AdminHome.vue"
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
     path: "/",
     name: "home",
     component: Home
+  },
+  {
+    path: "/admin",
+    name: "adminHome",
+    component: AdminHome
   },
   {
     path: "/call/:id",

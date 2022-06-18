@@ -20,7 +20,37 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="nav-container">
+        <!-- <b-navbar-nav
+          v-if="user != null && user.role == 3"
+          style="margin-left: 250px"
+        >
+          <b-nav-item v-if="user != null" @click="navigateTo('forum')"
+            >Diễn đàn</b-nav-item
+          >
+          <b-nav-item
+            v-if="user && user.role == 2"
+            @click="navigateTo('schedule')"
+            >Lịch làm việc</b-nav-item
+          >
+          <b-nav-item v-if="user != null" @click="navigateTo('doctors')"
+            >Danh sách bác sĩ</b-nav-item
+          >
+          <b-nav-item
+            v-if="user && user.role == 2"
+            @click="navigateTo('createMedicalRecord')"
+            >Tạo hồ sơ</b-nav-item
+          >
+          <b-nav-item
+            v-if="user && user.role == 1"
+            @click="navigateTo('MedicalRecordList')"
+            >Hồ sơ bệnh án</b-nav-item
+          >
+
+        </b-navbar-nav> -->
+        <b-navbar-nav
+          v-if="user != null && user.role != 3"
+          class="nav-container"
+        >
           <b-nav-item v-if="user != null" @click="navigateTo('forum')"
             >Diễn đàn</b-nav-item
           >
@@ -82,8 +112,7 @@
             class="msg-history"
           >
             <template #button-content>
-              <b-button pill
-              @click="getMsgHistory()"
+              <b-button pill @click="getMsgHistory()"
                 ><i
                   style="font-size: 20px"
                   class="fa fa-comments"
@@ -91,8 +120,13 @@
                 ></i
               ></b-button>
             </template>
-            <b-dropdown-item :disabled="true" v-if="messagesHistory.length == 0">
-              <p style="color: #000 !important; margin-top: 12px;">Không có lịch sử trò chuyện</p>
+            <b-dropdown-item
+              :disabled="true"
+              v-if="messagesHistory.length == 0"
+            >
+              <p style="color: #000 !important; margin-top: 12px">
+                Không có lịch sử trò chuyện
+              </p>
             </b-dropdown-item>
             <b-dropdown-item
               v-for="(item, index) in messagesHistory"
@@ -128,16 +162,72 @@
               </div>
             </b-dropdown-item>
           </b-nav-item-dropdown>
+
+          <b-nav-item-dropdown
+            v-if="user != null"
+            size="md"
+            right
+            no-caret
+            class="msg-history"
+          >
+            <template #button-content>
+              <b-button pill @click="getMsgHistory()"
+                ><i class="fa fa-bell" aria-hidden="true"></i
+              ></b-button>
+            </template>
+            <b-dropdown-item
+              :disabled="true"
+              v-if="messagesHistory.length == 0"
+            >
+              <p style="color: #000 !important; margin-top: 12px">
+                Không có thông báo nào
+              </p>
+            </b-dropdown-item>
+            <b-dropdown-item
+              v-for="(item, index) in messagesHistory"
+              :key="index"
+              href="#"
+              @click.prevent="
+                setChatParticipant({
+                  name: item.user_name,
+                  id: item.user_id,
+                  profilePicture: item.avatar,
+                })
+              "
+            >
+              <div>
+                <b-media>
+
+                  <h5>{{ item.user_name }}</h5>
+                  <div class="d-flex">
+                    <p class="ellipsis-text">
+                      {{ item.content }}
+                    </p>
+                    <span>{{ moment(item.created_at).fromNow() }}</span>
+                  </div>
+                </b-media>
+              </div>
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
           <b-nav-item-dropdown
             right
             v-if="user != null"
             style="margin-top: 6px"
           >
             <!-- Using 'button-content' slot -->
-            <template #button-content>
-              {{ user ? user.name : "" }}
+            <template v-if="user" #button-content>
+              <b-img
+                style="width: 30px; height: 30px"
+                left
+                :src="user.avatar"
+                rounded="circle"
+                class="mr-2"
+              ></b-img>
+              {{ user.name }}
             </template>
-            <b-dropdown-item @click.prevent="navigateTo('userInfo')" href="#">Thông tin cá nhân</b-dropdown-item>
+            <b-dropdown-item @click.prevent="navigateTo('userInfo')" href="#"
+              >Thông tin cá nhân</b-dropdown-item
+            >
             <b-dropdown-item @click="logOut()">Đăng xuất</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -175,12 +265,12 @@ export default BaseComponent.extend({
     async getMsgHistory() {
       let res = await getModel("messagesHistory");
       this.messagesHistory = res.data.data;
-    }
+    },
   },
 
   async mounted() {
     if (this.user != null) {
-      await this.getMsgHistory()
+      await this.getMsgHistory();
     }
   },
 });
@@ -191,7 +281,12 @@ export default BaseComponent.extend({
   max-height: 500px;
   overflow: auto;
 }
+
+#nav-collapse.show {
+  background-color: #343a40 !important;
+}
 </style>
+
 <style lang="scss" scoped>
 .ellipsis-text {
   white-space: nowrap;

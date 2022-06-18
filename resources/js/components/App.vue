@@ -47,21 +47,17 @@
         <div class="header-title">
           <p
             class="header-title-text d-inline-block"
-            style="color: rgb(255, 255, 255)"
+            style="color: rgb(255, 255, 255); cursor: pointer"
+            @click.prevent="navigateTo('otherUserInfo', participants[0].id)"
           >
             {{ participants[0].name }}
           </p>
-          <b-button
+          <i
             @click.prevent="videoCall(participants[0].id)"
-            variant="theme"
-            class="float-right"
-          >
-            <i
-              style="color: #fff; font-size: 20px"
-              class="fa fa-video-camera"
-              aria-hidden="true"
-            ></i>
-          </b-button>
+            style="color: #fff; font-size: 20px; cursor: pointer; margin-top: 5px"
+            class="fa fa-video-camera float-right mr-3"
+            aria-hidden="true"
+          ></i>
         </div>
         <div class="header-exit">
           <a
@@ -72,124 +68,122 @@
             >✕</a
           >
         </div>
-        <b-modal
-          ref="calling-modal"
-          :title="'Cuộc gọi đi'"
-          :hide-footer="true"
-          :no-close-on-backdrop="true"
-          centered
-          no-fade
-          size="md"
-        >
-          <div class="d-block text-center">
-            <div class="modal-body d-block text-center">
-              <template v-if="participants[0]">
-                <b-img
-                  style="margin-top: -20px; width: 80px; height: 80px"
-                  center
-                  :src="participants[0].profilePicture"
-                  rounded="circle"
-                  class="mb-2"
-                ></b-img>
-                <h4>Đang gọi cho {{ participants[0].name }}</h4>
-              </template>
-            </div>
-            <div class="text-center">
-              <b-button variant="primary" @click="abortCall()"
-                >Kết thúc</b-button
-              >
-            </div>
-          </div>
-        </b-modal>
-        <b-modal
-          ref="response-modal"
-          :title="'Cuộc gọi đã kết thúc'"
-          :hide-footer="true"
-          :no-close-on-backdrop="true"
-          centered
-          no-fade
-          size="md"
-        >
-          <div class="d-block text-center">
-            <div class="modal-body d-block text-center">
-              <template v-if="participants[0]">
-                <b-img
-                  style="margin-top: -20px; width: 80px; height: 80px"
-                  center
-                  :src="participants[0].profilePicture"
-                  rounded="circle"
-                  class="mb-2"
-                ></b-img>
-                <h4 v-if="responseType == 'decline'">
-                  {{ participants[0].name }} đã từ chối cuộc gọi
-                </h4>
-                <h4 v-if="responseType == 'timeout'">
-                  {{ participants[0].name }} không nghe máy
-                </h4>
-              </template>
-            </div>
-            <div class="text-center">
-              <b-button variant="primary" @click="endCall()">Đóng</b-button>
-            </div>
-          </div>
-        </b-modal>
-        <b-modal
-          ref="response-modal-2"
-          :title="'Cuộc gọi đã kết thúc'"
-          :hide-footer="true"
-          :no-close-on-backdrop="true"
-          centered
-          no-fade
-          size="md"
-        >
-          <div class="d-block text-center">
-            <div class="modal-body d-block text-center">
-              <template v-if="callingUser && responseType == 'abort'">
-                <b-img
-                  style="margin-top: -20px; width: 80px; height: 80px"
-                  center
-                  :src="callingUser.avatar"
-                  rounded="circle"
-                  class="mb-2"
-                ></b-img>
-                <h4>Bạn đã bỏ lỡ cuộc gọi từ {{ callingUser.name }}</h4>
-              </template>
-            </div>
-            <div class="text-center">
-              <b-button variant="primary" @click="endCall()">Đóng</b-button>
-            </div>
-          </div>
-        </b-modal>
-        <b-modal
-          ref="call-modal"
-          :title="'Cuộc gọi đến'"
-          :hide-footer="true"
-          :no-close-on-backdrop="true"
-          centered
-          no-fade
-          size="md"
-        >
-          <div class="d-block text-center">
-            <div class="modal-body d-block text-center">
-              <template v-if="callingUser">
-                <b-img
-                  style="margin-top: -20px; width: 80px; height: 80px"
-                  center
-                  :src="callingUser.avatar"
-                  rounded="circle"
-                  class="mb-2"
-                ></b-img>
-                <h4>{{ callingUser.name }} đang gọi cho bạn</h4>
-              </template>
-            </div>
-            <div class="text-center">
-              <b-button variant="primary" @click="accept()">Chấp nhận</b-button>
-              <b-button variant="light" @click="decline()">Từ chối</b-button>
-            </div>
-          </div>
-        </b-modal>
       </template>
     </Chat>
+    <b-modal
+      ref="calling-modal"
+      :title="'Cuộc gọi đi'"
+      :hide-footer="true"
+      :no-close-on-backdrop="true"
+      centered
+      no-fade
+      size="md"
+    >
+      <div class="d-block text-center">
+        <div class="modal-body d-block text-center">
+          <template v-if="participants[0]">
+            <b-img
+              style="margin-top: -20px; width: 80px; height: 80px"
+              center
+              :src="participants[0].profilePicture"
+              rounded="circle"
+              class="mb-2"
+            ></b-img>
+            <h4>Đang gọi cho {{ participants[0].name }}</h4>
+          </template>
+        </div>
+        <div class="text-center">
+          <b-button variant="primary" @click="abortCall()">Kết thúc</b-button>
+        </div>
+      </div>
+    </b-modal>
+    <b-modal
+      ref="response-modal"
+      :title="'Cuộc gọi đã kết thúc'"
+      :hide-footer="true"
+      :no-close-on-backdrop="true"
+      centered
+      no-fade
+      size="md"
+    >
+      <div class="d-block text-center">
+        <div class="modal-body d-block text-center">
+          <template v-if="participants[0]">
+            <b-img
+              style="margin-top: -20px; width: 80px; height: 80px"
+              center
+              :src="participants[0].profilePicture"
+              rounded="circle"
+              class="mb-2"
+            ></b-img>
+            <h4 v-if="responseType == 'decline'">
+              {{ participants[0].name }} đã từ chối cuộc gọi
+            </h4>
+            <h4 v-if="responseType == 'timeout'">
+              {{ participants[0].name }} không nghe máy
+            </h4>
+          </template>
+        </div>
+        <div class="text-center">
+          <b-button variant="primary" @click="endCall()">Đóng</b-button>
+        </div>
+      </div>
+    </b-modal>
+    <b-modal
+      ref="response-modal-2"
+      :title="'Cuộc gọi đã kết thúc'"
+      :hide-footer="true"
+      :no-close-on-backdrop="true"
+      centered
+      no-fade
+      size="md"
+    >
+      <div class="d-block text-center">
+        <div class="modal-body d-block text-center">
+          <template v-if="callingUser && responseType == 'abort'">
+            <b-img
+              style="margin-top: -20px; width: 80px; height: 80px"
+              center
+              :src="callingUser.avatar"
+              rounded="circle"
+              class="mb-2"
+            ></b-img>
+            <h4>Bạn đã bỏ lỡ cuộc gọi từ {{ callingUser.name }}</h4>
+          </template>
+        </div>
+        <div class="text-center">
+          <b-button variant="primary" @click="endCall()">Đóng</b-button>
+        </div>
+      </div>
+    </b-modal>
+    <b-modal
+      ref="call-modal"
+      :title="'Cuộc gọi đến'"
+      :hide-footer="true"
+      :no-close-on-backdrop="true"
+      centered
+      no-fade
+      size="md"
+    >
+      <div class="d-block text-center">
+        <div class="modal-body d-block text-center">
+          <template v-if="callingUser">
+            <b-img
+              style="margin-top: -20px; width: 80px; height: 80px"
+              center
+              :src="callingUser.avatar"
+              rounded="circle"
+              class="mb-2"
+            ></b-img>
+            <h4>{{ callingUser.name }} đang gọi cho bạn</h4>
+          </template>
+        </div>
+        <div class="text-center">
+          <b-button variant="primary" @click="accept()">Chấp nhận</b-button>
+          <b-button variant="light" @click="decline()">Từ chối</b-button>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 

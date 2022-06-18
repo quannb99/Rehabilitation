@@ -19,8 +19,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::prefix('admin')->group(function () {
+    Route::get('/', 'HomeController@index');
+});
+
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 Route::get('/forum', 'HomeController@index');
 Route::get('/posts/new', 'HomeController@index');
 Route::get('/schedule', 'HomeController@index');
