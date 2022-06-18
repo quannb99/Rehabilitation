@@ -345,7 +345,7 @@ export default BaseComponent.extend({
       const form = {
         user_a_id: this.otherUser.id,
         user_b_id: User.id,
-        content: "Bạn đã bỏ lỡ cuộc gọi từ " + this.otherUser.name,
+        content: "📞 Bạn đã bỏ lỡ cuộc gọi từ " + this.otherUser.name,
       };
       await postModel("messages", form);
     },

@@ -57,7 +57,7 @@ class HomeController extends Controller
         $form = [
             'user_a_id' => $user->id,
             'user_b_id' => $otherUserId,
-            'content' => $user->name . ' đã gọi cho bạn',
+            'content' => '📲 ' . $user->name . ' đã gọi cho bạn',
         ];
         $this->messageRepository->create($form);
         $otherUser = $this->userRepository->detail($otherUserId);
@@ -71,7 +71,7 @@ class HomeController extends Controller
             $form = [
                 'user_b_id' => $user->id,
                 'user_a_id' => $request->userId,
-                'content' => 'Bạn đã bỏ lỡ cuộc gọi từ ' . $user->name,
+                'content' => '📞 Bạn đã bỏ lỡ cuộc gọi từ ' . $user->name,
             ];
             $this->messageRepository->create($form);
         }
