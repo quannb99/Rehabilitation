@@ -79,7 +79,7 @@
           :no-close-on-backdrop="true"
           centered
           no-fade
-          size="sm"
+          size="md"
         >
           <div class="d-block text-center">
             <div class="modal-body d-block text-center">
@@ -95,7 +95,68 @@
               </template>
             </div>
             <div class="text-center">
-              <b-button variant="primary" @click="endCall()">Kết thúc</b-button>
+              <b-button variant="primary" @click="abortCall()"
+                >Kết thúc</b-button
+              >
+            </div>
+          </div>
+        </b-modal>
+        <b-modal
+          ref="response-modal"
+          :title="'Cuộc gọi đã kết thúc'"
+          :hide-footer="true"
+          :no-close-on-backdrop="true"
+          centered
+          no-fade
+          size="md"
+        >
+          <div class="d-block text-center">
+            <div class="modal-body d-block text-center">
+              <template v-if="participants[0]">
+                <b-img
+                  style="margin-top: -20px; width: 80px; height: 80px"
+                  center
+                  :src="participants[0].profilePicture"
+                  rounded="circle"
+                  class="mb-2"
+                ></b-img>
+                <h4 v-if="responseType == 'decline'">
+                  {{ participants[0].name }} đã từ chối cuộc gọi
+                </h4>
+                <h4 v-if="responseType == 'timeout'">
+                  {{ participants[0].name }} không nghe máy
+                </h4>
+              </template>
+            </div>
+            <div class="text-center">
+              <b-button variant="primary" @click="endCall()">Đóng</b-button>
+            </div>
+          </div>
+        </b-modal>
+        <b-modal
+          ref="response-modal-2"
+          :title="'Cuộc gọi đã kết thúc'"
+          :hide-footer="true"
+          :no-close-on-backdrop="true"
+          centered
+          no-fade
+          size="md"
+        >
+          <div class="d-block text-center">
+            <div class="modal-body d-block text-center">
+              <template v-if="callingUser && responseType == 'abort'">
+                <b-img
+                  style="margin-top: -20px; width: 80px; height: 80px"
+                  center
+                  :src="callingUser.avatar"
+                  rounded="circle"
+                  class="mb-2"
+                ></b-img>
+                <h4>Bạn đã bỏ lỡ cuộc gọi từ {{ callingUser.name }}</h4>
+              </template>
+            </div>
+            <div class="text-center">
+              <b-button variant="primary" @click="endCall()">Đóng</b-button>
             </div>
           </div>
         </b-modal>
@@ -106,7 +167,7 @@
           :no-close-on-backdrop="true"
           centered
           no-fade
-          size="sm"
+          size="md"
         >
           <div class="d-block text-center">
             <div class="modal-body d-block text-center">
@@ -145,7 +206,7 @@ export default BaseComponent.extend({
   data() {
     return {
       receiveUser: "",
-      otherUserId: "",
+      otherUser: "",
       callingUser: "",
       isNewMessage: false,
       isMsgLoading: false,
@@ -254,11 +315,19 @@ export default BaseComponent.extend({
         },
       },
       audio: new Audio("../../audio/skype_short.mp3"),
+      responseType: "",
+      callStatus: "",
     };
   },
   methods: {
+    async abortCall() {
+      this.$refs["calling-modal"].hide();
+      await postModel("callResponse", { response: "abort", userId: User.id });
+    },
     endCall() {
       this.$refs["calling-modal"].hide();
+      this.$refs["response-modal"].hide();
+      this.$refs["response-modal-2"].hide();
     },
     async accept() {
       this.$refs["call-modal"].hide();
@@ -267,12 +336,18 @@ export default BaseComponent.extend({
       let roomId = ids.join("");
       this.audio.pause();
       window.open(window.location.origin + "/call/" + roomId);
-      await postModel("callResponse", { response: 'accepted' });
+      await postModel("callResponse", { response: "accept" });
     },
     async decline() {
       this.$refs["call-modal"].hide();
       this.audio.pause();
-      await postModel("callResponse", { response: 'declined' });
+      await postModel("callResponse", { response: "decline" });
+      const form = {
+        user_a_id: this.otherUser.id,
+        user_b_id: User.id,
+        content: "Bạn đã bỏ lỡ cuộc gọi từ " + this.otherUser.name,
+      };
+      await postModel("messages", form);
     },
     async videoCall(id) {
       this.$refs["calling-modal"].show();
@@ -280,8 +355,9 @@ export default BaseComponent.extend({
       await postModel("call", { id: id });
     },
 
-    toggleChat() {
+    async toggleChat() {
       this.chatVisible = !this.chatVisible;
+      await this.getMessages();
       this.setScrollToBottom();
     },
     onType: function (event) {
@@ -411,24 +487,62 @@ export default BaseComponent.extend({
     window.Echo.private("call-response").listen("CallResponse", async (e) => {
       console.log(e);
       if (e.user.id == this.participants[0].id) {
-        this.$refs["calling-modal"].hide();
-        let ids = [User.id, e.user.id];
-        ids.sort();
-        let roomId = ids.join("");
-        window.open(window.location.origin + "/call/" + roomId);
+        if (e.response == "accept") {
+          this.$refs["calling-modal"].hide();
+          let ids = [User.id, e.user.id];
+          ids.sort();
+          let roomId = ids.join("");
+          window.open(window.location.origin + "/call/" + roomId);
+        }
+
+        if (e.response == "decline") {
+          this.responseType = "decline";
+          this.$refs["calling-modal"].hide();
+          this.$refs["response-modal"].show();
+        }
+
+        if (e.response == "abort") {
+          this.responseType = "abort";
+          this.audio.pause();
+          this.$refs["call-modal"].hide();
+          this.$refs["response-modal-2"].show();
+        }
+
+        if (e.response == "timeout") {
+          this.responseType = "timeout";
+          this.$refs["calling-modal"].hide();
+          this.$refs["response-modal"].show();
+        }
       }
     });
 
     window.Echo.private("call").listen("IncomingCall", async (e) => {
       console.log(e);
       if (e.otherUser.id == User.id) {
-        this.otherUserId = e.user.id;
+        this.participants[0] = {
+          id: e.user.id,
+          name: e.user.name,
+          profilePicture: e.user.avatar,
+        };
+        this.otherUser = e.user;
         setTimeout(() => {
+          this.chatVisible = false;
           this.audio.play();
           this.callingUser = e.user;
           this.$refs["call-modal"].show();
         }, 1000);
-        this.audio.onended = function () {
+        let self = this;
+        this.audio.onended = async function () {
+          await postModel("callResponse", { response: "timeout" });
+          const form = {
+            user_a_id: e.user.id,
+            user_b_id: User.id,
+            content: "Bạn đã bỏ lỡ cuộc gọi từ " + e.user.name,
+          };
+          await postModel("messages", form);
+          self.responseType = "abort";
+          self.$refs["call-modal"].hide();
+          self.$refs["response-modal-2"].show();
           console.log("The audio has ended");
         };
       }
