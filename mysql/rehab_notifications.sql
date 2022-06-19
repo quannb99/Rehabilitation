@@ -1,6 +1,6 @@
 -- MariaDB dump 10.17  Distrib 10.4.10-MariaDB, for Win64 (AMD64)
 --
--- Host: localhost    Database: rehab
+-- Host: 127.0.0.1    Database: rehab
 -- ------------------------------------------------------
 -- Server version	10.4.10-MariaDB
 
@@ -42,6 +42,7 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
+INSERT INTO `notifications` VALUES ('40de72d4-2e86-42a9-9c21-a60f4c36fc1d','App\\Notifications\\ReportPost','App\\Models\\User',10,'{\"post_id\":8,\"user_id\":1,\"title\":\"image\",\"type\":\"Chung\",\"user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"avatar\":\"https:\\/\\/vinmec-prod.s3.amazonaws.com\\/images\\/12_01_2019_11_08_53_877612.jpeg\"}',NULL,'2022-06-19 02:44:06','2022-06-19 02:44:06'),('5dd4aeee-1628-44e7-9157-658e23995bd8','App\\Notifications\\ReportPost','App\\Models\\User',10,'{\"post_id\":8,\"user_id\":1,\"title\":\"image\",\"type\":\"Chung\",\"user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"avatar\":\"https:\\/\\/vinmec-prod.s3.amazonaws.com\\/images\\/12_01_2019_11_08_53_877612.jpeg\"}',NULL,'2022-06-19 02:46:39','2022-06-19 02:46:39');
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-15 16:36:51
+-- Dump completed on 2022-06-19 21:32:16
