@@ -15,4 +15,14 @@ class Comment extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function isAuthUserLikedComment()
+    {
+        return $this->likes()->where('user_id',  auth()->id())->get('id')->first();
+    }
 }

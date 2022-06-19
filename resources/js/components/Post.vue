@@ -1,10 +1,10 @@
 <template>
   <div>
     <Navigation :title="'Diễn đàn'" :page="'forum'" />
-    <message-modal ref="msg-modal"></message-modal>
     <confirm-modal @confirm="handleConfirm" ref="cf-modal"></confirm-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
+        <h3 v-if="items.length == 0">Không tồn tại bài viết này</h3>
         <b-list-group>
           <b-list-group-item v-if="items[0]">
             <b-dropdown
@@ -34,11 +34,14 @@
                     type: 'delete-post',
                   })
                 "
-                v-if="items[0].user_id == User.id"
+                v-if="items[0].user_id == User.id || User.role == 3"
                 href="#"
                 >Xóa bài viết</b-dropdown-item
               >
-              <b-dropdown-item v-if="items[0].user_id != User.id" href="#"
+              <b-dropdown-item
+                @click="reportPost()"
+                v-if="items[0].user_id != User.id && User.role != 3"
+                href="#"
                 >Báo cáo bài viết</b-dropdown-item
               >
             </b-dropdown>
@@ -78,8 +81,15 @@
           <b-list-group-item v-if="items[0]" v-html="items[0].content">
           </b-list-group-item>
         </b-list-group>
-        <b-list-group class="mt-4">
-          <b-list-group-item> <h4>Bình luận</h4> </b-list-group-item>
+        <b-list-group v-if="items[0]" class="mt-4">
+          <b-list-group-item>
+            <h4>
+              Bình luận
+              <span v-if="commentPaging.total"
+                >({{ commentPaging.total }})</span
+              >
+            </h4>
+          </b-list-group-item>
           <b-list-group-item>
             <b-form-textarea
               @keydown.enter="handleEnter"
@@ -100,7 +110,7 @@
                 >
                   <template #aside>
                     <b-img
-                      src="../../images/user-default-ava.png"
+                      :src="comment.user_avatar"
                       width="48"
                       alt="avatar"
                       rounded="circle"
@@ -119,6 +129,7 @@
 
                   <div :id="'comment-' + index">
                     <b-dropdown
+                      v-if="comment.user_id == User.id || User.role == 3"
                       id="ellipsis-dd"
                       style="float: right"
                       size="lg"
@@ -146,15 +157,15 @@
                             id: comment.id,
                           })
                         "
-                        v-if="comment.user_id == User.id"
+                        v-if="comment.user_id == User.id || User.role == 3"
                         href="#"
                         >Xóa bình luận</b-dropdown-item
                       >
-                      <b-dropdown-item
+                      <!-- <b-dropdown-item
                         v-if="comment.user_id != User.id"
                         href="#"
                         >Báo cáo bình luận</b-dropdown-item
-                      >
+                      > -->
                     </b-dropdown>
 
                     <h6 class="mt-0 mb-1">
@@ -168,10 +179,23 @@
                       {{ comment.content }}
                     </p>
                     <p class="mb-0" style="font-size: 15px">
-                      <a href="#" @click.prevent class="like">
+                      <a
+                        v-if="!comment.liked"
+                        href="#"
+                        @click.prevent="handleLike(index)"
+                        class="liked"
+                      >
                         <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                       </a>
-                      0 &nbsp;·&nbsp;
+                      <a
+                        v-if="comment.liked"
+                        href="#"
+                        @click.prevent="handleLike(index)"
+                        class="not-liked"
+                      >
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                      </a>
+                      {{ comment.likes_count }} &nbsp;·&nbsp;
                       <!-- <i style="color: #898f96;" class="fa fa-clock-o" aria-hidden="true"></i> -->
                       <span style="font-size: 14px">{{
                         moment(comment.created_at).fromNow()
@@ -181,10 +205,11 @@
                 </b-media>
               </ul>
               <b-pagination
-                v-if="paging.last_page > 1"
-                v-model="paging.current_page"
-                :total-rows="paging.total"
-                :per-page="paging.per_page"
+                pills
+                v-if="commentPaging.last_page > 1"
+                v-model="commentPaging.current_page"
+                :total-rows="commentPaging.total"
+                :per-page="commentPaging.per_page"
                 align="center"
                 @input="changeCommentPage"
               ></b-pagination>
@@ -198,8 +223,8 @@
           variant="theme"
           class="new-post-btn"
           @click="navigateTo('new-post')"
-          ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng bài
-          mới</b-button
+          ><i style="font-size: 20px" class="fa fa-pencil-square-o" aria-hidden="true"></i> <span style="font-size: 20px">Đăng bài
+          mới</span> </b-button
         >
         <b-card class="mt-3">
           <b-nav-form id="search-form">
@@ -236,11 +261,36 @@ export default BaseComponent.extend({
       User: User,
       content: "",
       comments: {},
-      paging: {},
+      commentPaging: {},
     };
   },
 
   methods: {
+    async reportPost() {
+      await postModel("reportPost", { id: this.fieldFilter.id, user_id: User.id });
+      this.makeToast('Báo cáo bài viết thành công')
+    },
+    async handleLike(index) {
+      if (!this.comments[index].liked) {
+        try {
+          const form = {
+            user_id: User.id,
+            comment_id: this.comments[index].id,
+          };
+          await postModel("likes", form);
+          await this.getComments();
+        } catch (error) {
+          this.handleErr(error);
+        }
+      } else {
+        try {
+          await deleteModel("likes", this.comments[index].liked.id);
+          await this.getComments();
+        } catch (error) {
+          this.handleErr(error);
+        }
+      }
+    },
     editComment(index) {
       document.getElementById("comment-" + index).style.display = "none";
       document.getElementById("textarea-" + index).style.display = "block";
@@ -254,8 +304,8 @@ export default BaseComponent.extend({
         page: page,
       };
       let res = await getModel("comments", params);
-      this.paging = res.data.data;
-      this.comments = this.paging.data;
+      this.commentPaging = res.data.data;
+      this.comments = this.commentPaging.data;
     },
     async handleEnter(e) {
       if (e.ctrlKey) {
@@ -312,9 +362,9 @@ export default BaseComponent.extend({
       }
     },
   },
-  mounted() {
+  async mounted() {
     this.fieldFilter.id = this.$route.params.id;
-    this.getItems();
+    await this.getItems();
     this.getComments();
   },
 });
@@ -346,10 +396,19 @@ export default BaseComponent.extend({
   padding: 10px;
   border-radius: 10px;
 }
-.like {
+.liked {
   color: #898f96;
+  transition: all 0.5s;
 }
-.like:hover {
+.liked:hover {
   color: #3f97da;
+}
+
+.not-liked {
+  color: #3f97da;
+  transition: all 0.5s;
+}
+.not-liked:hover {
+  color: #898f96;
 }
 </style>

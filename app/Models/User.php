@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -39,4 +40,18 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Comment');
     }
+
+    public function schedules()
+    {
+        return $this->hasMany('App\Models\Schedule');
+    }
+
+    // public function getNameAttribute()
+    // {
+    //     if ($this->role == 2) {
+    //         return "Bs. {$this->name}";
+    //     }
+
+    //     return "{$this->name}";
+    // }
 }

@@ -1,6 +1,9 @@
 {
     "private": true,
     "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint",
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "npm run development -- --watch",
@@ -23,6 +26,7 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
+        "systemjs-plugin-json": "^0.3.0",
         "vue": "^2.6.14",
         "vue-router": "^3.2.0",
         "vue-template-compiler": "^2.6.14",
@@ -33,9 +37,21 @@
         "@ckeditor/ckeditor5-build-classic": "^34.0.0",
         "@ckeditor/ckeditor5-vue2": "^3.0.0",
         "@fortawesome/fontawesome-svg-core": "^6.1.1",
+        "@syncfusion/ej2-vue-schedule": "^20.1.57",
         "bootstrap-vue": "^2.22.0",
-        "laravel-echo": "^1.11.5",
+        "child_process": "^1.0.2",
+        "cldr-data": "^36.0.1",
+        "fs": "0.0.1-security",
+        "laravel-echo": "^1.11.7",
+        "md5": "^2.3.0",
+        "net": "^1.0.2",
         "pusher-js": "^7.0.6",
+        "socket.io-client": "^4.5.1",
+        "tls": "0.0.1",
+        "vue-beautiful-chat": "^2.5.0",
+        "vue-quick-chat": "^1.2.8",
+        "vue-webrtc": "^2.0.0",
+        "vue2-datepicker": "^3.10.4",
         "vue2-editor": "^2.10.3"
     }
 }

@@ -26,6 +26,8 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $id = $request['id'] ?? '';
+        $titleQuery = $request['titleQuery'] ?? '';
+        $type = $request['type'] ?? '';
 
         $query = $this->postRepository->getCollection($request)
         ->select([
@@ -37,6 +39,14 @@ class PostController extends Controller
 
         if ($id) {
             $query->where('posts.id', $id);
+        }
+
+        if ($titleQuery) {
+            $query->where('posts.title', 'like', '%' . $titleQuery . '%');
+        }
+
+        if ($type) {
+            $query->where('posts.type', 'like', '%' . $type . '%');
         }
 
         $items = $query->orderByDesc('created_at')->paginate(5);
@@ -69,7 +79,7 @@ class PostController extends Controller
             ]);
             $post = $this->postRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');
+            return $this->sendError($e->getMessage(), 'Kiểm tra lại');
         }
 
         return $this->sendSuccess($post->id);
@@ -128,7 +138,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         try {
-            $post = $this->postRepository->delete($id);
+            $this->postRepository->delete($id);
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CommentRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -33,14 +34,20 @@ class CommentController extends Controller
             'comments.*',
             'users.name as user_name',
             'users.role as user_role',
+            'users.avatar as user_avatar',
         ])
-        ->leftJoin('users', 'comments.user_id', 'users.id');
+            ->leftJoin('users', 'comments.user_id', 'users.id');
 
         if ($id) {
             $query->where('comments.id', $id);
         }
 
-        $items = $query->orderByDesc('created_at')->paginate(5);
+        $items = $query->orderByDesc('comments.created_at')->paginate(5);
+
+        $items->map(function ($item) {
+            $item->likes_count = $this->commentRepository->detail($item->id)->likes()->count();
+            $item->liked = $this->commentRepository->detail($item->id)->isAuthUserLikedComment();
+        });
 
         return $this->sendSuccess($items);
     }
@@ -127,7 +134,7 @@ class CommentController extends Controller
     public function destroy($id)
     {
         try {
-            $comment = $this->commentRepository->delete($id);
+            $this->commentRepository->delete($id);
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
         }
