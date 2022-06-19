@@ -62,7 +62,7 @@ class ReportPost extends Notification
     public function toArray($notifiable)
     {
         return [
-            'id' => $this->post->id,
+            'post_id' => $this->post->id,
             'user_id' => $this->post->user_id,
             'title' => $this->post->title,
             'type' => $this->post->type,

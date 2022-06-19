@@ -28,3 +28,7 @@ Broadcast::channel('call', function ($user) {
 Broadcast::channel('call-response', function ($user) {
     return true;
 });
+
+Broadcast::channel('App.Models.User.{user}', function ($user) {
+    return true;
+});

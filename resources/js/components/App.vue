@@ -8,7 +8,7 @@
       <Footer />
     </template>
     <template v-if="user.role == 3">
-    <nav-bar :user="user" @setChatParticipant="setChatParticipant" />
+      <nav-bar :user="user" @setChatParticipant="setChatParticipant" />
       <b-sidebar
         id="sidebar-no-header"
         aria-labelledby="sidebar-no-header-title"
@@ -524,6 +524,14 @@ export default BaseComponent.extend({
 
   created() {
     this.audio.loop = false;
+    window.Echo.private("App.Models.User." + User.id).notification((data) => {
+      if (data.type == `App\\Notifications\\ReportPost`) {
+        this.makeLinkToast(
+          data.user_name + " đã báo cáo 1 bài viết",
+          window.location.origin + "/posts/" + data.post_id
+        );
+      }
+    });
     window.Echo.private("call-response").listen("CallResponse", async (e) => {
       console.log(e);
       if (e.user.id == this.participants[0].id) {

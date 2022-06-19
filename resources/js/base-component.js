@@ -25,6 +25,10 @@ const BaseComponent = Vue.extend({
         .catch(() => {});
     },
 
+    openInNewTab(destination) {
+      window.open(window.location.origin + destination);
+    },
+
     async getItems(model = this.model, page = 1) {
       this.isLoading = true;
       let params = { ...this.fieldFilter, page };
@@ -92,6 +96,15 @@ const BaseComponent = Vue.extend({
     makeToast(msg) {
       this.$bvToast.toast(msg, {
         title: "Thông báo",
+        autoHideDelay: 5000,
+        toaster: "b-toaster-bottom-right",
+      });
+    },
+
+    makeLinkToast(msg, href) {
+      this.$bvToast.toast(msg, {
+        title: "Thông báo",
+        href: href,
         autoHideDelay: 5000,
         toaster: "b-toaster-bottom-right",
       });

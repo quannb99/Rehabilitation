@@ -160,7 +160,7 @@
               v-for="(item, index) in notifications"
               :key="index"
               href="#"
-              @click.prevent="navigateTo('show-post', item.data.id)"
+              @click.prevent="navigateTo('show-post', item.data.post_id)"
             >
               <div>
                 <b-media>
