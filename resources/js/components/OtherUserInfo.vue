@@ -153,14 +153,15 @@
               v-if="user.deactive == 0"
               variant="danger"
               @click.prevent="deactive()"
-              ><i class="fa fa-floppy-o" aria-hidden="true"></i> Vô hiệu hóa tài
-              khoản
+            >
+              Vô hiệu hóa tài khoản
             </b-button>
             <b-button
               v-if="user.deactive == 1"
               variant="success"
               @click.prevent="active()"
-              ><i class="fa fa-floppy-o" aria-hidden="true"></i> Kích hoạt tài khoản
+            >
+              Kích hoạt tài khoản
             </b-button>
           </b-form>
         </b-card>
@@ -203,19 +204,19 @@ export default BaseComponent.extend({
   methods: {
     async deactive() {
       let form = {
-        deactive: 1
-      }
-      this.user.deactive = 1
+        deactive: 1,
+      };
+      this.user.deactive = 1;
       await updateModel("users", form, this.user.id);
-      this.makeToast('Vô hiệu hóa tài khoản thành công')
+      this.makeToast("Vô hiệu hóa tài khoản thành công");
     },
     async active() {
       let form = {
-        active: 1
-      }
-      this.user.deactive = 0
+        active: 1,
+      };
+      this.user.deactive = 0;
       await updateModel("users", form, this.user.id);
-      this.makeToast('Kích hoạt tài khoản thành công')
+      this.makeToast("Kích hoạt tài khoản thành công");
     },
     async getSpecialistName(id) {
       let res = await getModel("specialists", { id: id });
@@ -238,7 +239,9 @@ export default BaseComponent.extend({
       try {
         let formData = new FormData();
         for (var key in this.user) {
-          formData.append(key, this.user[key]);
+          if (this.user[key]) {
+            formData.append(key, this.user[key]);
+          }
         }
         formData.append("image", this.file);
         formData.append("_method", "PUT");

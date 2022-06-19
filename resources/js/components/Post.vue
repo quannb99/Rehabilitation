@@ -4,6 +4,7 @@
     <confirm-modal @confirm="handleConfirm" ref="cf-modal"></confirm-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
+        <h3 v-if="items.length == 0">Không tồn tại bài viết này</h3>
         <b-list-group>
           <b-list-group-item v-if="items[0]">
             <b-dropdown
@@ -80,7 +81,7 @@
           <b-list-group-item v-if="items[0]" v-html="items[0].content">
           </b-list-group-item>
         </b-list-group>
-        <b-list-group class="mt-4">
+        <b-list-group v-if="items[0]" class="mt-4">
           <b-list-group-item>
             <h4>
               Bình luận
@@ -222,8 +223,8 @@
           variant="theme"
           class="new-post-btn"
           @click="navigateTo('new-post')"
-          ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng bài
-          mới</b-button
+          ><i style="font-size: 20px" class="fa fa-pencil-square-o" aria-hidden="true"></i> <span style="font-size: 20px">Đăng bài
+          mới</span> </b-button
         >
         <b-card class="mt-3">
           <b-nav-form id="search-form">
@@ -361,9 +362,9 @@ export default BaseComponent.extend({
       }
     },
   },
-  mounted() {
+  async mounted() {
     this.fieldFilter.id = this.$route.params.id;
-    this.getItems();
+    await this.getItems();
     this.getComments();
   },
 });

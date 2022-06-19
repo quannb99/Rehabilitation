@@ -91,9 +91,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->userRepository->create($request->all());
+            $request['password'] = Hash::make($request->password);
+            if ($request->image) {
+                $file = $request->file('image');
+                $fileName = uniqid() . $file->getClientOriginalName();;
+                $destinationPath = public_path() . '/uploads';
+                $file->move($destinationPath, $fileName);
+                $avatar = '../../uploads/' . $fileName;
+                $request['avatar'] = $avatar;
+            }
+            $this->userRepository->create($request->only(['name', 'role', 'avatar', 'email', 'password', 'specialist_id']));
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');
@@ -159,7 +168,7 @@ class UserController extends Controller
             }
 
             if ($request->password) {
-                $request['password'] = Hash::make($request->password);;
+                $request['password'] = Hash::make($request->password);
             }
 
             $user = $this->userRepository->update($request->only(['name', 'gender', 'phone', 'avatar', 'birthyear', 'password']), $id);

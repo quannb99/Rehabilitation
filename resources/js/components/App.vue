@@ -29,11 +29,11 @@
               Rehab
             </b-navbar-brand>
             <b-nav class="mt-4 mb-3" tabs vertical>
-              <b-nav-item @click="navigateTo('userManage')"
+              <b-nav-item :active="false" @click="navigateTo('userManage')"
                 >Quản lý người dùng</b-nav-item
               >
-              <b-nav-item href="#link-1">Link</b-nav-item>
-              <b-nav-item href="#link-2">Another Link</b-nav-item>
+              <b-nav-item>Quản lý bài viết</b-nav-item>
+              <b-nav-item>Quản lý báo cáo</b-nav-item>
             </b-nav>
           </div>
         </template>
@@ -688,5 +688,10 @@ export default BaseComponent.extend({
 }
 #sidebar-no-header .nav-tabs {
   border-bottom: 0 !important;
+}
+
+#sidebar-no-header .nav-link {
+  height: 60px !important;
+  padding-top: 15px !important;
 }
 </style>

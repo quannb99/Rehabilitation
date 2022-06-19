@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Events\IncomingCall;
 use App\Events\CallResponse;
 use App\Notifications\ReportPost;
+use App\Repositories\AppointmentRepository;
+use App\Repositories\MedicalRecordRepository;
 use App\Repositories\MessageRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
@@ -17,17 +19,21 @@ class HomeController extends Controller
     protected $userRepository;
     protected $messageRepository;
     protected $postRepository;
+    protected $appointmentRepository;
+    protected $medicalRecordRepository;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository, MessageRepository $messageRepository, PostRepository $postRepository)
+    public function __construct(UserRepository $userRepository, MessageRepository $messageRepository, PostRepository $postRepository, AppointmentRepository $appointmentRepository, MedicalRecordRepository $medicalRecordRepository)
     {
         $this->userRepository = $userRepository;
         $this->messageRepository = $messageRepository;
         $this->postRepository = $postRepository;
+        $this->appointmentRepository = $appointmentRepository;
+        $this->medicalRecordRepository = $medicalRecordRepository;
         $this->middleware('auth');
     }
 
@@ -45,7 +51,8 @@ class HomeController extends Controller
         }
     }
 
-    public function getAdmins() {
+    public function getAdmins()
+    {
         $admin = $this->userRepository->getCollection('')->where('role', 3)->get();
 
         return $admin;
@@ -93,9 +100,32 @@ class HomeController extends Controller
         Notification::send($admins, new ReportPost($post, $user));
     }
 
-    public function getNotifications(Request $request) {
+    public function getNotifications(Request $request)
+    {
         $notifications = Auth::user()->notifications;
 
         return $this->sendSuccess($notifications);
+    }
+
+    public function dashboard(Request $request)
+    {
+        $userCount = $this->userRepository->getCollection('')->where('role', 1)->count();
+        $doctorCount = $this->userRepository->getCollection('')->where('role', 2)->count();
+        $postCount = $this->postRepository->getCollection('')->count();
+        $appointmentCount = $this->appointmentRepository->getCollection('')->count();
+        $recordCount = $this->medicalRecordRepository->getCollection('')->count();
+        // dd(Auth::user()->notifications->where('type', 'like', '%Report%'));
+        $reportCount = Auth::user()->notifications->count();
+
+        $res = [
+            'user' => $userCount,
+            'doctor' => $doctorCount,
+            'post' => $postCount,
+            'appointment' => $appointmentCount,
+            'record' => $recordCount,
+            'report' => $reportCount,
+        ];
+
+        return $this->sendSuccess($res);
     }
 }

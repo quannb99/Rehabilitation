@@ -191,7 +191,9 @@ export default BaseComponent.extend({
       try {
         let formData = new FormData();
         for (var key in this.user) {
-          formData.append(key, this.user[key]);
+          if (this.user[key]) {
+            formData.append(key, this.user[key]);
+          }
         }
         formData.append("image", this.file);
         formData.append("_method", "PUT");

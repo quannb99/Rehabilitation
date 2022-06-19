@@ -47,16 +47,10 @@
       <div class="col-lg-8">
         <b-list-group>
           <div class="mb-3" v-if="this.items[0]">
-            <h4
-              style="display: inline-block"
-              v-if="this.fieldFilter.role == 1"
-            >
+            <h4 style="display: inline-block" v-if="this.fieldFilter.role == 1">
               Danh sách người dùng:
             </h4>
-            <h4
-              style="display: inline-block"
-              v-if="this.fieldFilter.role == 2"
-            >
+            <h4 style="display: inline-block" v-if="this.fieldFilter.role == 2">
               Danh sách bác sĩ:
             </h4>
             <h4 style="display: inline-block" v-if="this.fieldFilter.user_name">
@@ -94,7 +88,9 @@
                     <b-img :src="item.avatar" width="120" alt="avatar"></b-img>
                   </template>
                   <div>
-                    <h5>{{ item.role == 2 ? 'Bác sĩ' : '' }} {{ item.name }} </h5>
+                    <h5>
+                      {{ item.role == 2 ? "Bác sĩ" : "" }} {{ item.name }}
+                    </h5>
                     <h6>
                       <b>Email:</b>
                       <span>{{ item.email }}</span>
@@ -106,7 +102,9 @@
                     </h6>
                     <h6>
                       <b>Ngày tạo tài khoản:</b>
-                      <span>{{ moment(item.created_at).format('DD-MM-yyyy') }}</span>
+                      <span>{{
+                        moment(item.created_at).format("DD-MM-yyyy")
+                      }}</span>
                     </h6>
                   </div>
                 </b-media>
@@ -124,7 +122,7 @@
                 <i class="fa fa-comments" aria-hidden="true"></i>Nhắn tin
               </b-button>
               <b-button
-              class="ml-3"
+                class="ml-3"
                 variant="success"
                 @click.prevent="navigateTo('otherUserInfo', item.id)"
               >
@@ -146,6 +144,17 @@
       </div>
 
       <div class="col-lg-4">
+        <b-button
+          variant="theme"
+          class="new-post-btn mt-3"
+          @click="navigateTo('createUser')"
+          ><i
+            style="font-size: 20px"
+            class="fa fa-pencil-square-o"
+            aria-hidden="true"
+          ></i>
+          <span style="font-size: 20px">Tạo người dùng mới</span>
+        </b-button>
         <b-card class="mt-3">
           <b-nav-form id="search-form">
             <b-form-input
@@ -239,6 +248,7 @@ export default BaseComponent.extend({
     },
   },
   async mounted() {
+    this.checkAdmin();
     // this.fieldFilter.role = 2;
     this.fieldFilter.nonAdmin = 1;
     this.getItems();
