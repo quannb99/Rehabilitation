@@ -29,11 +29,18 @@
               Rehab
             </b-navbar-brand>
             <b-nav class="mt-4 mb-3" tabs vertical>
-              <b-nav-item :active="false" @click="navigateTo('userManage')"
+              <b-nav-item
+                :active="getActiveNav() == 1"
+                @click="navigateTo('userManage')"
                 >Quản lý người dùng</b-nav-item
               >
-              <b-nav-item>Quản lý bài viết</b-nav-item>
-              <b-nav-item>Quản lý báo cáo</b-nav-item>
+              <b-nav-item
+                :active="getActiveNav() == 2"
+                @click="navigateTo('postManage')"
+                >Quản lý bài viết</b-nav-item
+              >
+              <b-nav-item :active="getActiveNav() == 3"
+                @click="navigateTo('reportManage')">Quản lý báo cáo</b-nav-item>
             </b-nav>
           </div>
         </template>
@@ -535,6 +542,12 @@ export default BaseComponent.extend({
 
     chatTitle() {
       return this.participants[0].name;
+    },
+    getActiveNav() {
+      if (window.location.pathname.indexOf("userManage") != -1) return 1;
+      if (window.location.pathname.indexOf("postManage") != -1) return 2;
+      if (window.location.pathname.indexOf("reportManage") != -1) return 3;
+      return 0;
     },
   },
 

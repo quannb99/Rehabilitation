@@ -110,7 +110,7 @@
                 >
                   <template #aside>
                     <b-img
-                      src="../../images/user-default-ava.jpg"
+                      :src="comment.user_avatar"
                       width="48"
                       alt="avatar"
                       rounded="circle"
@@ -146,7 +146,7 @@
                       </template>
                       <b-dropdown-item
                         @click.prevent="editComment(index)"
-                        v-if="comment.user_id == User.id || User.role == 3"
+                        v-if="comment.user_id == User.id"
                         href="#"
                         >Sửa bình luận</b-dropdown-item
                       >

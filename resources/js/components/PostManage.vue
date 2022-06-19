@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navigation :title="'Diễn đàn'" :page="'forum'" />
+    <Navigation :title="'Quản lý bài viết'" :page="null" />
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
         <b-list-group>
@@ -147,6 +147,7 @@ export default BaseComponent.extend({
     },
   },
   mounted() {
+    this.checkAdmin()
     this.getItems();
   },
 });

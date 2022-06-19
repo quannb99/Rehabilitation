@@ -16,6 +16,7 @@ import MedicalRecordList from "./components/MedicalRecordList.vue"
 import VideoCall from "./components/VideoCall.vue"
 import AdminHome from "./components/AdminHome.vue"
 import UserManage from "./components/UserManage.vue"
+import PostManage from "./components/PostManage.vue"
 import CreateUser from "./components/CreateUser.vue"
 
 Vue.use(VueRouter)
@@ -35,6 +36,11 @@ const routes = [
     path: "/userManage",
     name: "userManage",
     component: UserManage,
+  },
+  {
+    path: "/postManage",
+    name: "postManage",
+    component: PostManage,
   },
   {
     path: "/createUser",

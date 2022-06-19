@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="mt-3"></div>
-    <vue-webrtc ref="webrtc" width="100%" :cameraHeight="550" :roomId="roomId">
+    <vue-webrtc ref="webrtc" width="100%" :cameraHeight="authUser.role != 3 ? 550 : 450" :roomId="roomId">
     </vue-webrtc>
     <div class="row">
       <div style="margin: auto" class="text-center col-lg-6 my-4">

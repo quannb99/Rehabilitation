@@ -33,7 +33,8 @@ class CommentController extends Controller
         $query->select([
             'comments.*',
             'users.name as user_name',
-            'users.role as user_role'
+            'users.role as user_role',
+            'users.avatar as user_avatar',
         ])
             ->leftJoin('users', 'comments.user_id', 'users.id');
 

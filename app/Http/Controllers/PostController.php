@@ -26,6 +26,8 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $id = $request['id'] ?? '';
+        $titleQuery = $request['titleQuery'] ?? '';
+        $type = $request['type'] ?? '';
 
         $query = $this->postRepository->getCollection($request)
         ->select([
@@ -37,6 +39,14 @@ class PostController extends Controller
 
         if ($id) {
             $query->where('posts.id', $id);
+        }
+
+        if ($titleQuery) {
+            $query->where('posts.title', 'like', '%' . $titleQuery . '%');
+        }
+
+        if ($type) {
+            $query->where('posts.type', 'like', '%' . $type . '%');
         }
 
         $items = $query->orderByDesc('created_at')->paginate(5);
