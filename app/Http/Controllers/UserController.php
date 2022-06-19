@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -28,6 +29,7 @@ class UserController extends Controller
         $role = $request['role'] ?? '';
         $specialist_id = $request['specialist_id'] ?? '';
         $user_name = $request['user_name'] ?? '';
+        $nonAdmin = $request['nonAdmin'] ?? '';
 
         $query = $this->userRepository->getCollection($request)
             ->select([
@@ -38,6 +40,10 @@ class UserController extends Controller
 
         if ($id) {
             $query->where('users.id', $id);
+        }
+
+        if ($nonAdmin) {
+            $query->where('role', '<>', 3);
         }
 
         if ($role) {
@@ -52,7 +58,7 @@ class UserController extends Controller
             $query->where('users.name', 'like', '%' . $user_name . '%');
         }
 
-        $items = $query->orderByDesc('created_at')->paginate(10);
+        $items = $query->orderByDesc('created_at')->paginate(5);
 
         $items->map(function ($item) {
             $item->schedules = $this->userRepository->detail($item->id)->schedules()
@@ -125,6 +131,19 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            if ($request->deactive) {
+                $user = $this->userRepository->detail($id);
+                $user->deactive = 1;
+                $user->save();
+                return $this->sendSuccess('');
+            }
+            if ($request->active) {
+                $user = $this->userRepository->detail($id);
+                $user->deactive = 0;
+                $user->save();
+                return $this->sendSuccess('');
+            }
+
             if ($request->image) {
                 $file = $request->file('image');
                 $fileName = uniqid() . $file->getClientOriginalName();;
@@ -133,13 +152,17 @@ class UserController extends Controller
                 $avatar = '../../uploads/' . $fileName;
                 $request['avatar'] = $avatar;
                 $currentAvatar = $this->userRepository->detail($request->id)->avatar;
-                if ($currentAvatar != config('common.ava_default')) {
+                if ($currentAvatar != '../../images/user-default-ava.jpg') {
                     $currentFileName = substr($currentAvatar, 5);
                     File::delete(public_path() . $currentFileName);
                 }
             }
 
-            $user = $this->userRepository->update($request->except(['schedules', 'specialist_name', 'image', '_method', 'email_verified_at']), $id);
+            if ($request->password) {
+                $request['password'] = Hash::make($request->password);;
+            }
+
+            $user = $this->userRepository->update($request->only(['name', 'gender', 'phone', 'avatar', 'birthyear', 'password']), $id);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), 'Kiểm tra lại');
         }

@@ -129,7 +129,7 @@
                     <p class="ellipsis-text">
                       {{ item.content }}
                     </p>
-                    <span>{{ moment(item.created_at).fromNow() }}</span>
+                    <span class="ml-1">{{ moment(item.created_at).fromNow() }}</span>
                   </div>
                 </b-media>
               </div>

@@ -33,13 +33,13 @@
                     type: 'delete-post',
                   })
                 "
-                v-if="items[0].user_id == User.id"
+                v-if="items[0].user_id == User.id || User.role == 3"
                 href="#"
                 >Xóa bài viết</b-dropdown-item
               >
               <b-dropdown-item
                 @click="reportPost()"
-                v-if="items[0].user_id != User.id"
+                v-if="items[0].user_id != User.id && User.role != 3"
                 href="#"
                 >Báo cáo bài viết</b-dropdown-item
               >
@@ -128,6 +128,7 @@
 
                   <div :id="'comment-' + index">
                     <b-dropdown
+                      v-if="comment.user_id == User.id || User.role == 3"
                       id="ellipsis-dd"
                       style="float: right"
                       size="lg"
@@ -144,7 +145,7 @@
                       </template>
                       <b-dropdown-item
                         @click.prevent="editComment(index)"
-                        v-if="comment.user_id == User.id"
+                        v-if="comment.user_id == User.id || User.role == 3"
                         href="#"
                         >Sửa bình luận</b-dropdown-item
                       >
@@ -155,15 +156,15 @@
                             id: comment.id,
                           })
                         "
-                        v-if="comment.user_id == User.id"
+                        v-if="comment.user_id == User.id || User.role == 3"
                         href="#"
                         >Xóa bình luận</b-dropdown-item
                       >
-                      <b-dropdown-item
+                      <!-- <b-dropdown-item
                         v-if="comment.user_id != User.id"
                         href="#"
                         >Báo cáo bình luận</b-dropdown-item
-                      >
+                      > -->
                     </b-dropdown>
 
                     <h6 class="mt-0 mb-1">

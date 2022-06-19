@@ -28,13 +28,13 @@
               />
               Rehab
             </b-navbar-brand>
-            <nav class="mt-2 mb-3">
-              <b-nav tabs vertical>
-                <b-nav-item>Active</b-nav-item>
-                <b-nav-item href="#link-1">Link</b-nav-item>
-                <b-nav-item href="#link-2">Another Link</b-nav-item>
-              </b-nav>
-            </nav>
+            <b-nav class="mt-4 mb-3" tabs vertical>
+              <b-nav-item @click="navigateTo('userManage')"
+                >Quản lý người dùng</b-nav-item
+              >
+              <b-nav-item href="#link-1">Link</b-nav-item>
+              <b-nav-item href="#link-2">Another Link</b-nav-item>
+            </b-nav>
           </div>
         </template>
       </b-sidebar>
@@ -42,7 +42,10 @@
       <div class="divider"></div>
       <div class="row">
         <div class="col-lg-2"></div>
-        <router-view class="col-lg-10" />
+        <router-view
+          @setChatParticipant="setChatParticipant"
+          class="col-lg-10"
+        />
       </div>
       <div class="shadow admin-footer"></div>
     </template>
@@ -230,6 +233,24 @@
         </div>
       </div>
     </b-modal>
+    <b-modal
+      ref="deactive-modal"
+      :title="'Thông báo'"
+      :hide-footer="true"
+      :no-close-on-backdrop="true"
+      centered
+      no-fade
+      size="lg"
+    >
+      <div class="d-block text-center">
+        <div class="modal-body d-block text-center">
+          <p>Tài khoản của bạn đã bị vô hiệu hóa</p>
+        </div>
+        <div class="text-center">
+          <b-button variant="primary" @click="hideModal()">Xác nhận</b-button>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -357,6 +378,7 @@ export default BaseComponent.extend({
       audio: new Audio("../../audio/skype_short.mp3"),
       responseType: "",
       callStatus: "",
+      notiAudio: new Audio("../../audio/FB.mp3"),
     };
   },
   methods: {
@@ -519,13 +541,20 @@ export default BaseComponent.extend({
   computed: {},
 
   async mounted() {
-    this.getMessages();
+    await this.getMessages();
+    if (User.deactive == 1) {
+      this.$refs["deactive-modal"].show();
+      setTimeout(() => {
+        document.getElementById("logout-form").submit();
+      }, 2000);
+    }
   },
 
   created() {
     this.audio.loop = false;
     window.Echo.private("App.Models.User." + User.id).notification((data) => {
       if (data.type == `App\\Notifications\\ReportPost`) {
+        this.notiAudio.play();
         this.makeLinkToast(
           data.user_name + " đã báo cáo 1 bài viết",
           window.location.origin + "/posts/" + data.post_id
@@ -656,5 +685,8 @@ export default BaseComponent.extend({
   position: absolute;
   top: -4px;
   left: 38px;
+}
+#sidebar-no-header .nav-tabs {
+  border-bottom: 0 !important;
 }
 </style>

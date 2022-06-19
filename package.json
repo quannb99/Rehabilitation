@@ -43,6 +43,7 @@
         "cldr-data": "^36.0.1",
         "fs": "0.0.1-security",
         "laravel-echo": "^1.11.7",
+        "md5": "^2.3.0",
         "net": "^1.0.2",
         "pusher-js": "^7.0.6",
         "socket.io-client": "^4.5.1",

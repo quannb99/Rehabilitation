@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navigation :title="'Thông tin cá nhân'" :page="'userInfo'" />
+    <Navigation :title="'Thông tin người dùng'" :page="null" />
     <message-modal ref="msg-modal"></message-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-4">
@@ -39,14 +39,14 @@
           <h2 class="mb-4" style="display: inline-block">
             Thông tin tài khoản
           </h2>
-          <!-- <b-button
-            v-if="user.id == authUser.id"
+          <b-button
+            v-if="authUser.role == 3"
             variant="theme"
             class="float-right"
             @click="toggleEditMode()"
             ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Chỉnh
             sửa</b-button
-          > -->
+          >
           <h6 class="mb-3"><strong>Họ tên: </strong>{{ user.name }}</h6>
           <h6 class="mb-3"><strong>Email: </strong>{{ user.email }}</h6>
           <h6 class="mb-3">
@@ -64,8 +64,7 @@
             >{{ user.birthyear ? user.birthyear : "Chưa xác định" }}
           </h6>
           <h6 class="mb-3" v-if="user.specialist_id">
-            <strong>Chuyên khoa: </strong
-            >{{ specialist_name }}
+            <strong>Chuyên khoa: </strong>{{ specialist_name }}
           </h6>
         </b-card>
         <b-card class="text-left" v-if="isEditMode">
@@ -106,9 +105,9 @@
                 :state="phoneState"
                 required
               ></b-form-input>
-              <b-form-invalid-feedback id="input-4">
+              <!-- <b-form-invalid-feedback id="input-4">
                 Nhập đúng số điện thoại
-              </b-form-invalid-feedback>
+              </b-form-invalid-feedback> -->
             </b-form-group>
             <b-form-group
               id="input-group-2"
@@ -134,6 +133,35 @@
                 valueType="YYYY"
               ></date-picker>
             </b-form-group>
+            <b-form-group
+              id="input-group-5"
+              label="Đổi mật khẩu:"
+              label-for="input-5"
+            >
+              <b-form-input
+                id="input-5"
+                v-model="user.password"
+                type="text"
+                placeholder="Nhập mật khẩu mới"
+                required
+              ></b-form-input>
+              <!-- <b-form-invalid-feedback id="input-4">
+                Nhập đúng số điện thoại
+              </b-form-invalid-feedback> -->
+            </b-form-group>
+            <b-button
+              v-if="user.deactive == 0"
+              variant="danger"
+              @click.prevent="deactive()"
+              ><i class="fa fa-floppy-o" aria-hidden="true"></i> Vô hiệu hóa tài
+              khoản
+            </b-button>
+            <b-button
+              v-if="user.deactive == 1"
+              variant="success"
+              @click.prevent="active()"
+              ><i class="fa fa-floppy-o" aria-hidden="true"></i> Kích hoạt tài khoản
+            </b-button>
           </b-form>
         </b-card>
       </div>
@@ -147,6 +175,7 @@ import { postModel, getModel, updateModel, deleteModel } from "../service";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import "vue2-datepicker/locale/vi";
+var md5 = require("md5");
 export default BaseComponent.extend({
   components: { DatePicker },
   data() {
@@ -161,7 +190,7 @@ export default BaseComponent.extend({
       },
       file: [],
       previewImage: null,
-      specialist_name: ''
+      specialist_name: "",
     };
   },
   computed: {
@@ -172,6 +201,22 @@ export default BaseComponent.extend({
     },
   },
   methods: {
+    async deactive() {
+      let form = {
+        deactive: 1
+      }
+      this.user.deactive = 1
+      await updateModel("users", form, this.user.id);
+      this.makeToast('Vô hiệu hóa tài khoản thành công')
+    },
+    async active() {
+      let form = {
+        active: 1
+      }
+      this.user.deactive = 0
+      await updateModel("users", form, this.user.id);
+      this.makeToast('Kích hoạt tài khoản thành công')
+    },
     async getSpecialistName(id) {
       let res = await getModel("specialists", { id: id });
       this.specialist_name = res.data.data[0].name;
@@ -187,7 +232,9 @@ export default BaseComponent.extend({
       };
     },
     async saveInfo() {
-      if (this.phoneState == false) return;
+      if (this.phoneState == false) {
+        this.user.phone = "";
+      }
       try {
         let formData = new FormData();
         for (var key in this.user) {
@@ -202,6 +249,7 @@ export default BaseComponent.extend({
         });
         // await updateModel("users", this.user, this.user.id);
         this.makeToast("Cập nhật thông tin thành công");
+        this.user.password = "";
         this.toggleEditMode();
       } catch (e) {
         this.handleErr(e);
@@ -245,7 +293,7 @@ export default BaseComponent.extend({
       };
       let res = await getModel("users", form);
       this.user = res.data.data.data[0];
-      await this.getSpecialistName(this.user.specialist_id)
+      await this.getSpecialistName(this.user.specialist_id);
     }
   },
 });

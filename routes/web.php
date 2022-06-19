@@ -38,6 +38,7 @@ Route::get('/user-info/{id}', 'HomeController@index');
 Route::get('/show-medical-record/{id}', 'HomeController@index');
 Route::get('/medical-record-list', 'HomeController@index');
 Route::get('/call/{id}', 'HomeController@index');
+Route::get('/userManage', 'HomeController@index');
 Route::post('/call', 'HomeController@call');
 Route::post('/callResponse', 'HomeController@callResponse');
 Route::post('/reportPost', 'HomeController@reportPost');

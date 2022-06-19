@@ -62,7 +62,7 @@
             <strong>Năm sinh: </strong
             >{{ user.birthyear ? user.birthyear : "Chưa xác định" }}
           </h6>
-          <h6 class="mb-3" v-if="user.specialist_id">
+          <h6 class="mb-3" v-if="user.specialist_id != null">
             <strong>Chuyên khoa: </strong>{{ specialist_name }}
           </h6>
         </b-card>
@@ -104,9 +104,9 @@
                 :state="phoneState"
                 required
               ></b-form-input>
-              <b-form-invalid-feedback id="input-4">
+              <!-- <b-form-invalid-feedback id="input-4">
                 Nhập đúng số điện thoại
-              </b-form-invalid-feedback>
+              </b-form-invalid-feedback> -->
             </b-form-group>
             <b-form-group
               id="input-group-2"
@@ -184,7 +184,10 @@ export default BaseComponent.extend({
       };
     },
     async saveInfo() {
-      if (this.phoneState == false) return;
+      // if (this.phoneState == false) return;
+      if (this.phoneState == false) {
+        this.user.phone = ''
+      };
       try {
         let formData = new FormData();
         for (var key in this.user) {
