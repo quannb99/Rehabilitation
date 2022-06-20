@@ -573,6 +573,13 @@ export default BaseComponent.extend({
           window.location.origin + "/posts/" + data.post_id
         );
       }
+      if (data.type == `App\\Notifications\\ReportComment`) {
+        this.notiAudio.play();
+        this.makeLinkToast(
+          data.user_name + " đã báo cáo 1 bình luận",
+          window.location.origin + "/posts/" + data.post_id
+        );
+      }
     });
     window.Echo.private("call-response").listen("CallResponse", async (e) => {
       console.log(e);

@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Events\IncomingCall;
 use App\Events\CallResponse;
+use App\Notifications\ReportComment;
 use App\Notifications\ReportPost;
 use App\Repositories\AppointmentRepository;
+use App\Repositories\CommentRepository;
 use App\Repositories\MedicalRecordRepository;
 use App\Repositories\MessageRepository;
 use App\Repositories\PostRepository;
+use App\Repositories\ReportRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,19 +24,23 @@ class HomeController extends Controller
     protected $postRepository;
     protected $appointmentRepository;
     protected $medicalRecordRepository;
+    protected $commentRepository;
+    protected $reportRepository;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository, MessageRepository $messageRepository, PostRepository $postRepository, AppointmentRepository $appointmentRepository, MedicalRecordRepository $medicalRecordRepository)
+    public function __construct(UserRepository $userRepository, MessageRepository $messageRepository, PostRepository $postRepository, AppointmentRepository $appointmentRepository, MedicalRecordRepository $medicalRecordRepository, CommentRepository $commentRepository, ReportRepository $reportRepository)
     {
         $this->userRepository = $userRepository;
         $this->messageRepository = $messageRepository;
         $this->postRepository = $postRepository;
         $this->appointmentRepository = $appointmentRepository;
         $this->medicalRecordRepository = $medicalRecordRepository;
+        $this->commentRepository = $commentRepository;
+        $this->reportRepository = $reportRepository;
         $this->middleware('auth');
     }
 
@@ -97,15 +104,56 @@ class HomeController extends Controller
         $admins = $this->getAdmins();
         $post = $this->postRepository->detail($request->id);
         $user = $this->userRepository->detail($request->user_id);
-        Notification::send($admins, new ReportPost($post, $user));
+        $postUser = $this->userRepository->detail($post->user_id);
+        Notification::send($admins, new ReportPost($post, $user, $postUser));
+        // $form = [
+        //     'user_id' => $request->user_id,
+        //     'reportable_id' => $request->id,
+        //     'reportable_type' => 'post',
+        // ];
+        // $this->reportRepository->create($form);
+    }
+
+    public function reportComment(Request $request)
+    {
+        $admins = $this->getAdmins();
+        $comment = $this->commentRepository->detail($request->id);
+        $user = $this->userRepository->detail($request->user_id);
+        $commentUser = $this->userRepository->detail($comment->user_id);
+        Notification::send($admins, new ReportComment($comment, $user, $commentUser));
+        // $form = [
+        //     'user_id' => $request->user_id,
+        //     'reportable_id' => $request->id,
+        //     'reportable_type' => 'comment',
+        // ];
+        // $this->reportRepository->create($form);
     }
 
     public function getNotifications(Request $request)
     {
+        if ($request->paginate) {
+            $notifications = Auth::user()->notifications()->paginate($request->paginate);
+            return $this->sendSuccess($notifications);
+        }
+
         $notifications = Auth::user()->notifications;
 
         return $this->sendSuccess($notifications);
     }
+
+    // public function getReports(Request $request)
+    // {
+    //     $postReports = $this->reportRepository->getCollection('')->where('type', 'post')
+    //         ->select([
+    //             'reports.*',
+    //             'users.name as user_name',
+    //             'users.role as user_role',
+    //             'users.avatar as user_avatar',
+    //         ])
+    //         ->leftJoin('users', 'posts.user_id', 'users.id');
+
+    //     return $this->sendSuccess($notifications);
+    // }
 
     public function dashboard(Request $request)
     {

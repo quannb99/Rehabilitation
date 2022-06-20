@@ -1,6 +1,6 @@
 -- MariaDB dump 10.17  Distrib 10.4.10-MariaDB, for Win64 (AMD64)
 --
--- Host: 127.0.0.1    Database: rehab
+-- Host: localhost    Database: rehab
 -- ------------------------------------------------------
 -- Server version	10.4.10-MariaDB
 
@@ -42,7 +42,7 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
-INSERT INTO `notifications` VALUES ('40de72d4-2e86-42a9-9c21-a60f4c36fc1d','App\\Notifications\\ReportPost','App\\Models\\User',10,'{\"post_id\":8,\"user_id\":1,\"title\":\"image\",\"type\":\"Chung\",\"user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"avatar\":\"https:\\/\\/vinmec-prod.s3.amazonaws.com\\/images\\/12_01_2019_11_08_53_877612.jpeg\"}',NULL,'2022-06-19 02:44:06','2022-06-19 02:44:06'),('5dd4aeee-1628-44e7-9157-658e23995bd8','App\\Notifications\\ReportPost','App\\Models\\User',10,'{\"post_id\":8,\"user_id\":1,\"title\":\"image\",\"type\":\"Chung\",\"user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"avatar\":\"https:\\/\\/vinmec-prod.s3.amazonaws.com\\/images\\/12_01_2019_11_08_53_877612.jpeg\"}',NULL,'2022-06-19 02:46:39','2022-06-19 02:46:39');
+INSERT INTO `notifications` VALUES ('0af6c42f-189b-4641-ab8c-1400a0f9151e','App\\Notifications\\ReportComment','App\\Models\\User',10,'{\"post_id\":29,\"comment_id\":25,\"content\":\"c\\u01b0\\u1eddi g\\u00ec\",\"user_id\":2,\"comment_user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"comment_user_avatar\":\"..\\/..\\/uploads\\/62af2722e317612_01_2019_11_08_54_075889.jpeg\",\"user_name\":\"Nguy\\u1ec5n B\\u00e1 Qu\\u00e2n\",\"avatar\":\"..\\/..\\/uploads\\/62a9c399bb202269691465_2136015413203455_4731070248963071192_n.jpg\"}',NULL,'2022-06-20 08:36:58','2022-06-20 08:36:58'),('bdb896f7-1fa2-42fb-a0bf-9ef7e4cea837','App\\Notifications\\ReportComment','App\\Models\\User',10,'{\"post_id\":29,\"comment_id\":25,\"content\":\"c\\u01b0\\u1eddi g\\u00ec\",\"user_id\":2,\"comment_user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"comment_user_avatar\":\"..\\/..\\/uploads\\/62af2722e317612_01_2019_11_08_54_075889.jpeg\",\"user_name\":\"Nguy\\u1ec5n B\\u00e1 Qu\\u00e2n\",\"avatar\":\"..\\/..\\/uploads\\/62a9c399bb202269691465_2136015413203455_4731070248963071192_n.jpg\"}',NULL,'2022-06-20 08:28:28','2022-06-20 08:28:28'),('e917990d-453d-4619-80fb-0d1a1f609600','App\\Notifications\\ReportPost','App\\Models\\User',10,'{\"post_id\":34,\"user_id\":2,\"title\":\"\\u00e1dasdasd\",\"type\":\"Chia s\\u1ebb\",\"user_name\":\"Nguy\\u1ec5n B\\u00e1 Qu\\u00e2n\",\"avatar\":\"..\\/..\\/uploads\\/62a9c399bb202269691465_2136015413203455_4731070248963071192_n.jpg\",\"post_user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\"}',NULL,'2022-06-20 08:49:00','2022-06-20 08:49:00');
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-19 21:32:16
+-- Dump completed on 2022-06-20 15:59:44

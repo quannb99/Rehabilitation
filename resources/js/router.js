@@ -17,6 +17,7 @@ import VideoCall from "./components/VideoCall.vue"
 import AdminHome from "./components/AdminHome.vue"
 import UserManage from "./components/UserManage.vue"
 import PostManage from "./components/PostManage.vue"
+import ReportManage from "./components/ReportManage.vue"
 import CreateUser from "./components/CreateUser.vue"
 
 Vue.use(VueRouter)
@@ -41,6 +42,11 @@ const routes = [
     path: "/postManage",
     name: "postManage",
     component: PostManage,
+  },
+  {
+    path: "/reportManage",
+    name: "reportManage",
+    component: ReportManage,
   },
   {
     path: "/createUser",

@@ -43,7 +43,7 @@
           >
             <h4>{{ item.title }}</h4>
             <div>
-              <i
+              <!-- <i
                 v-if="item.user_role == 1"
                 class="theme-icon-20 fa fa-user"
                 aria-hidden="true"
@@ -52,7 +52,13 @@
                 v-if="item.user_role == 2"
                 class="theme-icon-20 fa fa-user-md"
                 aria-hidden="true"
-              ></i>
+              ></i> -->
+              <b-img
+                :src="item.user_avatar"
+                width="20"
+                alt="avatar"
+                rounded="circle"
+              ></b-img>
               <strong class="mr-2" style="font-size: 14px"
                 ><span v-if="item.user_role == 2">Bs. </span>
                 {{ item.user_name }}</strong

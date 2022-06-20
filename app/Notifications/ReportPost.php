@@ -21,10 +21,11 @@ class ReportPost extends Notification
      *
      * @return void
      */
-    public function __construct(Post $post, User $user)
+    public function __construct(Post $post, User $user, User $postUser)
     {
         $this->post = $post;
         $this->user = $user;
+        $this->postUser = $postUser;
     }
 
     /**
@@ -68,6 +69,7 @@ class ReportPost extends Notification
             'type' => $this->post->type,
             'user_name' => $this->user->name,
             'avatar' => $this->user->avatar,
+            'post_user_name' => $this->postUser->name,
         ];
     }
 }

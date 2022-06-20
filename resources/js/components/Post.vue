@@ -49,16 +49,12 @@
               <strong>{{ items[0].title }}</strong>
             </h2>
             <div>
-              <i
-                v-if="items[0].user_role == 1"
-                class="theme-icon-20 fa fa-user"
-                aria-hidden="true"
-              ></i>
-              <i
-                v-if="items[0].user_role == 2"
-                class="theme-icon-20 fa fa-user-md"
-                aria-hidden="true"
-              ></i>
+              <b-img
+                :src="items[0].user_avatar"
+                width="20"
+                alt="avatar"
+                rounded="circle"
+              ></b-img>
               <strong class="mr-2" style="font-size: 14px"
                 ><span v-if="items[0].user_role == 2">Bs. </span>
                 {{ items[0].user_name }}</strong
@@ -129,7 +125,6 @@
 
                   <div :id="'comment-' + index">
                     <b-dropdown
-                      v-if="comment.user_id == User.id || User.role == 3"
                       id="ellipsis-dd"
                       style="float: right"
                       size="lg"
@@ -161,11 +156,12 @@
                         href="#"
                         >Xóa bình luận</b-dropdown-item
                       >
-                      <!-- <b-dropdown-item
-                        v-if="comment.user_id != User.id"
+                      <b-dropdown-item
+                      @click="reportComment(comment.id)"
+                        v-if="comment.user_id != User.id && User.role != 3"
                         href="#"
                         >Báo cáo bình luận</b-dropdown-item
-                      > -->
+                      >
                     </b-dropdown>
 
                     <h6 class="mt-0 mb-1">
@@ -223,9 +219,13 @@
           variant="theme"
           class="new-post-btn"
           @click="navigateTo('new-post')"
-          ><i style="font-size: 20px" class="fa fa-pencil-square-o" aria-hidden="true"></i> <span style="font-size: 20px">Đăng bài
-          mới</span> </b-button
-        >
+          ><i
+            style="font-size: 20px"
+            class="fa fa-pencil-square-o"
+            aria-hidden="true"
+          ></i>
+          <span style="font-size: 20px">Đăng bài mới</span>
+        </b-button>
         <b-card class="mt-3">
           <b-nav-form id="search-form">
             <b-form-input
@@ -267,8 +267,18 @@ export default BaseComponent.extend({
 
   methods: {
     async reportPost() {
-      await postModel("reportPost", { id: this.fieldFilter.id, user_id: User.id });
-      this.makeToast('Báo cáo bài viết thành công')
+      await postModel("reportPost", {
+        id: this.fieldFilter.id,
+        user_id: User.id,
+      });
+      this.makeToast("Báo cáo bài viết thành công");
+    },
+    async reportComment(id) {
+      await postModel("reportComment", {
+        id: id,
+        user_id: User.id,
+      });
+      this.makeToast("Báo cáo bình luận thành công");
     },
     async handleLike(index) {
       if (!this.comments[index].liked) {

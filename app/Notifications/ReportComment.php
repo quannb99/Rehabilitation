@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -13,18 +14,20 @@ class ReportComment extends Notification
 {
     use Queueable;
 
-    protected $post;
+    protected $comment;
     protected $user;
+    protected $commentUser;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Post $post, User $user)
+    public function __construct(Comment $comment, User $user, User $commentUser)
     {
-        $this->post = $post;
+        $this->comment = $comment;
         $this->user = $user;
+        $this->commentUser = $commentUser;
     }
 
     /**
@@ -62,10 +65,12 @@ class ReportComment extends Notification
     public function toArray($notifiable)
     {
         return [
-            'post_id' => $this->post->id,
+            'post_id' => $this->comment->post_id,
             'comment_id' => $this->comment->id,
             'content' => $this->comment->content,
-            'user_id' => $this->post->user_id,
+            'user_id' => $this->comment->user_id,
+            'comment_user_name' => $this->commentUser->name,
+            'comment_user_avatar' => $this->commentUser->avatar,
             'user_name' => $this->user->name,
             'avatar' => $this->user->avatar,
         ];

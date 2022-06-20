@@ -47,6 +47,7 @@ Route::post('/reportComment', 'HomeController@reportComment');
 Route::post('/getNotifications', 'HomeController@getNotifications');
 Route::get('/dashboard', 'HomeController@dashboard');
 Route::get('/postManage', 'HomeController@index');
+Route::get('/reportManage', 'HomeController@index');
 // Route::post('/broadcasting/auth', 'HomeController@checkAuth');
 Route::resources([
     'posts' => 'PostController',

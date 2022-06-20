@@ -34,6 +34,7 @@ class PostController extends Controller
             'posts.*',
             'users.name as user_name',
             'users.role as user_role',
+            'users.avatar as user_avatar',
         ])
         ->leftJoin('users', 'posts.user_id', 'users.id');
 
