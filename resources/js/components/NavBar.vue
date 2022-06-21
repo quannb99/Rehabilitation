@@ -129,7 +129,9 @@
                     <p class="ellipsis-text">
                       {{ item.content }}
                     </p>
-                    <span class="ml-1">{{ moment(item.created_at).fromNow() }}</span>
+                    <span class="ml-1">{{
+                      moment(item.created_at).fromNow()
+                    }}</span>
                   </div>
                 </b-media>
               </div>
@@ -148,10 +150,7 @@
                 ><i class="fa fa-bell" aria-hidden="true"></i
               ></b-button>
             </template>
-            <b-dropdown-item
-              :disabled="true"
-              v-if="notifications.length == 0"
-            >
+            <b-dropdown-item :disabled="true" v-if="notifications.length == 0">
               <p style="color: #000 !important; margin-top: 12px">
                 Không có thông báo nào
               </p>
@@ -173,8 +172,16 @@
                     ></b-img>
                   </template>
                   <div>
-                    <p class="ellipsis-text-310">
-                      <b>{{ item.data.user_name }}</b> đã báo cáo 1 bài viết <br>
+                    <p class="ellipsis-text-330">
+                      <b>{{ item.data.user_name }}</b> đã báo cáo 1
+                      <span
+                        v-if="item.type == 'App\\Notifications\\ReportComment'"
+                        >bình luận</span
+                      >
+                      <span v-if="item.type == 'App\\Notifications\\ReportPost'"
+                        >bài viết</span
+                      >
+                      <br />
                       {{ moment(item.created_at).fromNow() }}
                     </p>
                   </div>
@@ -263,7 +270,7 @@ export default BaseComponent.extend({
 }
 
 .noti-list ul.dropdown-menu {
-  width: 428px !important;
+  width: 460px !important;
   max-height: 428px;
   overflow: auto;
 }
@@ -281,9 +288,9 @@ export default BaseComponent.extend({
   text-overflow: ellipsis;
   display: inline-block;
 }
-.ellipsis-text-310 {
+.ellipsis-text-330 {
   white-space: nowrap;
-  width: 310px;
+  width: 330px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-block;

@@ -136,7 +136,7 @@ class CommentController extends Controller
         try {
             $this->commentRepository->delete($id);
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Bình luận không tồn tại', 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');

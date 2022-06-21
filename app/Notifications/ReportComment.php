@@ -73,6 +73,7 @@ class ReportComment extends Notification
             'comment_user_avatar' => $this->commentUser->avatar,
             'user_name' => $this->user->name,
             'avatar' => $this->user->avatar,
+            'created_at' => $this->comment->created_at,
         ];
     }
 }

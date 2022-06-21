@@ -6,8 +6,25 @@
       <div class="col-lg-8">
         <b-list-group>
           <div class="mb-3" v-if="this.items[0]">
-            <h4 style="display: inline-block" v-if="this.fieldFilter.type != null">
-              Các báo cáo {{ this.fieldFilter.type == 1 ? 'đã giải quyết' : 'chưa giải quyết' }}:
+            <h4
+              style="display: inline-block"
+              v-if="this.fieldFilter.type != null || this.fieldFilter.reportType != null"
+            >
+              Các báo cáo
+              <span v-if="this.fieldFilter.reportType != null">
+              {{
+                  this.fieldFilter.reportType == 'Post'
+                  ? "bài viết"
+                  : "bình luận"
+              }}
+              </span>
+              <span v-if="this.fieldFilter.type != null">
+              {{
+                  this.fieldFilter.type == 1
+                  ? "đã giải quyết"
+                  : "chưa giải quyết"
+              }}
+              </span>
             </h4>
             <!-- <h4
               style="display: inline-block"
@@ -18,7 +35,7 @@
               }}":
             </h4> -->
             <b-button
-              v-if="this.fieldFilter.type"
+              v-if="this.fieldFilter.type != null || this.fieldFilter.reportType != null"
               @click.prevent="clearFilter()"
               class="float-right"
               variant="theme"
@@ -26,9 +43,16 @@
             >
           </div>
           <div class="mb-3" v-if="!this.items[0]">
-            <h4 style="display: inline-block" v-if="this.fieldFilter.type">
-              Không có báo cáo nào {{ this.fieldFilter.type == 1 ? 'đã giải quyết' : 'chưa giải quyết' }}:
+            <h4 style="display: inline-block" v-if="this.fieldFilter.type != null">
+              Không có báo cáo nào thỏa mãn bộ lọc
             </h4>
+            <b-button
+              v-if="this.fieldFilter.type != null || this.fieldFilter.reportType != null"
+              @click.prevent="clearFilter()"
+              class="float-right"
+              variant="theme"
+              >Tắt bộ lọc</b-button
+            >
             <!-- <h4
               style="display: inline-block"
               v-if="this.fieldFilter.titleQuery"
@@ -88,9 +112,8 @@
       </div>
 
       <div class="col-lg-4">
-
-        <b-card class="mt-3">
-          <!-- <b-nav-form id="search-form">
+        <!-- <b-card class="mt-3">
+          <b-nav-form id="search-form">
             <b-form-input
               v-model="titleQuery"
               size="md"
@@ -107,14 +130,23 @@
               type="submit"
               ><i class="fa fa-search" aria-hidden="true"></i
             ></b-button>
-          </b-nav-form> -->
-        </b-card>
+          </b-nav-form>
+        </b-card> -->
         <b-list-group id="specialists-list" class="mt-3">
           <b-list-group-item
             ><h5><strong>Phân loại</strong></h5></b-list-group-item
           >
           <b-list-group-item v-for="(item, index) in types" :key="index">
-            <a href="#" @click.prevent="getReportsByType(item)">{{ item.text }}</a>
+            <a href="#" @click.prevent="getReportsByType(item)">{{
+              item.text
+            }}</a>
+            <i v-if="fieldFilter.type == item.value" class="success fa fa-check-square-o" aria-hidden="true"></i>
+          </b-list-group-item>
+          <b-list-group-item v-for="(item, index) in reportTypes" :key="index + 2">
+            <a href="#" @click.prevent="getReportsByReportType(item)">{{
+              item.text
+            }}</a>
+            <i v-if="fieldFilter.reportType == item.value" class="success fa fa-check-square-o" aria-hidden="true"></i>
           </b-list-group-item>
         </b-list-group>
       </div>
@@ -126,38 +158,141 @@
       :no-close-on-backdrop="true"
       centered
       no-fade
-      size="lg"
+      size="md"
     >
       <div class="d-block text-center">
         <div class="modal-body d-block text-center">
-          <b-media tag="li" class="mb-3">
-            <template #aside>
-              <b-img
-                :src="comment.comment_user_avatar"
-                width="48"
-                alt="avatar"
-                rounded="circle"
-              ></b-img>
-            </template>
+          <div style="width: 100%">
+            <b-media tag="li" class="mb-3">
+              <!-- <template #aside>
+                <b-img
+                  :src="comment.comment_user_avatar"
+                  width="48"
+                  alt="avatar"
+                  rounded="circle"
+                ></b-img>
+              </template> -->
 
-            <div>
-              <h6 class="mt-0 mb-1">
-                <strong
-                  style="cursor: pointer"
-                  @click="navigateTo('otherUserInfo', comment.user_id)"
-                >
-                  {{ comment.comment_user_name }}
-                </strong>
-              </h6>
-              <p class="mb-1 content-wrap">
-                {{ comment.content }}
-              </p>
-            </div>
-          </b-media>
+              <div>
+                <h6 class="mt-0 mb-1">
+                  <strong
+                    style="cursor: pointer"
+                    @click="navigateTo('otherUserInfo', comment.user_id)"
+                  >
+                    <b-img
+                      :src="comment.comment_user_avatar"
+                      width="22"
+                      alt="avatar"
+                      rounded="circle"
+                    ></b-img>
+                    {{ comment.comment_user_name }}</strong
+                  >
+                  đã bình luận vào
+                  <a
+                    href="#"
+                    style="cursor: pointer"
+                    @click.prevent="openInNewTab('/posts/' + comment.post_id)"
+                    >bài viết</a
+                  >
+                  với nội dung:<br />
+                </h6>
+                <p class="mb-1 content-wrap">
+                  “<i>{{ comment.content }}</i> ”
+                </p>
+              </div>
+            </b-media>
+          </div>
         </div>
         <div class="text-center">
-          <b-button variant="danger" @click="openModalConfirm()">Xoá</b-button>
-          <b-button variant="primary" @click="hideModal()">Đóng</b-button>
+          <b-button
+            v-if="isSolved == 0"
+            variant="success"
+            @click="changeNotiStatus(1)"
+            >Đánh dấu đã giải quyết</b-button
+          >
+          <b-button
+            v-if="isSolved == 1"
+            variant="success"
+            @click="changeNotiStatus(0)"
+            >Đánh dấu chưa giải quyết</b-button
+          >
+          <b-button class="mr-3" variant="danger" @click="openModalConfirm()"
+            >Xoá</b-button
+          >
+        </div>
+      </div>
+    </b-modal>
+    <b-modal
+      ref="report-post-modal"
+      :title="'Thông tin bài viết'"
+      :hide-footer="true"
+      :no-close-on-backdrop="true"
+      centered
+      no-fade
+      size="md"
+    >
+      <div class="d-block text-center">
+        <div class="modal-body d-block text-center">
+          <div style="width: 100%">
+            <b-media tag="li" class="mb-3">
+              <!-- <template #aside>
+                <b-img
+                  :src="comment.comment_user_avatar"
+                  width="48"
+                  alt="avatar"
+                  rounded="circle"
+                ></b-img>
+              </template> -->
+
+              <div>
+                <h6 class="mt-0 mb-1">
+                  <strong
+                    style="cursor: pointer"
+                    @click="navigateTo('otherUserInfo', post.user_id)"
+                  >
+                    <b-img
+                      :src="post.post_user_avatar"
+                      width="22"
+                      alt="avatar"
+                      rounded="circle"
+                    ></b-img>
+                    {{ post.post_user_name }}</strong
+                  >
+                  đã tạo
+                  <a
+                    href="#"
+                    style="cursor: pointer"
+                    @click.prevent="openInNewTab('/posts/' + post.post_id)"
+                    >bài viết</a
+                  >
+                  với tiêu đề:<br />
+                </h6>
+                <p class="mb-1 content-wrap">
+                  “<i>{{ post.title }}</i> ”
+                </p>
+              </div>
+            </b-media>
+          </div>
+        </div>
+        <div class="text-center">
+          <b-button
+            v-if="isSolved == 0"
+            variant="success"
+            @click="changeNotiStatus(1)"
+            >Đánh dấu đã giải quyết</b-button
+          >
+          <b-button
+            v-if="isSolved == 1"
+            variant="success"
+            @click="changeNotiStatus(0)"
+            >Đánh dấu chưa giải quyết</b-button
+          >
+          <b-button
+            class="mr-3"
+            variant="theme"
+            @click="openInNewTab('/posts/' + post.post_id)"
+            >Xem bài viết</b-button
+          >
         </div>
       </div>
     </b-modal>
@@ -172,7 +307,7 @@
     >
       <div class="d-block text-center">
         <div class="modal-body d-block text-center">
-          <p>Xoá bình luận và đánh dấu là đã giải quyết?</p>
+          <p>Bạn có muốn xóa bình luận này?</p>
         </div>
         <div class="text-center">
           <b-button variant="primary" @click="deleteComment()"
@@ -196,22 +331,46 @@ export default BaseComponent.extend({
         { text: "Chưa giải quyết", value: 0 },
         { text: "Đã giải quyết", value: 1 },
       ],
+      reportTypes: [
+        { text: "Báo cáo bài viết", value: 'Post' },
+        { text: "Báo cáo bình luận", value: 'Comment' },
+      ],
       titleQuery: "",
       reports: "",
       reports_paging: "",
       comment: "",
+      commentCreated: "",
       notificationId: "",
+      post: "",
+      isSolved: "",
     };
   },
   methods: {
+    async changeNotiStatus(flag) {
+      let form = {
+        solved: flag,
+        id: this.notificationId,
+      };
+      await postModel("markNoti", form);
+      this.hideModal();
+      await this.getItems();
+      if (flag == 1) {
+        this.makeToast("Đánh dấu đã giải quyết thành công");
+      } else {
+        this.makeToast("Đánh dấu chưa giải quyết thành công");
+      }
+
+    },
     hideModal() {
       this.$refs["report-comment-modal"].hide();
+      this.$refs["report-post-modal"].hide();
     },
     hideModalCf() {
       this.$refs["cf-modal"].hide();
     },
     clearFilter() {
       this.fieldFilter.type = null;
+      this.fieldFilter.reportType = null;
       this.getItems();
     },
     openModalConfirm() {
@@ -219,9 +378,9 @@ export default BaseComponent.extend({
     },
     async deleteComment() {
       try {
-        // await deleteModel('comments', this.comment.comment_id)
-        await postModel("markNoti", { solved: 1, id: this.notificationId });
-        this.$refs["report-comment-modal"].hide();
+        await deleteModel("comments", this.comment.comment_id);
+        // this.$refs["report-comment-modal"].hide();
+        this.hideModalCf();
         this.makeToast("Xoá bình luận thành công");
       } catch (error) {
         this.handleErr(error);
@@ -237,21 +396,31 @@ export default BaseComponent.extend({
       await this.getItems();
     },
 
+    async getReportsByReportType(item) {
+      this.fieldFilter.reportType = item.value;
+      await this.getItems();
+    },
+
     async handleShowReport(item) {
       if (item.type == "App\\Notifications\\ReportPost") {
-        this.navigateTo("show-post", item.data.post_id);
+        // this.navigateTo("show-post", item.data.post_id);
+        this.post = item.data;
+        this.notificationId = item.id;
+        this.isSolved = item.solved;
+        this.$refs["report-post-modal"].show();
       }
       if (item.type == "App\\Notifications\\ReportComment") {
         this.comment = item.data;
         this.notificationId = item.id;
+        this.isSolved = item.solved;
         this.$refs["report-comment-modal"].show();
       }
     },
   },
   async mounted() {
     await this.checkAdmin();
-    this.fieldFilter.paginate = 10
-    await this.getItems()
+    this.fieldFilter.type = 0;
+    await this.getItems();
   },
 });
 </script>
@@ -259,5 +428,9 @@ export default BaseComponent.extend({
 <style lang="scss" scoped>
 .post-form {
   width: 60%;
+}
+
+.success {
+  color: #218838;
 }
 </style>

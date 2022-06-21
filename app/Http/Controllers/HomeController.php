@@ -133,6 +133,7 @@ class HomeController extends Controller
     {
         $id = $request['id'] ?? '';
         $type = $request['type'] ?? null;
+        $reportType = $request['reportType'] ?? null;
 
         $query = Auth::user()->notifications();
 
@@ -142,6 +143,10 @@ class HomeController extends Controller
 
         if ($type != null) {
             $query->where('solved', $type);
+        }
+
+        if ($reportType) {
+            $query->where('type', 'like', '%' . $reportType . '%');
         }
 
         $res = $query->orderByDesc('created_at')->paginate(10);

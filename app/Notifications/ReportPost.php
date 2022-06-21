@@ -70,6 +70,7 @@ class ReportPost extends Notification
             'user_name' => $this->user->name,
             'avatar' => $this->user->avatar,
             'post_user_name' => $this->postUser->name,
+            'post_user_avatar' => $this->postUser->avatar,
         ];
     }
 }
