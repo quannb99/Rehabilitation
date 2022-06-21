@@ -242,8 +242,8 @@ export default BaseComponent.extend({
     },
 
     async getNotifications() {
-      let $res = await postModel("getNotifications");
-      this.notifications = $res.data.data;
+      let $res = await getModel("getNotifications");
+      this.notifications = $res.data.data.data;
     },
   },
 

@@ -131,14 +131,21 @@ class HomeController extends Controller
 
     public function getNotifications(Request $request)
     {
-        if ($request->paginate) {
-            $notifications = Auth::user()->notifications()->paginate($request->paginate);
-            return $this->sendSuccess($notifications);
+        $id = $request['id'] ?? '';
+        $type = $request['type'] ?? null;
+
+        $query = Auth::user()->notifications();
+
+        if ($id) {
+            $query->where('id', $id);
         }
 
-        $notifications = Auth::user()->notifications;
+        if ($type != null) {
+            $query->where('solved', $type);
+        }
 
-        return $this->sendSuccess($notifications);
+        $res = $query->orderByDesc('created_at')->paginate(10);
+        return $this->sendSuccess($res);
     }
 
     // public function getReports(Request $request)
@@ -175,5 +182,19 @@ class HomeController extends Controller
         ];
 
         return $this->sendSuccess($res);
+    }
+
+    public function markNotification(Request $request)
+    {
+        try {
+            $notification = Auth::user()->notifications()->where('id', $request->id)->first();
+            $notification->update([
+                'solved' => $request->solved
+            ]);
+        } catch (\Exception $e) {
+            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+        }
+
+        return $this->sendSuccess('');
     }
 }
