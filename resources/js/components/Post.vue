@@ -157,7 +157,7 @@
                         >Xóa bình luận</b-dropdown-item
                       >
                       <b-dropdown-item
-                      @click="reportComment(comment.id)"
+                        @click="reportComment(comment.id)"
                         v-if="comment.user_id != User.id && User.role != 3"
                         href="#"
                         >Báo cáo bình luận</b-dropdown-item
@@ -226,7 +226,7 @@
           ></i>
           <span style="font-size: 20px">Đăng bài mới</span>
         </b-button>
-        <b-card class="mt-3">
+        <!-- <b-card class="mt-3">
           <b-nav-form id="search-form">
             <b-form-input
               size="md"
@@ -243,7 +243,7 @@
               ><i class="fa fa-search" aria-hidden="true"></i
             ></b-button>
           </b-nav-form>
-        </b-card>
+        </b-card> -->
       </div>
     </div>
   </div>
@@ -420,5 +420,15 @@ export default BaseComponent.extend({
 }
 .not-liked:hover {
   color: #898f96;
+}
+p.ql-align-center img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 66%;
+}
+
+p.ql-align-center {
+  text-align: center;
 }
 </style>

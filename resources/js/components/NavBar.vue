@@ -139,7 +139,7 @@
           </b-nav-item-dropdown>
 
           <b-nav-item-dropdown
-            v-if="user != null"
+            v-if="user != null && user.role == 3"
             size="md"
             right
             no-caret

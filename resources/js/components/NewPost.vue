@@ -105,6 +105,7 @@ export default BaseComponent.extend({
       try {
         let res = await postModel(this.model, this.form);
         let id = res.data.data;
+        this.makeToast('Đăng bài viết thành công')
         this.navigateTo("show-post", id);
       } catch (error) {
         this.handleErr(error);
