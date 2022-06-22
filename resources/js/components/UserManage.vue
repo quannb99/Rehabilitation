@@ -182,9 +182,11 @@
           >
           <b-list-group-item>
             <a href="#" @click.prevent="getUsers()">Người dùng</a>
+            <i v-if="fieldFilter.role == 1" class="success fa fa-check-square-o" aria-hidden="true"></i>
           </b-list-group-item>
           <b-list-group-item>
             <a href="#" @click.prevent="getDoctors()">Bác sĩ</a>
+            <i v-if="fieldFilter.role == 2" class="success fa fa-check-square-o" aria-hidden="true"></i>
           </b-list-group-item>
         </b-list-group>
       </div>

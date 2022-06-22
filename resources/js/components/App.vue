@@ -5,7 +5,7 @@
       <message-modal ref="msg-modal"></message-modal>
       <div class="divider"></div>
       <router-view @setChatParticipant="setChatParticipant" />
-      <Footer />
+      <Footer @setChatParticipant="setChatParticipant" />
     </template>
     <template v-if="user.role == 3">
       <nav-bar :user="user" @setChatParticipant="setChatParticipant" />

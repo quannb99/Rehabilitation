@@ -115,6 +115,11 @@
           >
           <b-list-group-item v-for="(item, index) in types" :key="index">
             <a href="#" @click.prevent="getPostsByType(item)">{{ item }}</a>
+            <i
+              v-if="fieldFilter.type == item"
+              class="success fa fa-check-square-o"
+              aria-hidden="true"
+            ></i>
           </b-list-group-item>
         </b-list-group>
       </div>
