@@ -40,7 +40,7 @@
                         </li>
                         <li>
                           <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                          rehab@gmail.com
+                          contact@rehab.com
                         </li>
                       </ul>
                     </div>
@@ -99,7 +99,7 @@
                       <ul>
                         <li v-for="(item, index) in newPosts" :key="index">
                           <h4>
-                            <a href="#" @click="navigateTo('show-post', item.id)"
+                            <a href="#" @click.prevent="openInNewTab('/posts/' + item.id)"
                               >{{ item.title }}</a
                             >
                           </h4>

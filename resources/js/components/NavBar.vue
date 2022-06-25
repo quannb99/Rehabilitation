@@ -127,6 +127,7 @@
                   <h5>{{ item.user_name }}</h5>
                   <div class="d-flex">
                     <p class="ellipsis-text">
+                      <span v-if="user.id == item.user_a_id">Bạn: </span>
                       {{ item.content }}
                     </p>
                     <span class="ml-1">{{
@@ -264,13 +265,13 @@ export default BaseComponent.extend({
 </script>
 <style>
 .msg-history ul.dropdown-menu {
-  width: 500px !important;
-  max-height: 500px;
+  width: max-content !important;
+  max-height: 410px;
   overflow: auto;
 }
 
 .noti-list ul.dropdown-menu {
-  width: 460px !important;
+  width: max-content !important;
   max-height: 428px;
   overflow: auto;
 }

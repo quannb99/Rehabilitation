@@ -18,7 +18,7 @@
 use Illuminate\Support\Facades\Auth;
 
 Broadcast::channel('chat', function ($user) {
-    return Auth::check();
+    return true;
 });
 
 Broadcast::channel('call', function ($user) {

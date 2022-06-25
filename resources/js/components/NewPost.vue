@@ -8,7 +8,7 @@
     />
     <message-modal ref="msg-modal"></message-modal>
     <div class="row col-lg-10 m-auto pt-5">
-      <div class="col-lg-8">
+      <div class="col-lg-9">
         <b-card>
           <b-form class="post-form" @submit.prevent="addPost()">
             <b-form-group
@@ -51,8 +51,8 @@
         </b-card>
       </div>
 
-      <div class="col-lg-4">
-        <b-card>
+      <div class="col-lg-3">
+        <!-- <b-card>
           <b-nav-form id="search-form">
             <b-form-input
               size="md"
@@ -69,7 +69,7 @@
               ><i class="fa fa-search" aria-hidden="true"></i
             ></b-button>
           </b-nav-form>
-        </b-card>
+        </b-card> -->
       </div>
     </div>
   </div>

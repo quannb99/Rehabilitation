@@ -29,6 +29,7 @@ class PostController extends Controller
         $titleQuery = $request['titleQuery'] ?? '';
         $type = $request['type'] ?? '';
         $getNewPosts = $request['getNewPosts'] ?? '';
+        $getFeaturePosts = $request['getFeaturePosts'] ?? '';
 
         $query = $this->postRepository->getCollection($request)
             ->select([
@@ -53,6 +54,11 @@ class PostController extends Controller
 
         if ($getNewPosts) {
             $items = $query->orderByDesc('created_at')->take($getNewPosts)->get();
+            return $this->sendSuccess($items);
+        }
+
+        if ($getFeaturePosts) {
+            $items = $query->whereIn('posts.id', [43, 46, 48])->orderBy('created_at')->take(3)->get();
             return $this->sendSuccess($items);
         }
 

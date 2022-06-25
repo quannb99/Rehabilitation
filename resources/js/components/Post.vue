@@ -3,7 +3,7 @@
     <Navigation :title="'Diễn đàn'" :page="'forum'" />
     <confirm-modal @confirm="handleConfirm" ref="cf-modal"></confirm-modal>
     <div class="row col-lg-10 m-auto pt-5">
-      <div class="col-lg-8">
+      <div class="col-lg-9">
         <h3 v-if="items.length == 0">Không tồn tại bài viết này</h3>
         <b-list-group>
           <b-list-group-item v-if="items[0]">
@@ -74,7 +74,11 @@
               >
             </div>
           </b-list-group-item>
-          <b-list-group-item v-if="items[0]" v-html="items[0].content">
+          <b-list-group-item
+            id="post-content"
+            v-if="items[0]"
+            v-html="items[0].content"
+          >
           </b-list-group-item>
         </b-list-group>
         <b-list-group v-if="items[0]" class="mt-4">
@@ -214,7 +218,7 @@
         </b-list-group>
       </div>
 
-      <div class="col-lg-4">
+      <div class="col-lg-3">
         <b-button
           variant="theme"
           class="new-post-btn"
@@ -421,14 +425,21 @@ export default BaseComponent.extend({
 .not-liked:hover {
   color: #898f96;
 }
-p.ql-align-center img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 66%;
-}
 
-p.ql-align-center {
-  text-align: center;
+#post-content {
+  p.ql-align-center img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 66%;
+  }
+
+  p.ql-align-center {
+    text-align: center;
+  }
+
+  ul li {
+    margin-left: 6%;
+  }
 }
 </style>

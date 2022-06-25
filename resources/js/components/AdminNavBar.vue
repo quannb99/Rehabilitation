@@ -203,8 +203,8 @@ export default BaseComponent.extend({
 </script>
 <style>
 .msg-history ul.dropdown-menu {
-  width: 500px !important;
-  max-height: 500px;
+  width: max-content !important;
+  max-height: 410px;
   overflow: auto;
 }
 
