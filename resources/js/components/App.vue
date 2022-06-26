@@ -382,7 +382,7 @@ export default BaseComponent.extend({
           },
         },
       },
-      audio: new Audio("../../audio/skype_short.mp3"),
+      audio: new Audio("../../audio/skype_35.mp3"),
       responseType: "",
       callStatus: "",
       notiAudio: new Audio("../../audio/FB.mp3"),

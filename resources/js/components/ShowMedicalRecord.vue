@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navigation :title="'Tạo hồ sơ bệnh án'" :page="null" />
+    <Navigation :title="'Chi tiết hồ sơ bệnh án'" :page="null" />
     <message-modal ref="msg-modal"></message-modal>
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
@@ -141,7 +141,7 @@
       </div>
 
       <div class="col-lg-4">
-        <b-card>
+        <b-card v-if="authUser.role == 2">
           <b-nav-form id="search-form">
             <b-button
               style="width: 100%"

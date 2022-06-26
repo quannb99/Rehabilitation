@@ -3,7 +3,7 @@
     <Navigation :title="'Diễn đàn'" :page="'forum'" />
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
-        <b-list-group>
+        <b-list-group id="posts-container">
           <div class="mb-3" v-if="this.items[0]">
             <h4 style="display: inline-block" v-if="this.fieldFilter.type">
               Các bài viết theo thể loại {{ this.fieldFilter.type }}:
@@ -161,5 +161,11 @@ export default BaseComponent.extend({
 <style lang="scss" scoped>
 .post-form {
   width: 60%;
+}
+
+#posts-container .list-group-item {
+  margin-bottom: 10px;
+  border-radius: 15px;
+  border-top-width: 1px !important;
 }
 </style>
