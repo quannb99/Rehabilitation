@@ -33,6 +33,7 @@ Route::get('/doctors', 'HomeController@index');
 Route::get('/appointments', 'HomeController@index');
 Route::get('/user-info', 'HomeController@index');
 Route::get('/create-medical-record', 'HomeController@index');
+Route::get('/createTreatment', 'HomeController@index');
 Route::get('/messagesHistory', 'MessageController@getmessagesHistory');
 Route::get('/user-info/{id}', 'HomeController@index');
 Route::get('/show-medical-record/{id}', 'HomeController@index');
@@ -61,6 +62,7 @@ Route::resources([
     'appointments' => 'AppointmentController',
     'medicalRecords' => 'MedicalRecordController',
     'progress' => 'ProgressController',
+    'treatments' => 'TreatmentController',
 ]);
 Route::get('/csrf', function () {
     return csrf_token();

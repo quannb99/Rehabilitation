@@ -40,6 +40,12 @@
             @click="navigateTo('createMedicalRecord')"
             >Tạo hồ sơ</b-nav-item
           >
+
+          <b-nav-item
+            v-if="user && user.role == 2"
+            @click="navigateTo('createTreatment')"
+            >Tạo hoạt động điều trị</b-nav-item
+          >
           <b-nav-item
             v-if="user && user.role == 1"
             @click="navigateTo('MedicalRecordList')"

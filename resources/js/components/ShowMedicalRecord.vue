@@ -148,6 +148,7 @@
               size="lg"
               variant="theme"
               class="my-2 my-sm-0"
+              @click.prevent="navigateTo('MedicalRecordList')"
               ><i class="fa fa-history" aria-hidden="true"></i>
               Hồ sơ đã tạo
             </b-button>

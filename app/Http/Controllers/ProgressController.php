@@ -31,11 +31,16 @@ class ProgressController extends Controller
     public function index(Request $request)
     {
         $id = $request['id'] ?? '';
+        $recordId = $request['record_id'] ?? '';
 
         $query = $this->progressRepository->getCollection($request);
 
         if ($id) {
             $query->where('id', $id);
+        }
+
+        if ($recordId) {
+            $query->where('record_id', $recordId);
         }
 
         $items = $query->orderByDesc('created_at')->paginate(3);
