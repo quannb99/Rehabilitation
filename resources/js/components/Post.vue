@@ -224,11 +224,11 @@
           class="new-post-btn"
           @click="navigateTo('new-post')"
           ><i
-            style="font-size: 20px"
+            style="font-size: 18px"
             class="fa fa-pencil-square-o"
             aria-hidden="true"
           ></i>
-          <span style="font-size: 20px">Đăng bài mới</span>
+          <span style="font-size: 18px">Đăng bài mới</span>
         </b-button>
         <!-- <b-card class="mt-3">
           <b-nav-form id="search-form">

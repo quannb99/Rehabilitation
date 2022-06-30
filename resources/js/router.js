@@ -10,6 +10,9 @@ import Home from "./components/Home.vue"
 import Appointments from "./components/Appointments.vue"
 import CreateMedicalRecord from "./components/CreateMedicalRecord.vue"
 import CreateTreatment from "./components/CreateTreatment.vue"
+import ShowTreatment from "./components/ShowTreatment.vue"
+import EditTreatment from "./components/EditTreatment.vue"
+import TreatmentList from "./components/TreatmentList.vue"
 import ShowMedicalRecord from "./components/ShowMedicalRecord.vue"
 import UserInfo from "./components/UserInfo.vue"
 import OtherUserInfo from "./components/OtherUserInfo.vue"
@@ -80,9 +83,24 @@ const routes = [
     component: CreateMedicalRecord
   },
   {
-    path: "/createTreatment",
+    path: "/create-treatment",
     name: "createTreatment",
     component: CreateTreatment
+  },
+  {
+    path: "/show-treatment/:id",
+    name: "showTreatment",
+    component: ShowTreatment
+  },
+  {
+    path: "/edit-treatment/:id",
+    name: "editTreatment",
+    component: EditTreatment
+  },
+  {
+    path: "/treatment-list",
+    name: "treatmentList",
+    component: TreatmentList
   },
   {
     path: "/show-medical-record/:id",
@@ -91,7 +109,7 @@ const routes = [
   },
   {
     path: "/medical-record-list",
-    name: "MedicalRecordList",
+    name: "medicalRecordList",
     component: MedicalRecordList
   },
   {

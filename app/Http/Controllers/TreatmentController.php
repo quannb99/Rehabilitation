@@ -32,6 +32,7 @@ class TreatmentController extends Controller
     {
         $id = $request['id'] ?? '';
         $userId = $request['user_id'] ?? '';
+        $titleQuery = $request['titleQuery'] ?? '';
 
         $query = $this->treatmentRepository->getCollection($request);
 
@@ -43,7 +44,14 @@ class TreatmentController extends Controller
             $query->where('user_id', $userId);
         }
 
+        if ($titleQuery) {
+            $query->where('title', 'like', '%' . $titleQuery . '%');
+        }
+
         $items = $query->orderByDesc('created_at')->paginate(5);
+        $items->map(function ($item) {
+            $item->user_name = $this->userRepository->detail($item->user_id)->name;
+        });
 
         return $this->sendSuccess($items);
     }

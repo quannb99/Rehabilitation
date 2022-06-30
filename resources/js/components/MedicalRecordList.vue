@@ -5,6 +5,27 @@
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
         <b-list-group>
+          <div class="mb-3" v-if="this.items[0]">
+            <h4
+              style="display: inline-block"
+              v-if="this.fieldFilter.userNameQuery"
+            >
+              Kết quả tìm kiếm hồ sơ theo từ khóa: "{{
+                fieldFilter.userNameQuery
+              }}":
+            </h4>
+          </div>
+          <div class="mb-3" v-if="!this.items[0]">
+            <h4
+              style="display: inline-block"
+              v-if="this.fieldFilter.userNameQuery"
+            >
+              Không có kết quả nào khi tìm kiếm hồ sơ theo từ khóa: "{{
+                fieldFilter.userNameQuery
+              }}"
+            </h4>
+          </div>
+
           <b-list-group-item
             style="cursor: pointer"
             @click.prevent="navigateTo('showMedicalRecord', item.id)"
@@ -43,13 +64,22 @@
       </div>
 
       <div class="col-lg-4">
+        <b-button
+          style="font-size: 18px"
+          variant="theme"
+          class="new-post-btn mb-3"
+          @click="navigateTo('createMedicalRecord')"
+          ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tạo hồ sơ bệnh án mới</b-button
+        >
         <b-card>
           <b-nav-form id="search-form">
             <b-form-input
               size="md"
               class="mr-3"
-              placeholder="Tìm kiếm"
+              placeholder="Tìm kiếm theo tên bệnh nhân"
               style="width: 80%"
+              v-model="userNameQuery"
+              @input="getItemsByUserName()"
             ></b-form-input>
             <b-button
               style="width: 15%"
@@ -90,6 +120,11 @@ export default BaseComponent.extend({
     };
   },
   methods: {
+    async getItemsByUserName() {
+      this.fieldFilter.userNameQuery = this.userNameQuery;
+      await this.getItems();
+    },
+
     async getUserById(id) {
       const params = {
         id: id,

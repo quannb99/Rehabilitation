@@ -84,19 +84,20 @@
       <div class="col-lg-4">
         <b-button
           variant="theme"
-          class="new-post-btn"
+          class="new-post-btn mt-3"
           @click="navigateTo('new-post')"
+          style="font-size: 18px"
           ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng bài
           mới</b-button
         >
         <b-card class="mt-3">
           <b-nav-form id="search-form">
             <b-form-input
-              v-model="titleQuery"
               size="md"
               class="mr-3"
               placeholder="Tìm kiếm theo tiêu đề"
               style="width: 80%"
+              v-model="titleQuery"
               @input="getPostsByTitle()"
             ></b-form-input>
             <b-button

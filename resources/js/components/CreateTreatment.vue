@@ -108,19 +108,15 @@
       </div>
 
       <div class="col-lg-4">
-        <b-card>
-          <b-nav-form id="search-form">
-            <b-button
-              style="width: 100%"
-              size="lg"
-              variant="theme"
-              class="my-2 my-sm-0"
-              @click.prevent="navigateTo('MedicalRecordList')"
-              ><i class="fa fa-history" aria-hidden="true"></i>
-              Hoạt động điều trị đã tạo
-            </b-button>
-          </b-nav-form>
-        </b-card>
+        <b-button
+          style="width: 100%"
+          size="lg"
+          variant="theme"
+          class="new-post-btn my-2 my-sm-0"
+          @click.prevent="navigateTo('treatmentList')"
+          ><i class="fa fa-history" aria-hidden="true"></i>
+          Hoạt động điều trị đã tạo
+        </b-button>
       </div>
     </div>
   </div>
@@ -141,16 +137,10 @@ export default BaseComponent.extend({
       userNameQuery: "",
       currentUser: "",
       authUser: User,
-      difficulties: [
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-      ],
+      difficulties: ["1", "2", "3", "4", "5"],
       privacies: [
-        {text: 'Công khai', value: '1'},
-        {text: 'Riêng tư', value: '2'},
+        { text: "Công khai", value: "1" },
+        { text: "Riêng tư", value: "2" },
       ],
 
       form: {
@@ -158,9 +148,9 @@ export default BaseComponent.extend({
         objective: "",
         method: "",
         note: "",
-        difficulty: '3',
-        privacy: '1',
-        outcome: '',
+        difficulty: "3",
+        privacy: "1",
+        outcome: "",
       },
     };
   },
@@ -168,7 +158,7 @@ export default BaseComponent.extend({
     async createTreatment() {
       const form = {
         user_id: window.User.id,
-        ...this.form
+        ...this.form,
       };
       try {
         let res = await postModel("treatments", form);

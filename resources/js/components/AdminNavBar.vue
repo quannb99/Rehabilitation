@@ -42,7 +42,7 @@
           >
           <b-nav-item
             v-if="user && user.role == 1"
-            @click="navigateTo('MedicalRecordList')"
+            @click="navigateTo('medicalRecordList')"
             >Hồ sơ bệnh án</b-nav-item
           >
 

@@ -37,18 +37,18 @@
           >
           <b-nav-item
             v-if="user && user.role == 2"
-            @click="navigateTo('createMedicalRecord')"
-            >Tạo hồ sơ</b-nav-item
+            @click="navigateTo('medicalRecordList')"
+            >Hồ sơ bệnh án</b-nav-item
           >
 
           <b-nav-item
             v-if="user && user.role == 2"
-            @click="navigateTo('createTreatment')"
-            >Tạo hoạt động điều trị</b-nav-item
+            @click="navigateTo('treatmentList')"
+            >Hoạt động điều trị</b-nav-item
           >
           <b-nav-item
             v-if="user && user.role == 1"
-            @click="navigateTo('MedicalRecordList')"
+            @click="navigateTo('medicalRecordList')"
             >Hồ sơ bệnh án</b-nav-item
           >
           <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
@@ -301,5 +301,9 @@ export default BaseComponent.extend({
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-block;
+}
+
+.navbar-nav .nav-item {
+  margin-right: 20px;
 }
 </style>
