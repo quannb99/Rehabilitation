@@ -57,8 +57,63 @@
                 <p>{{ medicalRecord.note }}</p>
               </div>
             </div>
+            <h5 class="mt-2 mb-3"><b>III. CÁC HOẠT ĐỘNG ĐIỀU TRỊ</b></h5>
+            <div v-for="(item, index) in recordTreatmentsList" :key="index">
+              <b-button
+                size="md"
+                class="mr-3 mb-3"
+                variant="theme"
+                @click="navigateTo('showTreatment', item.id)"
+              >
+                {{ item.title }}
+              </b-button>
+              <b-button v-if="getRole() == 2" size="md" class="mr-3 mb-3" variant="danger" @click="deleteRecordTreatment(item.id)" >
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </b-button>
+            </div>
+
+            <b-form-group
+              style="display: inline-block; width: 80%"
+              id="input-group-1"
+              v-if="getRole() == 2"
+            >
+              <b-form-input
+                id="input-1"
+                type="text"
+                placeholder="Thêm hoạt động điều trị"
+                required
+                @focus="isInput = true"
+                @blur="onInputBlur()"
+                @input="getTreatmentByTitle()"
+                v-model="titleQuery"
+              ></b-form-input>
+              <b-list-group v-show="isInput" class="user-select">
+                <b-list-group-item
+                  button
+                  v-for="(item, index) in treatmentsList"
+                  :key="index"
+                  @click="onSelect(item.id, item.title)"
+                >
+                  <b>{{ item.title }}</b>
+                  <br />
+                  <span style="font-size: 14px"
+                    ><i class="theme-icon fa fa-user-md" aria-hidden="true"></i>
+                    {{ item.user_name }}</span
+                  >
+                </b-list-group-item>
+              </b-list-group>
+            </b-form-group>
+            <b-button
+              size="md"
+              class="float-right"
+              variant="success"
+              v-if="getRole() == 2"
+              @click="addRecordTreatment()"
+            >
+              Thêm
+            </b-button>
             <div v-if="isEdit">
-              <h5 class="mt-2 mb-3"><b>III. TIẾN ĐỘ HỒI PHỤC</b></h5>
+              <h5 class="mt-2 mb-3"><b>IV. TIẾN ĐỘ HỒI PHỤC</b></h5>
               <b-form @submit.prevent="createProgress()">
                 <b-form-group
                   id="input-group-4"
@@ -99,7 +154,7 @@
               </b-form>
             </div>
             <div v-if="!isEdit">
-              <h5 class="mt-2 mb-3"><b>III. TIẾN ĐỘ HỒI PHỤC</b></h5>
+              <h5 class="mt-2 mb-3"><b>IV. TIẾN ĐỘ HỒI PHỤC</b></h5>
               <b-list-group>
                 <b-list-group-item v-for="(item, index) in items" :key="index">
                   <h6 class="d-inline-block"><b>Tiến độ phục hồi:</b></h6>
@@ -117,7 +172,7 @@
                 </b-list-group-item>
               </b-list-group>
               <b-pagination
-              class="mt-3"
+                class="mt-3"
                 pills
                 v-if="paging.last_page > 1"
                 v-model="paging.current_page"
@@ -167,8 +222,8 @@ export default BaseComponent.extend({
     return {
       model: "progress",
       userIdSelected: "",
-      usersList: [],
-      userNameQuery: "",
+      treatmentsList: [],
+      titleQuery: "",
       medicalRecord: "",
       currentUser: "",
       authUser: User,
@@ -177,9 +232,72 @@ export default BaseComponent.extend({
         note: "",
       },
       isEdit: false,
+      isInput: false,
+      treatmentIdSelected: "",
+      recordTreatmentsList: [],
     };
   },
   methods: {
+    async addRecordTreatment() {
+      const form = {
+        treatment_id: this.treatmentIdSelected,
+        record_id: this.fieldFilter.record_id,
+      };
+
+      try {
+        await postModel("recordTreatments", form);
+        await this.getRecordTreatments();
+        this.titleQuery = '';
+        this.getTreatmentByTitle();
+        this.makeToast("Thêm hoạt động điều trị thành công");
+      } catch (error) {
+        this.handleErr(error);
+      }
+    },
+
+    async deleteRecordTreatment(id) {
+      const form = {
+        treatment_id: id,
+        delete: 1,
+        record_id: this.fieldFilter.record_id,
+      };
+      try {
+        await postModel("recordTreatments", form);
+        await this.getRecordTreatments();
+        this.makeToast("Xóa hoạt động điều trị thành công");
+      } catch (error) {
+        this.handleErr(error);
+      }
+    },
+
+    onInputBlur() {
+      setTimeout(() => {
+        this.isInput = false;
+      }, 100);
+    },
+
+    async onSelect(id, title) {
+      this.isInput = false;
+      this.treatmentIdSelected = id;
+      // const params = {
+      //   id: id,
+      // };
+      // let res = await getModel("users", params);
+      // this.currentUser = res.data.data.data[0];
+      this.titleQuery = title;
+      this.getTreatmentByTitle();
+    },
+
+    async getTreatmentByTitle() {
+      const params = {
+        user_id: window.User.id,
+        titleQuery: this.titleQuery,
+        includeShared: 1,
+      };
+      let res = await getModel("treatments", params);
+      this.treatmentsList = res.data.data.data;
+    },
+
     async createProgress() {
       const form = {
         record_id: this.medicalRecord.id,
@@ -194,9 +312,11 @@ export default BaseComponent.extend({
       this.getItems();
       this.isEdit = false;
     },
+
     toggleEditMode() {
       this.isEdit = !this.isEdit;
     },
+
     async getUserById(id) {
       const params = {
         id: id,
@@ -227,6 +347,16 @@ export default BaseComponent.extend({
       if (!value) return;
       return value.toUpperCase();
     },
+
+    async getRecordTreatments() {
+      const form = {
+        get: 1,
+        record_id: this.fieldFilter.record_id,
+      };
+
+      let res = await postModel("recordTreatments", form);
+      this.recordTreatmentsList = res.data.data;
+    },
   },
   async mounted() {
     const params = {
@@ -240,6 +370,8 @@ export default BaseComponent.extend({
     await this.getUserById(this.medicalRecord.user_id);
     this.fieldFilter.record_id = this.$route.params.id;
     this.getItems();
+    this.getTreatmentByTitle();
+    this.getRecordTreatments();
   },
 });
 </script>

@@ -2,21 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MedicalRecord;
 use Illuminate\Http\Request;
 use App\Repositories\MedicalRecordRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\RecordTreatmentRepository;
+use App\Repositories\TreatmentRepository;
 
 class MedicalRecordController extends Controller
 {
     protected $medicalRecordRepository;
     protected $userRepository;
+    protected $recordTreatmentRepository;
+    protected $treatmentRepository;
 
     public function __construct(
         MedicalRecordRepository $medicalRecordRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        RecordTreatmentRepository $recordTreatmentRepository,
+        TreatmentRepository $treatmentRepository
     ) {
         $this->medicalRecordRepository = $medicalRecordRepository;
         $this->userRepository = $userRepository;
+        $this->recordTreatmentRepository = $recordTreatmentRepository;
+        $this->treatmentRepository = $treatmentRepository;
+    }
+
+    public function recordTreatments(Request $request)
+    {
+        $delete = $request['delete'] ?? '';
+        $get = $request['get'] ?? '';
+        $record_id = $request['record_id'] ?? '';
+        $treatment_id = $request['treatment_id'] ?? '';
+        try {
+            if ($get) {
+                // $treatmentRecords = $this->recordTreatmentRepository->getCollection('')->orderBy('created_at')->get();
+                // $treatmentIds = $treatmentRecords->map(function ($item) {
+                //     return $item->treatment_id;
+                // });
+
+                // $items = $this->treatmentRepository->getCollection('')->whereIn('id', $treatmentIds)->get();
+                // $items->map(function ($item) {
+                //     $item->user_name = $this->userRepository->detail($item->user_id)->name;
+                // });
+                $record = MedicalRecord::find($record_id);
+                $treatments = $record->treatments()->orderByDesc('created_at')->get();
+                return $this->sendSuccess($treatments);
+            }
+            if ($delete) {
+                $id = $this->recordTreatmentRepository->getCollection('')
+                    ->where('record_id', $record_id)
+                    ->where('treatment_id', $treatment_id)
+                    ->first()->id;
+                $this->recordTreatmentRepository->delete($id);
+                return $this->sendSuccess('');
+            }
+            $item = $this->recordTreatmentRepository->create($request->all());
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
+        }
+
+        return $this->sendSuccess($item->id);
     }
 
     /**
@@ -47,8 +93,8 @@ class MedicalRecordController extends Controller
             $query->select([
                 'medical_records.*',
             ])
-            ->leftJoin('users', 'medical_records.user_id', 'users.id')
-            ->where('users.name', 'like', '%' . $userNameQuery . '%');;
+                ->leftJoin('users', 'medical_records.user_id', 'users.id')
+                ->where('users.name', 'like', '%' . $userNameQuery . '%');;
         }
 
         $items = $query->orderByDesc('created_at')->paginate(5);

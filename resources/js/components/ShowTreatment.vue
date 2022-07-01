@@ -154,9 +154,7 @@ export default BaseComponent.extend({
     },
   },
   async mounted() {
-    const params = {
-      id: this.$route.params.id,
-    };
+    this.fieldFilter.id = this.$route.params.id;
     await this.getItems();
     this.item = this.items[0]
   },

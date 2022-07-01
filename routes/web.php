@@ -53,6 +53,7 @@ Route::get('/dashboard', 'HomeController@dashboard');
 Route::get('/postManage', 'HomeController@index');
 Route::get('/reportManage', 'HomeController@index');
 Route::post('/markNoti', 'HomeController@markNotification');
+Route::post('/recordTreatments', 'MedicalRecordController@recordTreatments');
 // Route::post('/broadcasting/auth', 'HomeController@checkAuth');
 Route::resources([
     'posts' => 'PostController',

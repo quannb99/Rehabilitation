@@ -164,7 +164,7 @@ export default BaseComponent.extend({
         let res = await postModel("treatments", form);
         let id = res.data.data;
         this.makeToast("Tạo hoạt động điều trị thành công");
-        // this.navigateTo("showMedicalRecord", id);
+        this.navigateTo("showTreatment", id);
       } catch (error) {
         this.handleErr(error);
       }

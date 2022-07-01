@@ -33,6 +33,7 @@ class TreatmentController extends Controller
         $id = $request['id'] ?? '';
         $userId = $request['user_id'] ?? '';
         $titleQuery = $request['titleQuery'] ?? '';
+        $includeShared = $request['includeShared'] ?? '';
 
         $query = $this->treatmentRepository->getCollection($request);
 
@@ -40,8 +41,14 @@ class TreatmentController extends Controller
             $query->where('id', $id);
         }
 
-        if ($userId) {
+        if ($userId && !$includeShared) {
             $query->where('user_id', $userId);
+        }
+
+        if ($includeShared) {
+            $query->where(function ($row) use ($userId) {
+                $row->where('user_id', $userId)->orWhere('privacy', 1);
+            });
         }
 
         if ($titleQuery) {
