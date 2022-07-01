@@ -12,10 +12,15 @@
       </div>
     </div>
     <div class="mt-3"></div>
-    <vue-webrtc ref="webrtc" width="100%" :cameraHeight="authUser.role != 3 ? 550 : 450" :roomId="roomId">
+    <vue-webrtc
+      ref="webrtc"
+      width="100%"
+      :cameraHeight="authUser.role != 3 ? 550 : 450"
+      :roomId="roomId"
+    >
     </vue-webrtc>
     <div class="row">
-      <div style="margin: auto" class="text-center col-lg-6 my-4">
+      <div style="margin: auto" class="text-center col-lg-6">
         <b-button variant="theme" v-show="!isJoined" @click="onJoin">
           <i class="fa fa-sign-in" aria-hidden="true"></i>
           Tham gia
@@ -46,6 +51,62 @@
         </b-button>
       </div>
     </div>
+    <div v-if="authUser.role == 2" class="col-lg-6 mt-5" style="margin: auto">
+      <b-form-group
+        style="display: inline-block; width: 90%"
+        id="input-group-1"
+        label="Chọn hoạt động điều trị:"
+        label-for="input-1"
+        v-if="authUser.role == 2"
+      >
+        <b-form-input
+          id="input-1"
+          type="text"
+          placeholder="Thêm hoạt động điều trị"
+          required
+          @focus="isInput = true"
+          @blur="onInputBlur()"
+          @input="getTreatmentByTitle()"
+          v-model="titleQuery"
+        ></b-form-input>
+        <b-list-group v-show="isInput" class="user-select">
+          <b-list-group-item
+            button
+            v-for="(item, index) in treatmentsList"
+            :key="index"
+            @click="onSelect(item.id, item.title)"
+          >
+            <b>{{ item.title }}</b>
+            <br />
+            <span style="font-size: 14px"
+              ><i class="theme-icon fa fa-user-md" aria-hidden="true"></i>
+              {{ item.user_name }}</span
+            >
+          </b-list-group-item>
+        </b-list-group>
+      </b-form-group>
+      <b-button
+        style="margin-top: 31px"
+        size="md"
+        class="float-right"
+        variant="success"
+        v-if="authUser.role == 2"
+        @click="chooseTreatment()"
+      >
+        Chọn
+      </b-button>
+    </div>
+    <div v-if="authUser.role == 1 && treatmentChoosed" class="col-lg-6 mt-5 text-center" style="margin: auto">
+      <h5>Hoạt động điều trị đã được bác sĩ chọn:</h5>
+      <b-button
+        size="md"
+        class="mr-3 mb-3"
+        variant="theme"
+        @click="openInNewTab('/show-treatment/'+ treatmentChoosed.id)"
+      >
+        {{ treatmentChoosed.title }}
+      </b-button>
+    </div>
   </div>
 </template>
 
@@ -61,10 +122,51 @@ export default BaseComponent.extend({
       isJoined: false,
       authUser: User,
       opponentId: "",
-      opponentUser: '',
+      opponentUser: "",
+      isInput: false,
+      treatmentIdSelected: "",
+      treatmentsList: [],
+      titleQuery: "",
+      treatmentChoosed: "",
     };
   },
   methods: {
+    async chooseTreatment() {
+      const form = {
+        treatment_id: this.treatmentIdSelected,
+        user_id: this.opponentUser.id,
+      };
+      await postModel("chooseTreatment", form);
+      this.titleQuery = "";
+      this.getTreatmentByTitle();
+    },
+    onInputBlur() {
+      setTimeout(() => {
+        this.isInput = false;
+      }, 100);
+    },
+
+    async onSelect(id, title) {
+      this.isInput = false;
+      this.treatmentIdSelected = id;
+      // const params = {
+      //   id: id,
+      // };
+      // let res = await getModel("users", params);
+      // this.currentUser = res.data.data.data[0];
+      this.titleQuery = title;
+      this.getTreatmentByTitle();
+    },
+
+    async getTreatmentByTitle() {
+      const params = {
+        user_id: window.User.id,
+        titleQuery: this.titleQuery,
+        includeShared: 1,
+      };
+      let res = await getModel("treatments", params);
+      this.treatmentsList = res.data.data.data;
+    },
     setChatParticipant(param) {
       this.$emit("setChatParticipant", param);
     },
@@ -89,6 +191,15 @@ export default BaseComponent.extend({
       console.log("Event : ", event);
     },
   },
+  created() {
+    window.Echo.private("call-response").listen("CallResponse", async (e) => {
+      console.log(e);
+      if (this.authUser.id == e.response.user_id) {
+        let res = await getModel("treatments", { id: e.response.treatment_id });
+        this.treatmentChoosed = res.data.data.data[0];
+      }
+    });
+  },
   async mounted() {
     if (!this.isJoined) {
       this.isJoined = true;
@@ -98,7 +209,8 @@ export default BaseComponent.extend({
     ids.splice(ids.indexOf(User.id + ""), 1);
     let id = ids.join("");
     let res = await getModel("users", { id: id });
-    this.opponentUser = res.data.data.data[0]
+    this.opponentUser = res.data.data.data[0];
+    this.getTreatmentByTitle();
   },
 });
 </script>

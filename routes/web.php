@@ -46,6 +46,7 @@ Route::get('/userManage', 'HomeController@index');
 Route::get('/createUser', 'HomeController@index');
 Route::post('/call', 'HomeController@call');
 Route::post('/callResponse', 'HomeController@callResponse');
+Route::post('/chooseTreatment', 'HomeController@chooseTreatment');
 Route::post('/reportPost', 'HomeController@reportPost');
 Route::post('/reportComment', 'HomeController@reportComment');
 Route::get('/getNotifications', 'HomeController@getNotifications');

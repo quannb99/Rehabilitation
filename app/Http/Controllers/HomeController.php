@@ -99,6 +99,18 @@ class HomeController extends Controller
         broadcast(new CallResponse($user, $res))->toOthers();
     }
 
+    public function chooseTreatment(Request $request)
+    {
+        $user = Auth::user();
+        $res = [
+            'treatment_id' => $request->treatment_id,
+            'user_id' => $request->user_id,
+            'type' => 'choose',
+        ];
+
+        broadcast(new CallResponse($user, $res))->toOthers();
+    }
+
     public function reportPost(Request $request)
     {
         $admins = $this->getAdmins();

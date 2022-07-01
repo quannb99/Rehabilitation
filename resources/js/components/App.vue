@@ -582,7 +582,6 @@ export default BaseComponent.extend({
       }
     });
     window.Echo.private("call-response").listen("CallResponse", async (e) => {
-      console.log(e);
       if (e.user.id == this.participants[0].id) {
         if (e.response == "accept") {
           this.$refs["calling-modal"].hide();
@@ -614,7 +613,6 @@ export default BaseComponent.extend({
     });
 
     window.Echo.private("call").listen("IncomingCall", async (e) => {
-      console.log(e);
       if (e.otherUser.id == User.id) {
         this.participants[0] = {
           id: e.user.id,
