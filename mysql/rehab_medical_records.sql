@@ -1,6 +1,6 @@
 -- MariaDB dump 10.17  Distrib 10.4.10-MariaDB, for Win64 (AMD64)
 --
--- Host: localhost    Database: rehab
+-- Host: 127.0.0.1    Database: rehab
 -- ------------------------------------------------------
 -- Server version	10.4.10-MariaDB
 
@@ -33,7 +33,7 @@ CREATE TABLE `medical_records` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `medical_records` (
 
 LOCK TABLES `medical_records` WRITE;
 /*!40000 ALTER TABLE `medical_records` DISABLE KEYS */;
-INSERT INTO `medical_records` VALUES (1,1,2,'Khó thở, tức ngực sau khi hồi phục từ COVID-19','Mắc hội chứng COVID kéo dài','Thực hiện bài tập thở cơ hoành khi nằm đều đặn mỗi ngày trong vòng 1 tháng','Kết hợp luyện tập với chế độ ăn uống lành mạnh, tránh sử dụng các chất kích thích','2022-06-15 06:48:20','2022-06-17 02:34:50'),(6,9,2,'aaa','aa','a','aaaa','2022-06-15 15:31:57','2022-06-15 15:31:57');
+INSERT INTO `medical_records` VALUES (1,1,2,'Khó thở, tức ngực sau khi hồi phục từ COVID-19','Mắc hội chứng COVID kéo dài','Thực hiện bài tập thở cơ hoành khi nằm đều đặn mỗi ngày trong vòng 1 tháng','Kết hợp luyện tập với chế độ ăn uống lành mạnh, tránh sử dụng các chất kích thích','2022-06-15 06:48:20','2022-07-01 10:22:49'),(6,9,2,'Khó thở, tức ngực sau khi hồi phục từ COVID-19','Mắc hội chứng COVID kéo dài','Thực hiện bài tập thở cơ hoành khi nằm đều đặn mỗi ngày trong vòng 1 tháng','Kết hợp luyện tập với chế độ ăn uống lành mạnh, tránh sử dụng các chất kích thích','2022-06-15 06:48:19','2022-07-01 17:02:58');
 /*!40000 ALTER TABLE `medical_records` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-22 14:12:08
+-- Dump completed on 2022-07-02 17:19:45

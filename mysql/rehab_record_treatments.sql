@@ -16,32 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `progress`
+-- Table structure for table `record_treatments`
 --
 
-DROP TABLE IF EXISTS `progress`;
+DROP TABLE IF EXISTS `record_treatments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `progress` (
+CREATE TABLE `record_treatments` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `record_id` bigint(20) DEFAULT NULL,
-  `progress` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `evaluate` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `note` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `treatment_id` bigint(20) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `progress`
+-- Dumping data for table `record_treatments`
 --
 
-LOCK TABLES `progress` WRITE;
-/*!40000 ALTER TABLE `progress` DISABLE KEYS */;
-INSERT INTO `progress` VALUES (3,1,'Triệu chứng tức ngực đã giảm bớt',NULL,'Tiếp tục duy trì chế độ ăn uống, tập luyện như hướng dẫn','2022-06-16 14:39:19','2022-06-16 14:39:19'),(9,6,'5/10',NULL,'good','2022-06-26 13:31:07','2022-06-26 13:31:07'),(10,1,'Đã hồi phục được 80%',NULL,'Tiếp tục duy trì luyện tập','2022-07-01 10:22:49','2022-07-01 10:22:49'),(11,6,'đã hồi phục 80%',NULL,'tiếp tục tập luyện','2022-07-01 17:02:58','2022-07-01 17:02:58');
-/*!40000 ALTER TABLE `progress` ENABLE KEYS */;
+LOCK TABLES `record_treatments` WRITE;
+/*!40000 ALTER TABLE `record_treatments` DISABLE KEYS */;
+INSERT INTO `record_treatments` VALUES (6,6,5,'2022-07-01 17:03:18','2022-07-01 17:03:18'),(7,6,3,'2022-07-01 17:04:32','2022-07-01 17:04:32'),(8,1,1,'2022-07-01 17:05:37','2022-07-01 17:05:37'),(10,1,2,'2022-07-01 17:06:15','2022-07-01 17:06:15'),(12,1,5,'2022-07-01 17:07:56','2022-07-01 17:07:56');
+/*!40000 ALTER TABLE `record_treatments` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

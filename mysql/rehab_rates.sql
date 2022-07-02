@@ -16,32 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `progress`
+-- Table structure for table `rates`
 --
 
-DROP TABLE IF EXISTS `progress`;
+DROP TABLE IF EXISTS `rates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `progress` (
+CREATE TABLE `rates` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `record_id` bigint(20) DEFAULT NULL,
-  `progress` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `evaluate` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doctor_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  `treatment_id` bigint(20) DEFAULT NULL,
+  `rate` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `note` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `progress`
+-- Dumping data for table `rates`
 --
 
-LOCK TABLES `progress` WRITE;
-/*!40000 ALTER TABLE `progress` DISABLE KEYS */;
-INSERT INTO `progress` VALUES (3,1,'Triệu chứng tức ngực đã giảm bớt',NULL,'Tiếp tục duy trì chế độ ăn uống, tập luyện như hướng dẫn','2022-06-16 14:39:19','2022-06-16 14:39:19'),(9,6,'5/10',NULL,'good','2022-06-26 13:31:07','2022-06-26 13:31:07'),(10,1,'Đã hồi phục được 80%',NULL,'Tiếp tục duy trì luyện tập','2022-07-01 10:22:49','2022-07-01 10:22:49'),(11,6,'đã hồi phục 80%',NULL,'tiếp tục tập luyện','2022-07-01 17:02:58','2022-07-01 17:02:58');
-/*!40000 ALTER TABLE `progress` ENABLE KEYS */;
+LOCK TABLES `rates` WRITE;
+/*!40000 ALTER TABLE `rates` DISABLE KEYS */;
+INSERT INTO `rates` VALUES (1,2,1,6,'80','tốt','2022-07-02 09:10:44','2022-07-02 09:10:44'),(13,2,1,2,'85','Rất tốt','2022-07-02 10:16:40','2022-07-02 10:16:40');
+/*!40000 ALTER TABLE `rates` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
