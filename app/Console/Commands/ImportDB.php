@@ -39,8 +39,7 @@ class ImportDB extends Command
      */
     public function handle()
     {
-        Artisan::call('migrate:reset');
-        Artisan::call('migrate');
+        Artisan::call('migrate:refresh');
         Artisan::call('db:seed');
     }
 }
