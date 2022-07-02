@@ -13,14 +13,14 @@ class ImportDB extends Command
      *
      * @var string
      */
-    protected $signature = 'db:import';
+    protected $signature = 'db:refresh';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import DB';
+    protected $description = 'Refresh migrations and seed DB';
 
     /**
      * Create a new command instance.
