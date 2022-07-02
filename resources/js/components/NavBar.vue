@@ -210,6 +210,7 @@
                 :src="user.avatar"
                 rounded="circle"
                 class="mr-2"
+                onerror="this.src = '../../images/user-default-ava.jpg'; this.onerror='';"
               ></b-img>
               {{ user.name }}
             </template>
