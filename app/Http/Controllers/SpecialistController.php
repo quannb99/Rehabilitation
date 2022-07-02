@@ -93,10 +93,6 @@ class SpecialistController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $request->validate([
-                'title' => 'required',
-                'content' => 'required',
-            ]);
             $post = $this->specialistRepository->update($request->all(), $id);
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');

@@ -59,7 +59,7 @@ class MedicalRecordController extends Controller
             }
             $item = $this->recordTreatmentRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess($item->id);
@@ -166,10 +166,6 @@ class MedicalRecordController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $request->validate([
-                'title' => 'required',
-                'content' => 'required',
-            ]);
             $post = $this->medicalRecordRepository->update($request->all(), $id);
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');

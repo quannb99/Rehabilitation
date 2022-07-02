@@ -80,7 +80,7 @@ class RateController extends Controller
         try {
             $item = $this->rateRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), 'Kiểm tra lại');
+            return $this->sendError('Có lỗi xảy ra, vui lòng thử lại', 'Kiểm tra lại');
         }
 
         return $this->sendSuccess($item->id);
