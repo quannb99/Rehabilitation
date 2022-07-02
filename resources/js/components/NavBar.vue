@@ -36,20 +36,21 @@
             >Danh sách bác sĩ</b-nav-item
           >
           <b-nav-item
-            v-if="user && user.role == 2"
+            v-if="user && user.role == 2 || user.role == 1"
             @click="navigateTo('medicalRecordList')"
             >Hồ sơ bệnh án</b-nav-item
+          >
+
+          <b-nav-item
+            v-if="user && user.role == 1"
+            @click="navigateTo('rateHistory')"
+            >Lịch sử đánh giá hoạt động</b-nav-item
           >
 
           <b-nav-item
             v-if="user && user.role == 2"
             @click="navigateTo('treatmentList')"
             >Hoạt động điều trị</b-nav-item
-          >
-          <b-nav-item
-            v-if="user && user.role == 1"
-            @click="navigateTo('medicalRecordList')"
-            >Hồ sơ bệnh án</b-nav-item
           >
           <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
         </b-navbar-nav>

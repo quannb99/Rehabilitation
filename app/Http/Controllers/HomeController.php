@@ -111,6 +111,18 @@ class HomeController extends Controller
         broadcast(new CallResponse($user, $res))->toOthers();
     }
 
+    public function sendRate(Request $request)
+    {
+        $user = Auth::user();
+        $res = [
+            'id' => $request->id,
+            'user_id' => $request->user_id,
+            'type' => 'rate',
+        ];
+
+        broadcast(new CallResponse($user, $res))->toOthers();
+    }
+
     public function reportPost(Request $request)
     {
         $admins = $this->getAdmins();

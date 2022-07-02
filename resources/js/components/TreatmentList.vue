@@ -148,6 +148,7 @@ export default BaseComponent.extend({
   async mounted() {
     if (User.role == 2) {
       this.fieldFilter.user_id = User.id
+      this.fieldFilter.includeShared = 1
       await this.getItems();
     }
   },

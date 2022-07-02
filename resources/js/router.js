@@ -23,6 +23,7 @@ import UserManage from "./components/UserManage.vue"
 import PostManage from "./components/PostManage.vue"
 import ReportManage from "./components/ReportManage.vue"
 import CreateUser from "./components/CreateUser.vue"
+import RateHistory from "./components/RateHistory.vue"
 
 Vue.use(VueRouter)
 
@@ -116,6 +117,11 @@ const routes = [
     path: "/appointments",
     name: "appointments",
     component: Appointments
+  },
+  {
+    path: "/rateHistory",
+    name: "rateHistory",
+    component: RateHistory
   },
   {
     path: "/doctors",

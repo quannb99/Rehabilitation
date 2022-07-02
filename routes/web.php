@@ -44,9 +44,11 @@ Route::get('/user-info/{id}', 'HomeController@index');
 Route::get('/call/{id}', 'HomeController@index');
 Route::get('/userManage', 'HomeController@index');
 Route::get('/createUser', 'HomeController@index');
+Route::get('/rateHistory', 'HomeController@index');
 Route::post('/call', 'HomeController@call');
 Route::post('/callResponse', 'HomeController@callResponse');
 Route::post('/chooseTreatment', 'HomeController@chooseTreatment');
+Route::post('/sendRate', 'HomeController@sendRate');
 Route::post('/reportPost', 'HomeController@reportPost');
 Route::post('/reportComment', 'HomeController@reportComment');
 Route::get('/getNotifications', 'HomeController@getNotifications');
@@ -68,6 +70,7 @@ Route::resources([
     'medicalRecords' => 'MedicalRecordController',
     'progress' => 'ProgressController',
     'treatments' => 'TreatmentController',
+    'rates' => 'RateController',
 ]);
 Route::get('/csrf', function () {
     return csrf_token();

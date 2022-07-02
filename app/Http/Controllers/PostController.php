@@ -90,12 +90,12 @@ class PostController extends Controller
                 'title' => 'required',
                 'content' => 'required',
             ]);
-            $post = $this->postRepository->create($request->all());
+            $item = $this->postRepository->create($request->all());
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), 'Kiểm tra lại');
         }
 
-        return $this->sendSuccess($post->id);
+        return $this->sendSuccess($item->id);
     }
 
     /**
