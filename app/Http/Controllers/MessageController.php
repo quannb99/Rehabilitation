@@ -124,7 +124,7 @@ class MessageController extends Controller
             // $message = $query->get();
             broadcast(new MessageSent($user, $message))->toOthers();
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');
@@ -162,10 +162,6 @@ class MessageController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $request->validate([
-                'title' => 'required',
-                'content' => 'required',
-            ]);
             $post = $this->messageRepository->update($request->all(), $id);
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');

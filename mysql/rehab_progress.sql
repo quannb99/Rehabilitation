@@ -31,7 +31,7 @@ CREATE TABLE `progress` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `progress` (
 
 LOCK TABLES `progress` WRITE;
 /*!40000 ALTER TABLE `progress` DISABLE KEYS */;
-INSERT INTO `progress` VALUES (3,1,'Triệu chứng tức ngực đã giảm bớt',NULL,'Tiếp tục duy trì chế độ ăn uống, tập luyện như hướng dẫn','2022-06-16 14:39:19','2022-06-16 14:39:19'),(4,1,'a',NULL,'b','2022-06-17 02:19:17','2022-06-17 02:19:17'),(5,1,'11',NULL,'11','2022-06-17 02:30:15','2022-06-17 02:30:15'),(6,1,'aa',NULL,'aa','2022-06-17 02:31:14','2022-06-17 02:31:14'),(7,1,'11',NULL,'12','2022-06-17 02:32:08','2022-06-17 02:32:08'),(8,1,'a',NULL,'a','2022-06-17 02:34:50','2022-06-17 02:34:50');
+INSERT INTO `progress` VALUES (3,1,'Triệu chứng tức ngực đã giảm bớt',NULL,'Tiếp tục duy trì chế độ ăn uống, tập luyện như hướng dẫn','2022-06-16 14:39:19','2022-06-16 14:39:19'),(9,6,'5/10',NULL,'good','2022-06-26 13:31:07','2022-06-26 13:31:07'),(10,1,'Đã hồi phục được 80%',NULL,'Tiếp tục duy trì luyện tập','2022-07-01 10:22:49','2022-07-01 10:22:49'),(11,6,'đã hồi phục 80%',NULL,'tiếp tục tập luyện','2022-07-01 17:02:58','2022-07-01 17:02:58');
 /*!40000 ALTER TABLE `progress` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-19 21:32:16
+-- Dump completed on 2022-07-02 17:19:45

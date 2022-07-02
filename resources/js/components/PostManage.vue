@@ -43,7 +43,7 @@
           >
             <h4>{{ item.title }}</h4>
             <div>
-              <i
+              <!-- <i
                 v-if="item.user_role == 1"
                 class="theme-icon-20 fa fa-user"
                 aria-hidden="true"
@@ -52,7 +52,13 @@
                 v-if="item.user_role == 2"
                 class="theme-icon-20 fa fa-user-md"
                 aria-hidden="true"
-              ></i>
+              ></i> -->
+              <b-img
+                :src="item.user_avatar"
+                width="20"
+                alt="avatar"
+                rounded="circle"
+              ></b-img>
               <strong class="mr-2" style="font-size: 14px"
                 ><span v-if="item.user_role == 2">Bs. </span>
                 {{ item.user_name }}</strong
@@ -114,6 +120,11 @@
           >
           <b-list-group-item v-for="(item, index) in types" :key="index">
             <a href="#" @click.prevent="getPostsByType(item)">{{ item }}</a>
+            <i
+              v-if="fieldFilter.type == item"
+              class="success fa fa-check-square-o"
+              aria-hidden="true"
+            ></i>
           </b-list-group-item>
         </b-list-group>
       </div>
@@ -147,7 +158,7 @@ export default BaseComponent.extend({
     },
   },
   mounted() {
-    this.checkAdmin()
+    this.checkAdmin();
     this.getItems();
   },
 });

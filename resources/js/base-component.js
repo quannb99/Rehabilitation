@@ -94,7 +94,7 @@ const BaseComponent = Vue.extend({
     },
 
     makeToast(msg) {
-      this.$bvToast.toast(msg, {
+      this.$root.$bvToast.toast(msg, {
         title: "Thông báo",
         autoHideDelay: 5000,
         toaster: "b-toaster-bottom-right",
@@ -102,7 +102,7 @@ const BaseComponent = Vue.extend({
     },
 
     makeLinkToast(msg, href) {
-      this.$bvToast.toast(msg, {
+      this.$root.$bvToast.toast(msg, {
         title: "Thông báo",
         href: href,
         autoHideDelay: 5000,

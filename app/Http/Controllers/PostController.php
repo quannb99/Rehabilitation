@@ -28,14 +28,17 @@ class PostController extends Controller
         $id = $request['id'] ?? '';
         $titleQuery = $request['titleQuery'] ?? '';
         $type = $request['type'] ?? '';
+        $getNewPosts = $request['getNewPosts'] ?? '';
+        $getFeaturePosts = $request['getFeaturePosts'] ?? '';
 
         $query = $this->postRepository->getCollection($request)
-        ->select([
-            'posts.*',
-            'users.name as user_name',
-            'users.role as user_role',
-        ])
-        ->leftJoin('users', 'posts.user_id', 'users.id');
+            ->select([
+                'posts.*',
+                'users.name as user_name',
+                'users.role as user_role',
+                'users.avatar as user_avatar',
+            ])
+            ->leftJoin('users', 'posts.user_id', 'users.id');
 
         if ($id) {
             $query->where('posts.id', $id);
@@ -47,6 +50,16 @@ class PostController extends Controller
 
         if ($type) {
             $query->where('posts.type', 'like', '%' . $type . '%');
+        }
+
+        if ($getNewPosts) {
+            $items = $query->orderByDesc('created_at')->take($getNewPosts)->get();
+            return $this->sendSuccess($items);
+        }
+
+        if ($getFeaturePosts) {
+            $items = $query->whereIn('posts.id', [43, 46, 48])->orderBy('created_at')->take(3)->get();
+            return $this->sendSuccess($items);
         }
 
         $items = $query->orderByDesc('created_at')->paginate(5);
@@ -77,12 +90,12 @@ class PostController extends Controller
                 'title' => 'required',
                 'content' => 'required',
             ]);
-            $post = $this->postRepository->create($request->all());
+            $item = $this->postRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), 'Kiểm tra lại');
+            return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');
         }
 
-        return $this->sendSuccess($post->id);
+        return $this->sendSuccess($item->id);
     }
 
     /**

@@ -102,7 +102,7 @@ class UserController extends Controller
             }
             $this->userRepository->create($request->only(['name', 'role', 'avatar', 'email', 'password', 'specialist_id']));
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');
@@ -173,7 +173,7 @@ class UserController extends Controller
 
             $user = $this->userRepository->update($request->only(['name', 'gender', 'phone', 'avatar', 'birthyear', 'password']), $id);
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), 'Kiểm tra lại');
+            return $this->sendError('Vui lòng thử lại', 'Kiểm tra lại');
         }
 
         return $this->sendSuccess('');

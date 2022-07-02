@@ -90,7 +90,7 @@ class ScheduleController extends Controller
             try {
                 $this->scheduleRepository->create($data);
             } catch (\Exception $e) {
-                return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
+                return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
             }
         }
 
@@ -110,7 +110,7 @@ class ScheduleController extends Controller
             try {
                 $this->scheduleRepository->update($data, $id);
             } catch (\Exception $e) {
-                return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
+                return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
             }
         }
 
@@ -121,7 +121,7 @@ class ScheduleController extends Controller
                 try {
                     $this->scheduleRepository->delete($id);
                 } catch (\Exception $e) {
-                    return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
+                    return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
                 }
             }
         }

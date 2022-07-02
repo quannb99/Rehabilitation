@@ -36,14 +36,21 @@
             >Danh sách bác sĩ</b-nav-item
           >
           <b-nav-item
-            v-if="user && user.role == 2"
-            @click="navigateTo('createMedicalRecord')"
-            >Tạo hồ sơ</b-nav-item
+            v-if="user && user.role == 2 || user.role == 1"
+            @click="navigateTo('medicalRecordList')"
+            >Hồ sơ bệnh án</b-nav-item
           >
+
           <b-nav-item
             v-if="user && user.role == 1"
-            @click="navigateTo('MedicalRecordList')"
-            >Hồ sơ bệnh án</b-nav-item
+            @click="navigateTo('rateHistory')"
+            >Lịch sử đánh giá hoạt động</b-nav-item
+          >
+
+          <b-nav-item
+            v-if="user && user.role == 2"
+            @click="navigateTo('treatmentList')"
+            >Hoạt động điều trị</b-nav-item
           >
           <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
         </b-navbar-nav>
@@ -127,9 +134,12 @@
                   <h5>{{ item.user_name }}</h5>
                   <div class="d-flex">
                     <p class="ellipsis-text">
+                      <span v-if="user.id == item.user_a_id">Bạn: </span>
                       {{ item.content }}
                     </p>
-                    <span class="ml-1">{{ moment(item.created_at).fromNow() }}</span>
+                    <span class="ml-1">{{
+                      moment(item.created_at).fromNow()
+                    }}</span>
                   </div>
                 </b-media>
               </div>
@@ -137,7 +147,7 @@
           </b-nav-item-dropdown>
 
           <b-nav-item-dropdown
-            v-if="user != null"
+            v-if="user != null && user.role == 3"
             size="md"
             right
             no-caret
@@ -148,10 +158,7 @@
                 ><i class="fa fa-bell" aria-hidden="true"></i
               ></b-button>
             </template>
-            <b-dropdown-item
-              :disabled="true"
-              v-if="notifications.length == 0"
-            >
+            <b-dropdown-item :disabled="true" v-if="notifications.length == 0">
               <p style="color: #000 !important; margin-top: 12px">
                 Không có thông báo nào
               </p>
@@ -173,8 +180,16 @@
                     ></b-img>
                   </template>
                   <div>
-                    <p class="ellipsis-text-310">
-                      <b>{{ item.data.user_name }}</b> đã báo cáo 1 bài viết <br>
+                    <p class="ellipsis-text-330">
+                      <b>{{ item.data.user_name }}</b> đã báo cáo 1
+                      <span
+                        v-if="item.type == 'App\\Notifications\\ReportComment'"
+                        >bình luận</span
+                      >
+                      <span v-if="item.type == 'App\\Notifications\\ReportPost'"
+                        >bài viết</span
+                      >
+                      <br />
                       {{ moment(item.created_at).fromNow() }}
                     </p>
                   </div>
@@ -242,8 +257,8 @@ export default BaseComponent.extend({
     },
 
     async getNotifications() {
-      let $res = await postModel("getNotifications");
-      this.notifications = $res.data.data;
+      let $res = await getModel("getNotifications");
+      this.notifications = $res.data.data.data;
     },
   },
 
@@ -257,13 +272,13 @@ export default BaseComponent.extend({
 </script>
 <style>
 .msg-history ul.dropdown-menu {
-  width: 500px !important;
-  max-height: 500px;
+  width: max-content !important;
+  max-height: 410px;
   overflow: auto;
 }
 
 .noti-list ul.dropdown-menu {
-  width: 428px !important;
+  width: max-content !important;
   max-height: 428px;
   overflow: auto;
 }
@@ -281,11 +296,15 @@ export default BaseComponent.extend({
   text-overflow: ellipsis;
   display: inline-block;
 }
-.ellipsis-text-310 {
+.ellipsis-text-330 {
   white-space: nowrap;
-  width: 310px;
+  width: 330px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-block;
+}
+
+.navbar-nav .nav-item {
+  margin-right: 20px;
 }
 </style>

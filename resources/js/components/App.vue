@@ -5,7 +5,7 @@
       <message-modal ref="msg-modal"></message-modal>
       <div class="divider"></div>
       <router-view @setChatParticipant="setChatParticipant" />
-      <Footer />
+      <Footer @setChatParticipant="setChatParticipant" />
     </template>
     <template v-if="user.role == 3">
       <nav-bar :user="user" @setChatParticipant="setChatParticipant" />
@@ -382,7 +382,7 @@ export default BaseComponent.extend({
           },
         },
       },
-      audio: new Audio("../../audio/skype_short.mp3"),
+      audio: new Audio("../../audio/skype_35.mp3"),
       responseType: "",
       callStatus: "",
       notiAudio: new Audio("../../audio/FB.mp3"),
@@ -573,9 +573,15 @@ export default BaseComponent.extend({
           window.location.origin + "/posts/" + data.post_id
         );
       }
+      if (data.type == `App\\Notifications\\ReportComment`) {
+        this.notiAudio.play();
+        this.makeLinkToast(
+          data.user_name + " đã báo cáo 1 bình luận",
+          window.location.origin + "/posts/" + data.post_id
+        );
+      }
     });
     window.Echo.private("call-response").listen("CallResponse", async (e) => {
-      console.log(e);
       if (e.user.id == this.participants[0].id) {
         if (e.response == "accept") {
           this.$refs["calling-modal"].hide();
@@ -607,7 +613,6 @@ export default BaseComponent.extend({
     });
 
     window.Echo.private("call").listen("IncomingCall", async (e) => {
-      console.log(e);
       if (e.otherUser.id == User.id) {
         this.participants[0] = {
           id: e.user.id,

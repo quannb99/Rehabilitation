@@ -31,11 +31,16 @@ class ProgressController extends Controller
     public function index(Request $request)
     {
         $id = $request['id'] ?? '';
+        $recordId = $request['record_id'] ?? '';
 
         $query = $this->progressRepository->getCollection($request);
 
         if ($id) {
             $query->where('id', $id);
+        }
+
+        if ($recordId) {
+            $query->where('record_id', $recordId);
         }
 
         $items = $query->orderByDesc('created_at')->paginate(3);
@@ -68,7 +73,7 @@ class ProgressController extends Controller
             $record->updated_at = $item->created_at;
             $record->save();
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess($item);

@@ -193,6 +193,7 @@
             <a href="#" @click.prevent="getDoctorsBySpecialist(item.id)">{{
               item.name
             }}</a>
+            <i v-if="fieldFilter.specialist_id == item.id" class="success fa fa-check-square-o" aria-hidden="true"></i>
           </b-list-group-item>
         </b-list-group>
       </div>

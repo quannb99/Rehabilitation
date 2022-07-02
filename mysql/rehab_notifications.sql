@@ -28,6 +28,7 @@ CREATE TABLE `notifications` (
   `notifiable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `notifiable_id` bigint(20) unsigned NOT NULL,
   `data` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `solved` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT '0',
   `read_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -42,7 +43,7 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
-INSERT INTO `notifications` VALUES ('40de72d4-2e86-42a9-9c21-a60f4c36fc1d','App\\Notifications\\ReportPost','App\\Models\\User',10,'{\"post_id\":8,\"user_id\":1,\"title\":\"image\",\"type\":\"Chung\",\"user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"avatar\":\"https:\\/\\/vinmec-prod.s3.amazonaws.com\\/images\\/12_01_2019_11_08_53_877612.jpeg\"}',NULL,'2022-06-19 02:44:06','2022-06-19 02:44:06'),('5dd4aeee-1628-44e7-9157-658e23995bd8','App\\Notifications\\ReportPost','App\\Models\\User',10,'{\"post_id\":8,\"user_id\":1,\"title\":\"image\",\"type\":\"Chung\",\"user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"avatar\":\"https:\\/\\/vinmec-prod.s3.amazonaws.com\\/images\\/12_01_2019_11_08_53_877612.jpeg\"}',NULL,'2022-06-19 02:46:39','2022-06-19 02:46:39');
+INSERT INTO `notifications` VALUES ('3e32d836-53e5-4688-9dd8-ee52c3961f43','App\\Notifications\\ReportPost','App\\Models\\User',10,'{\"post_id\":35,\"user_id\":1,\"title\":\"dfgdfg\",\"type\":\"H\\u1ecfi \\u0111\\u00e1p\",\"user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"avatar\":\"..\\/..\\/uploads\\/62af2722e317612_01_2019_11_08_54_075889.jpeg\",\"post_user_name\":\"Nguy\\u1ec5n B\\u00e1 Qu\\u00e2n\",\"post_user_avatar\":\"..\\/..\\/uploads\\/62a9c399bb202269691465_2136015413203455_4731070248963071192_n.jpg\"}','0',NULL,'2022-06-21 14:33:30','2022-06-21 15:38:52'),('c98251c0-aa87-4e47-9e3a-2e5cd2e3e1ae','App\\Notifications\\ReportPost','App\\Models\\User',10,'{\"post_id\":50,\"user_id\":24,\"title\":\"X\\u00e2y d\\u1ef1ng kh\\u1ea3 n\\u0103ng ph\\u1ee5c h\\u1ed3i s\\u1ee9c kh\\u1ecfe cho con b\\u1ea1n\",\"type\":\"Chung\",\"user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"avatar\":\"..\\/..\\/uploads\\/62af2722e317612_01_2019_11_08_54_075889.jpeg\",\"post_user_name\":\"Nguy\\u1ec5n Th\\u1ecb Nh\\u1eadt\",\"post_user_avatar\":\"..\\/..\\/uploads\\/62b284a528b7931_01_2019_04_15_26_574013.jpeg\"}','0',NULL,'2022-06-26 09:15:17','2022-06-26 09:15:17'),('d059783b-e521-4902-8420-0761183bb90d','App\\Notifications\\ReportComment','App\\Models\\User',10,'{\"post_id\":29,\"comment_id\":6,\"content\":\"ko hay\",\"user_id\":1,\"comment_user_name\":\"Nguy\\u1ec5n B\\u00e1 Qu\\u00e2n\",\"comment_user_avatar\":\"..\\/..\\/uploads\\/62a9c399bb202269691465_2136015413203455_4731070248963071192_n.jpg\",\"user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"avatar\":\"..\\/..\\/uploads\\/62af2722e317612_01_2019_11_08_54_075889.jpeg\",\"created_at\":\"2022-05-25T04:14:28.000000Z\"}','1',NULL,'2022-06-21 14:14:00','2022-06-25 03:47:04'),('f2c00968-144d-447b-aba2-bc4576c6c740','App\\Notifications\\ReportComment','App\\Models\\User',10,'{\"post_id\":29,\"comment_id\":5,\"content\":\"vi\\u1ebft b\\u00e0i ch\\u00e1n qu\\u00e1\",\"user_id\":1,\"comment_user_name\":\"Nguy\\u1ec5n B\\u00e1 Qu\\u00e2n\",\"comment_user_avatar\":\"..\\/..\\/uploads\\/62a9c399bb202269691465_2136015413203455_4731070248963071192_n.jpg\",\"user_name\":\"Nguy\\u1ec5n Thanh Li\\u00eam\",\"avatar\":\"..\\/..\\/uploads\\/62af2722e317612_01_2019_11_08_54_075889.jpeg\",\"created_at\":\"2022-05-25T04:14:27.000000Z\"}','1',NULL,'2022-06-21 14:14:05','2022-06-21 15:00:04');
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-19 21:32:16
+-- Dump completed on 2022-07-02 17:19:45

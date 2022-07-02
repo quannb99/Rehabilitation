@@ -3,7 +3,7 @@
     <Navigation :title="'Diễn đàn'" :page="'forum'" />
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
-        <b-list-group>
+        <b-list-group id="posts-container">
           <div class="mb-3" v-if="this.items[0]">
             <h4 style="display: inline-block" v-if="this.fieldFilter.type">
               Các bài viết theo thể loại {{ this.fieldFilter.type }}:
@@ -43,16 +43,17 @@
           >
             <h4>{{ item.title }}</h4>
             <div>
-              <i
-                v-if="item.user_role == 1"
-                class="theme-icon-20 fa fa-user"
-                aria-hidden="true"
-              ></i>
-              <i
+              <b-img
+                :src="item.user_avatar"
+                width="20"
+                alt="avatar"
+                rounded="circle"
+              ></b-img>
+              <!-- <i
                 v-if="item.user_role == 2"
                 class="theme-icon-20 fa fa-user-md"
                 aria-hidden="true"
-              ></i>
+              ></i> -->
               <strong class="mr-2" style="font-size: 14px"
                 ><span v-if="item.user_role == 2">Bs. </span>
                 {{ item.user_name }}</strong
@@ -83,19 +84,20 @@
       <div class="col-lg-4">
         <b-button
           variant="theme"
-          class="new-post-btn"
+          class="new-post-btn mt-3"
           @click="navigateTo('new-post')"
+          style="font-size: 18px"
           ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng bài
           mới</b-button
         >
         <b-card class="mt-3">
           <b-nav-form id="search-form">
             <b-form-input
-              v-model="titleQuery"
               size="md"
               class="mr-3"
               placeholder="Tìm kiếm theo tiêu đề"
               style="width: 80%"
+              v-model="titleQuery"
               @input="getPostsByTitle()"
             ></b-form-input>
             <b-button
@@ -114,6 +116,11 @@
           >
           <b-list-group-item v-for="(item, index) in types" :key="index">
             <a href="#" @click.prevent="getPostsByType(item)">{{ item }}</a>
+            <i
+              v-if="fieldFilter.type == item"
+              class="success fa fa-check-square-o"
+              aria-hidden="true"
+            ></i>
           </b-list-group-item>
         </b-list-group>
       </div>
@@ -155,5 +162,11 @@ export default BaseComponent.extend({
 <style lang="scss" scoped>
 .post-form {
   width: 60%;
+}
+
+#posts-container .list-group-item {
+  margin-bottom: 10px;
+  border-radius: 15px;
+  border-top-width: 1px !important;
 }
 </style>

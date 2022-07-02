@@ -9,6 +9,10 @@ import Doctors from "./components/Doctors.vue"
 import Home from "./components/Home.vue"
 import Appointments from "./components/Appointments.vue"
 import CreateMedicalRecord from "./components/CreateMedicalRecord.vue"
+import CreateTreatment from "./components/CreateTreatment.vue"
+import ShowTreatment from "./components/ShowTreatment.vue"
+import EditTreatment from "./components/EditTreatment.vue"
+import TreatmentList from "./components/TreatmentList.vue"
 import ShowMedicalRecord from "./components/ShowMedicalRecord.vue"
 import UserInfo from "./components/UserInfo.vue"
 import OtherUserInfo from "./components/OtherUserInfo.vue"
@@ -17,7 +21,9 @@ import VideoCall from "./components/VideoCall.vue"
 import AdminHome from "./components/AdminHome.vue"
 import UserManage from "./components/UserManage.vue"
 import PostManage from "./components/PostManage.vue"
+import ReportManage from "./components/ReportManage.vue"
 import CreateUser from "./components/CreateUser.vue"
+import RateHistory from "./components/RateHistory.vue"
 
 Vue.use(VueRouter)
 
@@ -41,6 +47,11 @@ const routes = [
     path: "/postManage",
     name: "postManage",
     component: PostManage,
+  },
+  {
+    path: "/reportManage",
+    name: "reportManage",
+    component: ReportManage,
   },
   {
     path: "/createUser",
@@ -73,19 +84,44 @@ const routes = [
     component: CreateMedicalRecord
   },
   {
+    path: "/create-treatment",
+    name: "createTreatment",
+    component: CreateTreatment
+  },
+  {
+    path: "/show-treatment/:id",
+    name: "showTreatment",
+    component: ShowTreatment
+  },
+  {
+    path: "/edit-treatment/:id",
+    name: "editTreatment",
+    component: EditTreatment
+  },
+  {
+    path: "/treatment-list",
+    name: "treatmentList",
+    component: TreatmentList
+  },
+  {
     path: "/show-medical-record/:id",
     name: "showMedicalRecord",
     component: ShowMedicalRecord
   },
   {
     path: "/medical-record-list",
-    name: "MedicalRecordList",
+    name: "medicalRecordList",
     component: MedicalRecordList
   },
   {
     path: "/appointments",
     name: "appointments",
     component: Appointments
+  },
+  {
+    path: "/rateHistory",
+    name: "rateHistory",
+    component: RateHistory
   },
   {
     path: "/doctors",

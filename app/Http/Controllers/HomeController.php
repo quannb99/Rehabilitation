@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Events\IncomingCall;
 use App\Events\CallResponse;
+use App\Notifications\ReportComment;
 use App\Notifications\ReportPost;
 use App\Repositories\AppointmentRepository;
+use App\Repositories\CommentRepository;
 use App\Repositories\MedicalRecordRepository;
 use App\Repositories\MessageRepository;
 use App\Repositories\PostRepository;
+use App\Repositories\ReportRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,19 +24,23 @@ class HomeController extends Controller
     protected $postRepository;
     protected $appointmentRepository;
     protected $medicalRecordRepository;
+    protected $commentRepository;
+    protected $reportRepository;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository, MessageRepository $messageRepository, PostRepository $postRepository, AppointmentRepository $appointmentRepository, MedicalRecordRepository $medicalRecordRepository)
+    public function __construct(UserRepository $userRepository, MessageRepository $messageRepository, PostRepository $postRepository, AppointmentRepository $appointmentRepository, MedicalRecordRepository $medicalRecordRepository, CommentRepository $commentRepository, ReportRepository $reportRepository)
     {
         $this->userRepository = $userRepository;
         $this->messageRepository = $messageRepository;
         $this->postRepository = $postRepository;
         $this->appointmentRepository = $appointmentRepository;
         $this->medicalRecordRepository = $medicalRecordRepository;
+        $this->commentRepository = $commentRepository;
+        $this->reportRepository = $reportRepository;
         $this->middleware('auth');
     }
 
@@ -92,20 +99,97 @@ class HomeController extends Controller
         broadcast(new CallResponse($user, $res))->toOthers();
     }
 
+    public function chooseTreatment(Request $request)
+    {
+        $user = Auth::user();
+        $res = [
+            'treatment_id' => $request->treatment_id,
+            'user_id' => $request->user_id,
+            'type' => 'choose',
+        ];
+
+        broadcast(new CallResponse($user, $res))->toOthers();
+    }
+
+    public function sendRate(Request $request)
+    {
+        $user = Auth::user();
+        $res = [
+            'id' => $request->id,
+            'user_id' => $request->user_id,
+            'type' => 'rate',
+        ];
+
+        broadcast(new CallResponse($user, $res))->toOthers();
+    }
+
     public function reportPost(Request $request)
     {
         $admins = $this->getAdmins();
         $post = $this->postRepository->detail($request->id);
         $user = $this->userRepository->detail($request->user_id);
-        Notification::send($admins, new ReportPost($post, $user));
+        $postUser = $this->userRepository->detail($post->user_id);
+        Notification::send($admins, new ReportPost($post, $user, $postUser));
+        // $form = [
+        //     'user_id' => $request->user_id,
+        //     'reportable_id' => $request->id,
+        //     'reportable_type' => 'post',
+        // ];
+        // $this->reportRepository->create($form);
+    }
+
+    public function reportComment(Request $request)
+    {
+        $admins = $this->getAdmins();
+        $comment = $this->commentRepository->detail($request->id);
+        $user = $this->userRepository->detail($request->user_id);
+        $commentUser = $this->userRepository->detail($comment->user_id);
+        Notification::send($admins, new ReportComment($comment, $user, $commentUser));
+        // $form = [
+        //     'user_id' => $request->user_id,
+        //     'reportable_id' => $request->id,
+        //     'reportable_type' => 'comment',
+        // ];
+        // $this->reportRepository->create($form);
     }
 
     public function getNotifications(Request $request)
     {
-        $notifications = Auth::user()->notifications;
+        $id = $request['id'] ?? '';
+        $type = $request['type'] ?? null;
+        $reportType = $request['reportType'] ?? null;
 
-        return $this->sendSuccess($notifications);
+        $query = Auth::user()->notifications();
+
+        if ($id) {
+            $query->where('id', $id);
+        }
+
+        if ($type != null) {
+            $query->where('solved', $type);
+        }
+
+        if ($reportType) {
+            $query->where('type', 'like', '%' . $reportType . '%');
+        }
+
+        $res = $query->orderByDesc('created_at')->paginate(10);
+        return $this->sendSuccess($res);
     }
+
+    // public function getReports(Request $request)
+    // {
+    //     $postReports = $this->reportRepository->getCollection('')->where('type', 'post')
+    //         ->select([
+    //             'reports.*',
+    //             'users.name as user_name',
+    //             'users.role as user_role',
+    //             'users.avatar as user_avatar',
+    //         ])
+    //         ->leftJoin('users', 'posts.user_id', 'users.id');
+
+    //     return $this->sendSuccess($notifications);
+    // }
 
     public function dashboard(Request $request)
     {
@@ -127,5 +211,19 @@ class HomeController extends Controller
         ];
 
         return $this->sendSuccess($res);
+    }
+
+    public function markNotification(Request $request)
+    {
+        try {
+            $notification = Auth::user()->notifications()->where('id', $request->id)->first();
+            $notification->update([
+                'solved' => $request->solved
+            ]);
+        } catch (\Exception $e) {
+            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+        }
+
+        return $this->sendSuccess('');
     }
 }

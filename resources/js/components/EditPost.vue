@@ -3,7 +3,7 @@
     <Navigation :title="'Diễn đàn'" :page="'forum'"/>
     <message-modal ref="msg-modal"></message-modal>
     <div class="row col-lg-10 m-auto pt-5">
-      <div class="col-lg-8">
+      <div class="col-lg-9">
         <b-card>
           <b-form class="post-form" @submit.prevent="updatePost()">
             <b-form-group
@@ -35,20 +35,8 @@
         </b-card>
       </div>
 
-      <div class="col-lg-4">
-        <b-card>
-          <b-nav-form id="search-form">
-            <b-form-input
-              size="md"
-              class="mr-3"
-              placeholder="Tìm kiếm bài viết"
-              style="width: 80%;"
-            ></b-form-input>
-            <b-button  style="width: 15%;" size="md" variant="theme" class="my-2 my-sm-0" type="submit"
-              ><i class="fa fa-search" aria-hidden="true"></i></b-button
-            >
-          </b-nav-form>
-        </b-card>
+      <div class="col-lg-3">
+
       </div>
     </div>
   </div>
@@ -84,6 +72,7 @@ export default BaseComponent.extend({
       try {
         let id = this.fieldFilter.id
         let res = await updateModel(this.model, this.form, id)
+        this.makeToast('Sửa bài viết thành công')
         this.navigateTo('show-post', id)
       } catch (error) {
         this.handleErr(error)
