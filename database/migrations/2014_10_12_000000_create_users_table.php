@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->text('specialist_id')->nullable();
             $table->text('deactive')->nullable();
-            $table->text('deactive')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
