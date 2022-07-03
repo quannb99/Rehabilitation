@@ -402,7 +402,7 @@ export default BaseComponent.extend({
       this.$refs["call-modal"].hide();
       let ids = [User.id, this.callingUser.id];
       ids.sort();
-      let roomId = ids.join("");
+      let roomId = ids.join("-");
       this.audio.pause();
       window.open(window.location.origin + "/call/" + roomId);
       await postModel("callResponse", { response: "accept" });
