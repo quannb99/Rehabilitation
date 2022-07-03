@@ -395,7 +395,7 @@ export default BaseComponent.extend({
     if (!this.isJoined) {
       this.onJoin();
     }
-    let ids = this.roomId.split("");
+    let ids = this.roomId.split("-");
     ids.splice(ids.indexOf(User.id + ""), 1);
     let id = ids.join("");
     let res = await getModel("users", { id: id });

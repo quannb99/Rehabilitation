@@ -605,7 +605,7 @@ export default BaseComponent.extend({
           this.$refs["calling-modal"].hide();
           let ids = [User.id, e.user.id];
           ids.sort();
-          let roomId = ids.join("");
+          let roomId = ids.join("-");
           window.open(window.location.origin + "/call/" + roomId);
         }
 
