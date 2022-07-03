@@ -190,6 +190,9 @@
                       <span v-if="item.type == 'App\\Notifications\\BookAppointment'"
                         >đã đặt 1 lịch hẹn ngày {{ moment(item.data.start_at).format('DD-MM-YYYY') }}</span
                       >
+                      <span v-if="item.type == 'App\\Notifications\\UpdateRecord'"
+                        >đã cập nhật hồ sơ bệnh án của bạn</span
+                      >
                       <br />
                       {{ moment(item.created_at).fromNow() }}
                     </p>
@@ -246,10 +249,15 @@ export default BaseComponent.extend({
   methods: {
     handleClickNoti(item) {
       if (item.type == 'App\\Notifications\\ReportComment' || item.type == 'App\\Notifications\\ReportPost') {
-        this.navigateToPage('posts/' + item.data.post_id)
+        // this.navigateToPage('posts/' + item.data.post_id)
+        this.navigateTo('show-post', item.data.post_id)
       }
       if (item.type == 'App\\Notifications\\BookAppointment') {
         this.navigateToPage("schedule?openDate=" + this.moment(item.data.start_at).format('YYYY-MM-DD'))
+        // this.navigateTo("scheduleDate", this.moment(item.data.start_at).format('YYYY-MM-DD'))
+      }
+      if (item.type == 'App\\Notifications\\UpdateRecord') {
+        this.navigateTo('showMedicalRecord', item.data.record_id)
       }
     },
     logOut() {
@@ -275,9 +283,6 @@ export default BaseComponent.extend({
   async mounted() {
     if (this.user != null) {
       await this.getMsgHistory();
-    }
-
-    if (this.user != null && this.user.role == 3) {
       await this.getNotifications();
     }
   },

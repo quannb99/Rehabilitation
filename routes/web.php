@@ -28,6 +28,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('/forum', 'HomeController@index');
 Route::get('/posts/new', 'HomeController@index');
 Route::get('/schedule', 'HomeController@index');
+Route::get('/scheduleDate', 'HomeController@index');
 Route::post('/getSchedule', 'ScheduleController@getSchedule');
 Route::get('/doctors', 'HomeController@index');
 Route::get('/appointments', 'HomeController@index');

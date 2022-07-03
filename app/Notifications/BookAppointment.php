@@ -16,6 +16,7 @@ class BookAppointment extends Notification
     use Queueable;
 
     protected $user;
+    protected $appointment;
 
     /**
      * Create a new notification instance.

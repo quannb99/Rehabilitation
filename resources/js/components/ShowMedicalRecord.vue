@@ -67,7 +67,13 @@
               >
                 {{ item.title }}
               </b-button>
-              <b-button v-if="getRole() == 2" size="md" class="mr-3 mb-3" variant="danger" @click="deleteRecordTreatment(item.id)" >
+              <b-button
+                v-if="getRole() == 2"
+                size="md"
+                class="mr-3 mb-3"
+                variant="danger"
+                @click="deleteRecordTreatment(item.id)"
+              >
                 <i class="fa fa-times" aria-hidden="true"></i>
               </b-button>
             </div>
@@ -246,6 +252,7 @@ export default BaseComponent.extend({
       form: {
         progress: "",
         note: "",
+        evaluate: "",
       },
       isEdit: false,
       isInput: false,
@@ -263,7 +270,7 @@ export default BaseComponent.extend({
       try {
         await postModel("recordTreatments", form);
         await this.getRecordTreatments();
-        this.titleQuery = '';
+        this.titleQuery = "";
         this.getTreatmentByTitle();
         this.makeToast("Thêm hoạt động điều trị thành công");
       } catch (error) {
@@ -327,7 +334,12 @@ export default BaseComponent.extend({
       this.makeToast("Cập nhật tiến độ thành công");
       this.fieldFilter.record_id = form.record_id;
       this.getItems();
-      this.isEdit = false;
+      (this.form = {
+        progress: "",
+        note: "",
+        evaluate: "",
+      }),
+        (this.isEdit = false);
     },
 
     toggleEditMode() {
@@ -343,6 +355,7 @@ export default BaseComponent.extend({
     },
 
     getRole() {
+      if (!this.medicalRecord) return 0;
       if (User.id == this.medicalRecord.user_id) return 1;
       if (User.id == this.medicalRecord.doctor_id) return 2;
       return 0;
@@ -374,6 +387,26 @@ export default BaseComponent.extend({
       let res = await postModel("recordTreatments", form);
       this.recordTreatmentsList = res.data.data;
     },
+  },
+  async created() {
+    this.$watch(
+      () => this.$route.params,
+      async (toParams, previousParams) => {
+        const params = {
+          id: this.$route.params.id,
+        };
+        let res = await getModel("medicalRecords", params);
+        this.medicalRecord = res.data.data.data[0];
+        if (this.getRole() == 0) {
+          this.navigateTo("home");
+        }
+        await this.getUserById(this.medicalRecord.user_id);
+        this.fieldFilter.record_id = this.$route.params.id;
+        this.getItems();
+        this.getTreatmentByTitle();
+        this.getRecordTreatments();
+      }
+    );
   },
   async mounted() {
     const params = {

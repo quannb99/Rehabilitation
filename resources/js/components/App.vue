@@ -589,6 +589,15 @@ export default BaseComponent.extend({
           10000
         );
       }
+
+      if (data.type == `App\\Notifications\\UpdateRecord`) {
+        this.notiAudio.play();
+        this.makeLinkToast(
+          data.user_name + " đã cập nhật hồ sơ bệnh án của bạn",
+          window.location.origin + "/show-medical-record/" + data.record_id,
+          10000
+        );
+      }
     });
     window.Echo.private("call-response").listen("CallResponse", async (e) => {
       if (e.user.id == this.participants[0].id) {

@@ -376,6 +376,16 @@ export default BaseComponent.extend({
       }
     },
   },
+  async created() {
+    this.$watch(
+      () => this.$route.params,
+      async (toParams, previousParams) => {
+        this.fieldFilter.id = this.$route.params.id;
+        await this.getItems();
+        this.getComments();
+      }
+    );
+  },
   async mounted() {
     this.fieldFilter.id = this.$route.params.id;
     await this.getItems();

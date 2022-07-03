@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Notifications\UpdateRecord;
 use Illuminate\Http\Request;
 use App\Repositories\ProgressRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\MedicalRecordRepository;
+use Illuminate\Support\Facades\Notification;
 
 class ProgressController extends Controller
 {
@@ -67,16 +70,20 @@ class ProgressController extends Controller
     public function store(Request $request)
     {
         try {
-            $item = $this->progressRepository->create($request->all());
+            $progress = $this->progressRepository->create($request->all());
             $id = $request['record_id'];
             $record = $this->medicalRecordRepository->detail($id);
-            $record->updated_at = $item->created_at;
+            $user = User::find($record->user_id);
+            $doctor = User::find($record->doctor_id);
+            $record->updated_at = $progress->created_at;
             $record->save();
+            Notification::send($user, new UpdateRecord($doctor, $progress));
+
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
-        return $this->sendSuccess($item);
+        return $this->sendSuccess($progress);
     }
 
     /**
