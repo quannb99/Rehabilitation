@@ -18,9 +18,12 @@ class CreateSchedulesTable extends Migration
             $table->bigInteger('user_id')->nullable();
             $table->text('title')->nullable();
             $table->longText('content')->nullable();
-            $table->integer('status')->nullable();
+            $table->text('status')->nullable();
             $table->text('start_at')->nullable();
             $table->text('end_at')->nullable();
+            $table->text('recurrence_rule')->nullable();
+            $table->text('recurrence_exception')->nullable();
+            $table->bigInteger('recurrence_id')->nullable();
             $table->timestamps();
         });
     }

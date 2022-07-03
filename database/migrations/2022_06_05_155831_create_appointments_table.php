@@ -17,6 +17,7 @@ class CreateAppointmentsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->nullable();
             $table->bigInteger('doctor_id')->nullable();
+            $table->longText('note')->nullable();
             $table->text('start_at')->nullable();
             $table->text('end_at')->nullable();
             $table->timestamps();
