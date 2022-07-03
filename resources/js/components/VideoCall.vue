@@ -17,6 +17,7 @@
       width="100%"
       :cameraHeight="authUser.role != 3 ? 550 : 450"
       :roomId="roomId"
+      :peerOptions="'TURN'"
     >
     </vue-webrtc>
     <div class="row mt-3">
