@@ -145,22 +145,6 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-07-02 00:10:05',
                 'updated_at' => '2022-07-02 00:10:05',
             ),
-            16 => 
-            array (
-                'user_a_id' => 2,
-                'user_b_id' => 1,
-                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
-                'created_at' => '2022-07-02 14:36:51',
-                'updated_at' => '2022-07-02 14:36:51',
-            ),
-            17 => 
-            array (
-                'user_a_id' => 2,
-                'user_b_id' => 1,
-                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
-                'created_at' => '2022-07-02 17:16:10',
-                'updated_at' => '2022-07-02 17:16:10',
-            ),
         ));
         
         

@@ -21,7 +21,7 @@ class ProgressTableSeeder extends Seeder
             array (
                 'record_id' => 1,
                 'progress' => 'Triệu chứng tức ngực đã giảm bớt',
-                'evaluate' => NULL,
+                'evaluate' => 'Đã phục hồi được 60%',
                 'note' => 'Tiếp tục duy trì chế độ ăn uống, tập luyện như hướng dẫn',
                 'created_at' => '2022-06-16 21:39:19',
                 'updated_at' => '2022-06-16 21:39:19',
@@ -29,8 +29,8 @@ class ProgressTableSeeder extends Seeder
             1 => 
             array (
                 'record_id' => 6,
-                'progress' => '5/10',
-                'evaluate' => NULL,
+                'progress' => 'Đã cải thiện được tình trạng khó thở',
+                'evaluate' => 'Đã phục hồi được 60%',
                 'note' => 'good',
                 'created_at' => '2022-06-26 20:31:07',
                 'updated_at' => '2022-06-26 20:31:07',
@@ -38,17 +38,17 @@ class ProgressTableSeeder extends Seeder
             2 => 
             array (
                 'record_id' => 1,
-                'progress' => 'Đã hồi phục được 80%',
-                'evaluate' => NULL,
+                'progress' => 'Đã cải thiện được tình trạng khó thở',
+                'evaluate' => 'Đã phục hồi được 80%',
                 'note' => 'Tiếp tục duy trì luyện tập',
-                'created_at' => '2022-07-01 17:22:49',
-                'updated_at' => '2022-07-01 17:22:49',
+                'created_at' => '2022-07-03 15:36:25',
+                'updated_at' => '2022-07-03 15:36:25',
             ),
             3 => 
             array (
                 'record_id' => 6,
-                'progress' => 'đã hồi phục 80%',
-                'evaluate' => NULL,
+                'progress' => 'Triệu chứng tức ngực đã giảm bớt',
+                'evaluate' => 'Đã phục hồi được 80%',
                 'note' => 'tiếp tục tập luyện',
                 'created_at' => '2022-07-02 00:02:58',
                 'updated_at' => '2022-07-02 00:02:58',

@@ -26,7 +26,7 @@ class MedicalRecordsTableSeeder extends Seeder
                 'method' => 'Thực hiện bài tập thở cơ hoành khi nằm đều đặn mỗi ngày trong vòng 1 tháng',
                 'note' => 'Kết hợp luyện tập với chế độ ăn uống lành mạnh, tránh sử dụng các chất kích thích',
                 'created_at' => '2022-06-15 13:48:20',
-                'updated_at' => '2022-07-01 17:22:49',
+                'updated_at' => '2022-07-03 15:36:25',
             ),
             1 => 
             array (
