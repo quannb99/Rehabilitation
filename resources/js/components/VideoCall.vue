@@ -41,13 +41,29 @@
           <i class="fa fa-share-square" aria-hidden="true"></i>
           Chia sẻ màn hình
         </b-button>
-        <b-button variant="theme" v-show="!isJoined" @click="onJoin">
+        <b-button
+          v-show="isJoined && !isRecording"
+          variant="theme"
+          @click="record"
+        >
+          <i class="fa fa-video-camera" aria-hidden="true"></i>
+          Ghi lại
+        </b-button>
+        <b-button
+          v-show="isJoined && isRecording"
+          variant="danger"
+          @click="stopRecord"
+        >
+          <i class="fa fa-video-camera" aria-hidden="true"></i>
+          Dừng ghi
+        </b-button>
+        <b-button v-show="!isJoined" variant="theme" @click="onJoin">
           <i class="fa fa-sign-in" aria-hidden="true"></i>
-          Bật Camera
+          Tham gia
         </b-button>
         <b-button v-show="isJoined" variant="danger" @click="onLeave">
           <i class="fa fa-times-circle" aria-hidden="true"></i>
-          Tắt Camera
+          Rời khỏi
         </b-button>
       </div>
     </div>
@@ -184,7 +200,13 @@
         class="text-left"
         style="width: 65%; margin: auto; border-radius: 12px"
       >
-        <h4 style="cursor: pointer" @click="openInNewTab('/show-treatment/' + rate.treatment_id)" class="text-center">{{ rate.title }}</h4>
+        <h4
+          style="cursor: pointer"
+          @click="openInNewTab('/show-treatment/' + rate.treatment_id)"
+          class="text-center"
+        >
+          {{ rate.title }}
+        </h4>
         <h6 class="my-4"><b>Mục tiêu:</b> {{ rate.objective }}</h6>
         <h6 class="my-4"><b>Độ khó:</b> {{ rate.difficulty }}</h6>
         <h6 class="my-4"><b>Mức độ hoàn thành:</b> {{ rate.rate }}%</h6>
@@ -209,7 +231,7 @@ export default BaseComponent.extend({
       opponentUser: "",
       isInput: false,
       treatmentIdSelected: "",
-      treatmentsList: '',
+      treatmentsList: "",
       titleQuery: "",
       treatmentChoosed: "",
       treatmentSelected: "",
@@ -218,10 +240,32 @@ export default BaseComponent.extend({
         rate: 50,
         note: "",
       },
-      rate: '',
+      rate: "",
+      mediaRecorder: {},
+      userStream: {},
+      chunks: [],
+      isRecording: false,
     };
   },
   methods: {
+    record() {
+      this.isRecording = true;
+      if (this.$refs.webrtc.videoList[1]) {
+        this.userStream = this.$refs.webrtc.videoList[1].stream;
+      } else {
+        this.userStream = this.$refs.webrtc.videoList[0].stream;
+      }
+      this.mediaRecorder = new MediaRecorder(this.userStream);
+      this.mediaRecorder.ondataavailable = (e) => this.pushData(e);
+      this.mediaRecorder.onstop = () => this.onStop();
+      this.mediaRecorder.start();
+    },
+
+    stopRecord() {
+      this.isRecording = false;
+      this.mediaRecorder.stop();
+    },
+
     resetForm() {
       this.form.rate = 50;
       this.form.note = "";
@@ -284,12 +328,37 @@ export default BaseComponent.extend({
     onCapture() {
       this.img = this.$refs.webrtc.capture();
     },
-    onJoin() {
-      this.isJoined = true;
-      this.$refs.webrtc.join();
+    pushData(e) {
+      this.chunks.push(e.data);
     },
-    onLeave() {
-      this.$refs.webrtc.leave();
+    async onJoin() {
+      this.isJoined = true;
+      await this.$refs.webrtc.join();
+      // if (this.$refs.webrtc.videoList[1]) {
+      //   this.userStream = this.$refs.webrtc.videoList[1].stream;
+      // }
+      // this.mediaRecorder = new MediaRecorder(this.userStream);
+      // this.mediaRecorder.ondataavailable = (e) => this.pushData(e);
+      // this.mediaRecorder.onstop = () => this.onStop();
+    },
+    onStop() {
+      this.isRecording = false;
+      var blob = new Blob(this.chunks, { type: "video/webm" });
+      this.chunks = [];
+      const file = new File([blob], "meeting.webm", { type: "video/webm" });
+      var a = document.createElement("a"),
+        url = URL.createObjectURL(file);
+      a.href = url;
+      a.download =
+        "meeting-" + this.moment(new Date()).format("DD-MM-YYYY") + ".webm";
+      document.body.appendChild(a);
+      a.click();
+    },
+    async onLeave() {
+      await this.$refs.webrtc.leave();
+      if (this.isRecording) {
+        this.mediaRecorder.stop();
+      }
       this.isJoined = false;
     },
     onShareScreen() {
@@ -324,8 +393,7 @@ export default BaseComponent.extend({
   },
   async mounted() {
     if (!this.isJoined) {
-      this.isJoined = true;
-      this.$refs.webrtc.join();
+      this.onJoin();
     }
     let ids = this.roomId.split("");
     ids.splice(ids.indexOf(User.id + ""), 1);

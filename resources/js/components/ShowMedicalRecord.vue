@@ -117,22 +117,36 @@
               <b-form @submit.prevent="createProgress()">
                 <b-form-group
                   id="input-group-4"
-                  label="Tiến độ:"
+                  label="Tình trạng:"
                   label-for="input-4"
                 >
                   <b-form-textarea
                     id="textarea"
                     v-model="form.progress"
-                    placeholder="Nhập tiến độ..."
+                    placeholder="Nhập tình trạng..."
                     rows="3"
                     max-rows="6"
                     required
                   ></b-form-textarea>
                 </b-form-group>
                 <b-form-group
-                  id="input-group-4"
+                  id="input-group-5"
+                  label="Đánh giá:"
+                  label-for="input-5"
+                >
+                  <b-form-textarea
+                    id="textarea"
+                    v-model="form.evaluate"
+                    placeholder="Nhập đánh giá..."
+                    rows="3"
+                    max-rows="6"
+                    required
+                  ></b-form-textarea>
+                </b-form-group>
+                <b-form-group
+                  id="input-group-6"
                   label="Ghi chú:"
-                  label-for="input-4"
+                  label-for="input-6"
                 >
                   <b-form-textarea
                     id="textarea"
@@ -157,7 +171,7 @@
               <h5 class="mt-2 mb-3"><b>IV. TIẾN ĐỘ HỒI PHỤC</b></h5>
               <b-list-group>
                 <b-list-group-item v-for="(item, index) in items" :key="index">
-                  <h6 class="d-inline-block"><b>Tiến độ phục hồi:</b></h6>
+                  <h6 class="d-inline-block"><b>Tình trạng bệnh nhân:</b></h6>
                   <span class="float-right"
                     ><i class="theme-icon fa fa-clock-o" aria-hidden="true"></i>
                     {{
@@ -165,6 +179,8 @@
                     }}</span
                   >
                   <p>{{ item.progress }}</p>
+                  <h6><b>Đánh giá:</b></h6>
+                  <p>{{ item.evaluate }}</p>
                   <div v-if="item.note">
                     <h6><b>Ghi chú:</b></h6>
                     <p>{{ item.note }}</p>
@@ -302,6 +318,7 @@ export default BaseComponent.extend({
       const form = {
         record_id: this.medicalRecord.id,
         progress: this.form.progress,
+        evaluate: this.form.evaluate,
         note: this.form.note,
       };
       let res = await postModel("progress", form);
