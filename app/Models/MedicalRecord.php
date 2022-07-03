@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MedicalRecord extends Model
 {
+    protected $guarded = ['id'];
     public function treatments()
     {
         return $this->belongsToMany('App\Models\Treatment', 'record_treatments', 'record_id', 'treatment_id');
