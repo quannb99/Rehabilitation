@@ -102,7 +102,7 @@ class UserController extends Controller
             }
             $this->userRepository->create($request->only(['name', 'role', 'avatar', 'email', 'password', 'specialist_id']));
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');
@@ -190,7 +190,7 @@ class UserController extends Controller
         try {
             $this->userRepository->delete($id);
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');

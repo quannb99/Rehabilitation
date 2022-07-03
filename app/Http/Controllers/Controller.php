@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers;
@@ -35,12 +36,13 @@ class Controller extends BaseController
      * @param  int $code
      * @return \Illuminate\Http\JsonResponse
      */
-    public function sendError($message = '', $title = '', $code = 400)
+    public function sendError($message = '', $title = '', $error, $code = 400)
     {
         return response()->json([
             'data' => null,
             'success' => false,
             'message' => $message,
+            'error' => $error,
             'title' => $title,
         ], $code);
     }

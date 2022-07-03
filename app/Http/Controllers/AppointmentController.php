@@ -64,7 +64,7 @@ class AppointmentController extends Controller
         try {
             $this->appointmentRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');
@@ -121,7 +121,7 @@ class AppointmentController extends Controller
         try {
             $this->appointmentRepository->delete($id);
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');

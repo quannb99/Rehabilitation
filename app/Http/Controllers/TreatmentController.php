@@ -84,7 +84,7 @@ class TreatmentController extends Controller
         try {
             $item = $this->treatmentRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess($item->id);
@@ -141,7 +141,7 @@ class TreatmentController extends Controller
         try {
             $this->treatmentRepository->delete($id);
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');

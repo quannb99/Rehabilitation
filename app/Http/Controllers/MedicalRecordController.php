@@ -59,7 +59,7 @@ class MedicalRecordController extends Controller
             }
             $item = $this->recordTreatmentRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess($item->id);
@@ -128,7 +128,7 @@ class MedicalRecordController extends Controller
         try {
             $item = $this->medicalRecordRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess($item->id);
@@ -185,7 +185,7 @@ class MedicalRecordController extends Controller
         try {
             $this->medicalRecordRepository->delete($id);
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');

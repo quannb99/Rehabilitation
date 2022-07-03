@@ -124,7 +124,7 @@ class MessageController extends Controller
             // $message = $query->get();
             broadcast(new MessageSent($user, $message))->toOthers();
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');
@@ -181,7 +181,7 @@ class MessageController extends Controller
         try {
             $this->messageRepository->delete($id);
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');

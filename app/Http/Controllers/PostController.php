@@ -92,7 +92,7 @@ class PostController extends Controller
             ]);
             $item = $this->postRepository->create($request->all());
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');
+            return $this->sendError('Vui lòng nhập đủ các trường', $e->getMessage(), 'Kiểm tra lại');
         }
 
         return $this->sendSuccess($item->id);
@@ -136,7 +136,7 @@ class PostController extends Controller
             ]);
             $post = $this->postRepository->update($request->all(), $id);
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng nhập đủ các trường', 'Kiểm tra lại');
+            return $this->sendError('Vui lòng nhập đủ các trường', $e->getMessage(), 'Kiểm tra lại');
         }
 
         return $this->sendSuccess('');
@@ -153,7 +153,7 @@ class PostController extends Controller
         try {
             $this->postRepository->delete($id);
         } catch (\Exception $e) {
-            return $this->sendError('Vui lòng thử lại', 'Có lỗi xảy ra');
+            return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }
 
         return $this->sendSuccess('');
