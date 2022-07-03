@@ -17,7 +17,6 @@
       width="100%"
       :cameraHeight="authUser.role != 3 ? 550 : 450"
       :roomId="roomId"
-      :peerOptions="'TURN'"
     >
     </vue-webrtc>
     <div class="row mt-3">
@@ -246,6 +245,15 @@ export default BaseComponent.extend({
       userStream: {},
       chunks: [],
       isRecording: false,
+      peerOptions: new RTCPeerConnection({
+        iceServers: [
+          {
+            urls: "turn:openrelay.metered.ca:443?transport=tcp",
+            username: "openrelayproject",
+            credential: "openrelayproject",
+          },
+        ],
+      }),
     };
   },
   methods: {
