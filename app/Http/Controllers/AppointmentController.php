@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Notifications\BookAppointment;
 use Illuminate\Http\Request;
 use App\Repositories\AppointmentRepository;
+use Illuminate\Support\Facades\Notification;
 
 class AppointmentController extends Controller
 {
@@ -62,7 +65,10 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->appointmentRepository->create($request->all());
+            $appointment = $this->appointmentRepository->create($request->all());
+            $doctor = User::find($request['doctor_id']);
+            $user = User::find($request['user_id']);
+            Notification::send($doctor, new BookAppointment($user, $appointment));
         } catch (\Exception $e) {
             return $this->sendError('Vui lòng thử lại', $e->getMessage(), 'Có lỗi xảy ra');
         }

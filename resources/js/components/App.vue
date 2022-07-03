@@ -580,6 +580,15 @@ export default BaseComponent.extend({
           window.location.origin + "/posts/" + data.post_id
         );
       }
+
+      if (data.type == `App\\Notifications\\BookAppointment`) {
+        this.notiAudio.play();
+        this.makeLinkToast(
+          data.user_name + " đã đặt lịch hẹn vào ngày " + this.moment(data.start_at).format('DD-MM-YYYY'),
+          window.location.origin + "/schedule?openDate=" + this.moment(data.start_at).format('YYYY-MM-DD'),
+          20000
+        );
+      }
     });
     window.Echo.private("call-response").listen("CallResponse", async (e) => {
       if (e.user.id == this.participants[0].id) {

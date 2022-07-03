@@ -211,7 +211,12 @@ export default BaseComponent.extend({
   provide: {
     schedule: [Day, Week, WorkWeek, Month, Agenda],
   },
-  mounted() {},
+  mounted() {
+    let openDate = new URLSearchParams(window.location.search).get("openDate")
+    if (openDate) {
+      this.selectedDate = moment(openDate).toISOString()
+    }
+  },
 });
 </script>
 

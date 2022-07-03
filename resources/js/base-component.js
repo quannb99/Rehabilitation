@@ -93,19 +93,19 @@ const BaseComponent = Vue.extend({
       this.$refs["cf-modal"].handleShowMess(msg, title, params);
     },
 
-    makeToast(msg) {
+    makeToast(msg, time = 5000) {
       this.$root.$bvToast.toast(msg, {
         title: "Thông báo",
-        autoHideDelay: 5000,
+        autoHideDelay: time,
         toaster: "b-toaster-bottom-right",
       });
     },
 
-    makeLinkToast(msg, href) {
+    makeLinkToast(msg, href, time = 5000) {
       this.$root.$bvToast.toast(msg, {
         title: "Thông báo",
         href: href,
-        autoHideDelay: 5000,
+        autoHideDelay: time,
         toaster: "b-toaster-bottom-right",
       });
     },
