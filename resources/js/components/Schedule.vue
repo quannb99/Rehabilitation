@@ -28,7 +28,7 @@
                     class="mr-2"
                   ></b-img>
                   <span style="display: inline-block"></span>
-                  <a target="_blank" :href="'/user-info/' + item.user_id"
+                  <a style="margin-left: -4px" target="_blank" :href="'/user-info/' + item.user_id"
                     ><strong>{{ item.user_name }}</strong></a
                   >
                   đã đặt lịch hẹn <br />

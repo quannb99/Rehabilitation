@@ -246,7 +246,7 @@ export default BaseComponent.extend({
   methods: {
     handleClickNoti(item) {
       if (item.type == 'App\\Notifications\\ReportComment' || item.type == 'App\\Notifications\\ReportPost') {
-        this.navigateTo('show-post', item.data.post_id)
+        this.navigateToPage('posts/' + item.data.post_id)
       }
       if (item.type == 'App\\Notifications\\BookAppointment') {
         this.navigateToPage("schedule?openDate=" + this.moment(item.data.start_at).format('YYYY-MM-DD'))

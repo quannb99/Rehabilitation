@@ -4,7 +4,7 @@
       <nav-bar :user="user" @setChatParticipant="setChatParticipant" />
       <message-modal ref="msg-modal"></message-modal>
       <div class="divider"></div>
-      <router-view @setChatParticipant="setChatParticipant" />
+      <router-view :key="$route.fullPath" @setChatParticipant="setChatParticipant" />
       <Footer @setChatParticipant="setChatParticipant" />
     </template>
     <template v-if="user.role == 3">
