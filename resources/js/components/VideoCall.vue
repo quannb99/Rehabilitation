@@ -54,7 +54,7 @@
           variant="danger"
           @click="stopRecord"
         >
-          <i class="fa fa-video-camera" aria-hidden="true"></i>
+          <i class="fa fa-power-off" aria-hidden="true"></i>
           Dừng ghi
         </b-button>
         <b-button v-show="!isJoined" variant="theme" @click="onJoin">
