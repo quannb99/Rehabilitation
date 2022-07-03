@@ -586,7 +586,7 @@ export default BaseComponent.extend({
         this.makeLinkToast(
           data.user_name + " đã đặt lịch hẹn vào ngày " + this.moment(data.start_at).format('DD-MM-YYYY'),
           window.location.origin + "/schedule?openDate=" + this.moment(data.start_at).format('YYYY-MM-DD'),
-          20000
+          10000
         );
       }
     });

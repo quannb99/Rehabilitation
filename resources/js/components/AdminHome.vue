@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Navigation :title="'Dashboard'" :hideHome="true" :page="null" />
     <div class="row pt-5 col-lg-10 m-auto">
       <div class="col-lg-4">
         <b-card class="text-center" style="border-radius: 25px">
@@ -63,7 +64,7 @@
           <p class="mt-2" style="font-size: 30px">
             <b>{{ countInfo.record }}</b>
           </p>
-          <p style="font-size: 20px">Hồ sơ đã tạo</p>
+          <p style="font-size: 20px">Hồ sơ bệnh án</p>
         </b-card>
       </div>
       <div class="col-lg-4 mt-5">

@@ -145,7 +145,7 @@
           </b-nav-item-dropdown>
 
           <b-nav-item-dropdown
-            v-if="user != null && user.role == 3"
+            v-if="user != null"
             size="md"
             right
             no-caret
@@ -165,7 +165,7 @@
               v-for="(item, index) in notifications"
               :key="index"
               href="#"
-              @click.prevent="navigateTo('show-post', item.data.post_id)"
+              @click.prevent="handleClickNoti(item)"
             >
               <div>
                 <b-media>
@@ -179,13 +179,16 @@
                   </template>
                   <div>
                     <p class="ellipsis-text-330">
-                      <b>{{ item.data.user_name }}</b> đã báo cáo 1
+                      <b>{{ item.data.user_name }}</b>
                       <span
                         v-if="item.type == 'App\\Notifications\\ReportComment'"
-                        >bình luận</span
+                        >đã báo cáo 1 bình luận</span
                       >
                       <span v-if="item.type == 'App\\Notifications\\ReportPost'"
-                        >bài viết</span
+                        >đã báo cáo 1 bài viết</span
+                      >
+                      <span v-if="item.type == 'App\\Notifications\\BookAppointment'"
+                        >đã đặt 1 lịch hẹn ngày {{ moment(item.data.start_at).format('DD-MM-YYYY') }}</span
                       >
                       <br />
                       {{ moment(item.created_at).fromNow() }}
@@ -241,6 +244,14 @@ export default BaseComponent.extend({
   },
 
   methods: {
+    handleClickNoti(item) {
+      if (item.type == 'App\\Notifications\\ReportComment' || item.type == 'App\\Notifications\\ReportPost') {
+        this.navigateTo('show-post', item.data.post_id)
+      }
+      if (item.type == 'App\\Notifications\\BookAppointment') {
+        this.navigateToPage("schedule?openDate=" + this.moment(item.data.start_at).format('YYYY-MM-DD'))
+      }
+    },
     logOut() {
       document.getElementById("logout-form").submit();
     },
@@ -300,7 +311,7 @@ export default BaseComponent.extend({
 }
 .ellipsis-text-330 {
   white-space: nowrap;
-  width: 330px;
+  // width: 330px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-block;
