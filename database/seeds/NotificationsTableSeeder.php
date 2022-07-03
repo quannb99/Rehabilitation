@@ -19,6 +19,7 @@ class NotificationsTableSeeder extends Seeder
         \DB::table('notifications')->insert(array (
             0 => 
             array (
+                'id' => '3e32d836-53e5-4688-9dd8-ee52c3961f43',
                 'type' => 'App\\Notifications\\ReportPost',
                 'notifiable_type' => 'App\\Models\\User',
                 'notifiable_id' => 10,
@@ -30,6 +31,7 @@ class NotificationsTableSeeder extends Seeder
             ),
             1 => 
             array (
+                'id' => 'c98251c0-aa87-4e47-9e3a-2e5cd2e3e1ae',
                 'type' => 'App\\Notifications\\ReportPost',
                 'notifiable_type' => 'App\\Models\\User',
                 'notifiable_id' => 10,
@@ -41,6 +43,7 @@ class NotificationsTableSeeder extends Seeder
             ),
             2 => 
             array (
+                'id' => 'd059783b-e521-4902-8420-0761183bb90d',
                 'type' => 'App\\Notifications\\ReportComment',
                 'notifiable_type' => 'App\\Models\\User',
                 'notifiable_id' => 10,
@@ -52,6 +55,7 @@ class NotificationsTableSeeder extends Seeder
             ),
             3 => 
             array (
+                'id' => 'f2c00968-144d-447b-aba2-bc4576c6c740',
                 'type' => 'App\\Notifications\\ReportComment',
                 'notifiable_type' => 'App\\Models\\User',
                 'notifiable_id' => 10,
