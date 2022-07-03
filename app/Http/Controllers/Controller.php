@@ -34,7 +34,7 @@ class Controller extends BaseController
      * @param  int $code
      * @return \Illuminate\Http\JsonResponse
      */
-    public function sendError($message = '', $title = '', $error, $code = 400)
+    public function sendError($message = '', $error, $title = '', $code = 400)
     {
         return response()->json([
             'data' => null,
