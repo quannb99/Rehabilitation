@@ -19,7 +19,6 @@ class SchedulesTableSeeder extends Seeder
         \DB::table('schedules')->insert(array (
             0 => 
             array (
-                'id' => 32,
                 'user_id' => 2,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -34,7 +33,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 38,
                 'user_id' => 2,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -49,7 +47,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'id' => 40,
                 'user_id' => 3,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -64,7 +61,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 41,
                 'user_id' => 4,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -79,7 +75,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             4 => 
             array (
-                'id' => 42,
                 'user_id' => 5,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -94,7 +89,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => 43,
                 'user_id' => 6,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -109,7 +103,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             6 => 
             array (
-                'id' => 44,
                 'user_id' => 11,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -124,7 +117,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             7 => 
             array (
-                'id' => 45,
                 'user_id' => 13,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -139,7 +131,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             8 => 
             array (
-                'id' => 46,
                 'user_id' => 14,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -154,7 +145,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             9 => 
             array (
-                'id' => 47,
                 'user_id' => 15,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -169,7 +159,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             10 => 
             array (
-                'id' => 48,
                 'user_id' => 16,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -184,7 +173,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             11 => 
             array (
-                'id' => 49,
                 'user_id' => 17,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -199,7 +187,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             12 => 
             array (
-                'id' => 50,
                 'user_id' => 18,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -214,7 +201,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             13 => 
             array (
-                'id' => 51,
                 'user_id' => 19,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -229,7 +215,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             14 => 
             array (
-                'id' => 52,
                 'user_id' => 20,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -244,7 +229,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             15 => 
             array (
-                'id' => 53,
                 'user_id' => 21,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -259,7 +243,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             16 => 
             array (
-                'id' => 54,
                 'user_id' => 22,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -274,7 +257,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             17 => 
             array (
-                'id' => 55,
                 'user_id' => 23,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -289,7 +271,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             18 => 
             array (
-                'id' => 56,
                 'user_id' => 24,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -304,7 +285,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             19 => 
             array (
-                'id' => 57,
                 'user_id' => 25,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -319,7 +299,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             20 => 
             array (
-                'id' => 58,
                 'user_id' => 26,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -334,7 +313,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             21 => 
             array (
-                'id' => 59,
                 'user_id' => 26,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -349,7 +327,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             22 => 
             array (
-                'id' => 60,
                 'user_id' => 25,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -364,7 +341,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             23 => 
             array (
-                'id' => 61,
                 'user_id' => 24,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -379,7 +355,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             24 => 
             array (
-                'id' => 62,
                 'user_id' => 22,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,
@@ -394,7 +369,6 @@ class SchedulesTableSeeder extends Seeder
             ),
             25 => 
             array (
-                'id' => 63,
                 'user_id' => 23,
                 'title' => 'Gặp bệnh nhân',
                 'content' => NULL,

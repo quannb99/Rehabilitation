@@ -19,7 +19,6 @@ class AppointmentsTableSeeder extends Seeder
         \DB::table('appointments')->insert(array (
             0 => 
             array (
-                'id' => 2,
                 'user_id' => 1,
                 'doctor_id' => 2,
                 'note' => NULL,
@@ -30,7 +29,6 @@ class AppointmentsTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 4,
                 'user_id' => 1,
                 'doctor_id' => 2,
                 'note' => NULL,
@@ -41,7 +39,6 @@ class AppointmentsTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'id' => 5,
                 'user_id' => 3,
                 'doctor_id' => 2,
                 'note' => NULL,
@@ -52,7 +49,6 @@ class AppointmentsTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 6,
                 'user_id' => 4,
                 'doctor_id' => 2,
                 'note' => NULL,
@@ -63,7 +59,6 @@ class AppointmentsTableSeeder extends Seeder
             ),
             4 => 
             array (
-                'id' => 7,
                 'user_id' => 5,
                 'doctor_id' => 2,
                 'note' => NULL,
@@ -74,7 +69,6 @@ class AppointmentsTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => 9,
                 'user_id' => 6,
                 'doctor_id' => 2,
                 'note' => NULL,
@@ -85,7 +79,6 @@ class AppointmentsTableSeeder extends Seeder
             ),
             6 => 
             array (
-                'id' => 10,
                 'user_id' => 1,
                 'doctor_id' => 2,
                 'note' => NULL,
@@ -96,7 +89,6 @@ class AppointmentsTableSeeder extends Seeder
             ),
             7 => 
             array (
-                'id' => 11,
                 'user_id' => 1,
                 'doctor_id' => 2,
                 'note' => 'test ghi chú',
@@ -107,7 +99,6 @@ class AppointmentsTableSeeder extends Seeder
             ),
             8 => 
             array (
-                'id' => 12,
                 'user_id' => 1,
                 'doctor_id' => 2,
                 'note' => 'test note',
@@ -118,7 +109,6 @@ class AppointmentsTableSeeder extends Seeder
             ),
             9 => 
             array (
-                'id' => 13,
                 'user_id' => 1,
                 'doctor_id' => 26,
                 'note' => 'test',

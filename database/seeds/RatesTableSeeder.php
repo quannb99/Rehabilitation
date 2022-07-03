@@ -19,7 +19,6 @@ class RatesTableSeeder extends Seeder
         \DB::table('rates')->insert(array (
             0 => 
             array (
-                'id' => 1,
                 'doctor_id' => 2,
                 'user_id' => 1,
                 'treatment_id' => 6,
@@ -30,7 +29,6 @@ class RatesTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 13,
                 'doctor_id' => 2,
                 'user_id' => 1,
                 'treatment_id' => 2,

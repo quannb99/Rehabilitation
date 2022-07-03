@@ -19,7 +19,6 @@ class UsersTableSeeder extends Seeder
         \DB::table('users')->insert(array (
             0 => 
             array (
-                'id' => 1,
                 'name' => 'Nguyễn Bá Quân',
                 'email' => 'quanvip1999@gmail.com',
                 'gender' => '1',
@@ -38,7 +37,6 @@ class UsersTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 2,
                 'name' => 'Nguyễn Thanh Liêm',
                 'email' => 'ntliem@gmail.com',
                 'gender' => '1',
@@ -57,7 +55,6 @@ class UsersTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'id' => 3,
                 'name' => 'Nguyễn Thị Mận',
                 'email' => 'ntman@gmail.com',
                 'gender' => '2',
@@ -76,7 +73,6 @@ class UsersTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 4,
                 'name' => 'Đỗ Doãn Lợi',
                 'email' => 'ddloi@gmail.com',
                 'gender' => '1',
@@ -95,7 +91,6 @@ class UsersTableSeeder extends Seeder
             ),
             4 => 
             array (
-                'id' => 5,
                 'name' => 'Lê Thị Thu Hằng',
                 'email' => 'ltthang@gmail.com',
                 'gender' => '2',
@@ -114,7 +109,6 @@ class UsersTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => 6,
                 'name' => 'Lê Dương Tiến',
                 'email' => 'ldtien@gmail.com',
                 'gender' => '1',
@@ -133,7 +127,6 @@ class UsersTableSeeder extends Seeder
             ),
             6 => 
             array (
-                'id' => 7,
                 'name' => 'Phạm Tuấn Linh',
                 'email' => 'ptlinh@gmail.com',
                 'gender' => '1',
@@ -152,7 +145,6 @@ class UsersTableSeeder extends Seeder
             ),
             7 => 
             array (
-                'id' => 8,
                 'name' => 'Lê Thanh Thủy',
                 'email' => 'ltthuy@gmail.com',
                 'gender' => '2',
@@ -171,7 +163,6 @@ class UsersTableSeeder extends Seeder
             ),
             8 => 
             array (
-                'id' => 9,
                 'name' => 'Nguyễn Quốc Hưng',
                 'email' => 'nqhung@gmail.com',
                 'gender' => '1',
@@ -190,7 +181,6 @@ class UsersTableSeeder extends Seeder
             ),
             9 => 
             array (
-                'id' => 10,
                 'name' => 'Admin',
                 'email' => 'admin@gmail.com',
                 'gender' => '1',
@@ -209,7 +199,6 @@ class UsersTableSeeder extends Seeder
             ),
             10 => 
             array (
-                'id' => 11,
                 'name' => 'Hồ Thu Mai',
                 'email' => 'htmai@gmail.com',
                 'gender' => '2',
@@ -228,7 +217,6 @@ class UsersTableSeeder extends Seeder
             ),
             11 => 
             array (
-                'id' => 12,
                 'name' => 'Nguyễn Minh Hằng',
                 'email' => 'minhan@gmail.com',
                 'gender' => '2',
@@ -247,7 +235,6 @@ class UsersTableSeeder extends Seeder
             ),
             12 => 
             array (
-                'id' => 13,
                 'name' => 'Hoàng Thị Hiền',
                 'email' => 'hthien@gmail.com',
                 'gender' => '2',
@@ -266,7 +253,6 @@ class UsersTableSeeder extends Seeder
             ),
             13 => 
             array (
-                'id' => 14,
                 'name' => 'Thành Ngọc Tiến',
                 'email' => 'tntien@gmail.com',
                 'gender' => '1',
@@ -285,7 +271,6 @@ class UsersTableSeeder extends Seeder
             ),
             14 => 
             array (
-                'id' => 15,
                 'name' => 'Lê Thị Phương Thảo',
                 'email' => 'ltpthao@gmail.com',
                 'gender' => '2',
@@ -304,7 +289,6 @@ class UsersTableSeeder extends Seeder
             ),
             15 => 
             array (
-                'id' => 16,
                 'name' => 'Phạm Hồng Hà',
                 'email' => 'phha@gmail.com',
                 'gender' => '2',
@@ -323,7 +307,6 @@ class UsersTableSeeder extends Seeder
             ),
             16 => 
             array (
-                'id' => 17,
                 'name' => 'Nguyễn Thị Phương Thảo',
                 'email' => 'ntpthao@gmail.com',
                 'gender' => '2',
@@ -342,7 +325,6 @@ class UsersTableSeeder extends Seeder
             ),
             17 => 
             array (
-                'id' => 18,
                 'name' => 'Trần Thị Hoàng Anh',
                 'email' => 'tthanh@gmail.com',
                 'gender' => '2',
@@ -361,7 +343,6 @@ class UsersTableSeeder extends Seeder
             ),
             18 => 
             array (
-                'id' => 19,
                 'name' => 'Hoàng Mai Anh',
                 'email' => 'hmanh@gmail.com',
                 'gender' => '2',
@@ -380,7 +361,6 @@ class UsersTableSeeder extends Seeder
             ),
             19 => 
             array (
-                'id' => 20,
                 'name' => 'Phan Thanh Nguyên',
                 'email' => 'ptnguyen@gmail.com',
                 'gender' => '1',
@@ -399,7 +379,6 @@ class UsersTableSeeder extends Seeder
             ),
             20 => 
             array (
-                'id' => 21,
                 'name' => 'Nguyễn Tuấn Lâm',
                 'email' => 'ntlam@gmail.com',
                 'gender' => '1',
@@ -418,7 +397,6 @@ class UsersTableSeeder extends Seeder
             ),
             21 => 
             array (
-                'id' => 22,
                 'name' => 'Trương Tạ Anh Nga',
                 'email' => 'ttanga@gmail.com',
                 'gender' => '2',
@@ -437,7 +415,6 @@ class UsersTableSeeder extends Seeder
             ),
             22 => 
             array (
-                'id' => 23,
                 'name' => 'Nguyễn Thị Phi Yến',
                 'email' => 'ntpyen@gmail.com',
                 'gender' => '2',
@@ -456,7 +433,6 @@ class UsersTableSeeder extends Seeder
             ),
             23 => 
             array (
-                'id' => 24,
                 'name' => 'Nguyễn Thị Nhật',
                 'email' => 'ntnhat@gmail.com',
                 'gender' => '2',
@@ -475,7 +451,6 @@ class UsersTableSeeder extends Seeder
             ),
             24 => 
             array (
-                'id' => 25,
                 'name' => 'Phạm Thị Thùy Nhung',
                 'email' => 'pttnhung@gmail.com',
                 'gender' => '2',
@@ -494,7 +469,6 @@ class UsersTableSeeder extends Seeder
             ),
             25 => 
             array (
-                'id' => 26,
                 'name' => 'Lê Phúc Liên',
                 'email' => 'lplien@gmail.com',
                 'gender' => '2',
@@ -513,7 +487,6 @@ class UsersTableSeeder extends Seeder
             ),
             26 => 
             array (
-                'id' => 27,
                 'name' => 'Nguyễn Thị Phượng',
                 'email' => 'ntphuong@gmail.com',
                 'gender' => '2',
@@ -532,7 +505,6 @@ class UsersTableSeeder extends Seeder
             ),
             27 => 
             array (
-                'id' => 28,
                 'name' => 'Đỗ Thị Hồng Thảo',
                 'email' => 'dththao@gmail.com',
                 'gender' => '2',
@@ -551,7 +523,6 @@ class UsersTableSeeder extends Seeder
             ),
             28 => 
             array (
-                'id' => 29,
                 'name' => 'Nguyễn Diệu Linh',
                 'email' => 'ndlinh@gmail.com',
                 'gender' => '2',
@@ -570,7 +541,6 @@ class UsersTableSeeder extends Seeder
             ),
             29 => 
             array (
-                'id' => 30,
                 'name' => 'Đinh Ngọc Hiền',
                 'email' => 'dnhien@gmail.com',
                 'gender' => '2',
@@ -589,7 +559,6 @@ class UsersTableSeeder extends Seeder
             ),
             30 => 
             array (
-                'id' => 31,
                 'name' => 'Lê Thị Hồng Nhung',
                 'email' => 'lthn@gmail.com',
                 'gender' => '2',
@@ -608,7 +577,6 @@ class UsersTableSeeder extends Seeder
             ),
             31 => 
             array (
-                'id' => 32,
                 'name' => 'Vũ Phương Hiền',
                 'email' => 'vphien@gmail.com',
                 'gender' => '2',
@@ -627,7 +595,6 @@ class UsersTableSeeder extends Seeder
             ),
             32 => 
             array (
-                'id' => 33,
                 'name' => 'Phạm Quốc Toản',
                 'email' => 'pqtoan@gmail.com',
                 'gender' => '1',
@@ -646,7 +613,6 @@ class UsersTableSeeder extends Seeder
             ),
             33 => 
             array (
-                'id' => 34,
                 'name' => 'Đinh Lâm Phương',
                 'email' => 'dlphuong@gmail.com',
                 'gender' => '2',
@@ -665,7 +631,6 @@ class UsersTableSeeder extends Seeder
             ),
             34 => 
             array (
-                'id' => 35,
                 'name' => 'Nguyễn Quốc Bảo',
                 'email' => 'nqbao@gmail.com',
                 'gender' => '1',

@@ -19,7 +19,6 @@ class PostsTableSeeder extends Seeder
         \DB::table('posts')->insert(array (
             0 => 
             array (
-                'id' => 16,
                 'user_id' => 2,
                 'title' => 'Cách chăm sóc \'hậu COVID-19\' để hồi phục sức khỏe cho người bệnh',
                 'type' => 'Tin tức',
@@ -29,7 +28,6 @@ class PostsTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 35,
                 'user_id' => 1,
                 'title' => 'dfgdfg',
                 'type' => 'Hỏi đáp',
@@ -39,7 +37,6 @@ class PostsTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'id' => 36,
                 'user_id' => 6,
                 'title' => 'Xông mũi họng có thể giảm triệu chứng COVID không?',
                 'type' => 'Thảo luận',
@@ -49,7 +46,6 @@ class PostsTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 37,
                 'user_id' => 11,
                 'title' => 'COVID-19 và tổn thương tim',
                 'type' => 'Tin tức',
@@ -59,7 +55,6 @@ class PostsTableSeeder extends Seeder
             ),
             4 => 
             array (
-                'id' => 38,
                 'user_id' => 13,
                 'title' => 'Tại sao phụ nữ có thể chống lại COVID-19 tốt hơn nam giới?',
                 'type' => 'Thảo luận',
@@ -69,7 +64,6 @@ class PostsTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => 39,
                 'user_id' => 14,
                 'title' => 'Công dụng thuốc Movinavir',
                 'type' => 'Chia sẻ',
@@ -79,7 +73,6 @@ class PostsTableSeeder extends Seeder
             ),
             6 => 
             array (
-                'id' => 40,
                 'user_id' => 15,
                 'title' => 'Đau tức ngực khi mắc Covid điều trị thế nào?',
                 'type' => 'Hỏi đáp',
@@ -89,7 +82,6 @@ class PostsTableSeeder extends Seeder
             ),
             7 => 
             array (
-                'id' => 41,
                 'user_id' => 16,
                 'title' => 'Người mắc Covid ho kèm sốt 4 ngày có nên đi bệnh viện không?',
                 'type' => 'Hỏi đáp',
@@ -99,7 +91,6 @@ class PostsTableSeeder extends Seeder
             ),
             8 => 
             array (
-                'id' => 42,
                 'user_id' => 17,
                 'title' => 'Bà bầu mắc COVID-19 nên uống thuốc gì?',
                 'type' => 'Chung',
@@ -109,7 +100,6 @@ class PostsTableSeeder extends Seeder
             ),
             9 => 
             array (
-                'id' => 43,
                 'user_id' => 18,
                 'title' => 'Chế độ ăn uống cho người nhiễm Covid-19',
                 'type' => 'Chia sẻ',
@@ -119,7 +109,6 @@ class PostsTableSeeder extends Seeder
             ),
             10 => 
             array (
-                'id' => 44,
                 'user_id' => 19,
                 'title' => 'Các loại thực phẩm nên ăn khi nhiễm Covid-19',
                 'type' => 'Chung',
@@ -129,7 +118,6 @@ class PostsTableSeeder extends Seeder
             ),
             11 => 
             array (
-                'id' => 46,
                 'user_id' => 20,
                 'title' => 'Làm việc từ xa trong mùa Covid-19: Góc nhìn từ phía y học',
                 'type' => 'Chung',
@@ -139,7 +127,6 @@ class PostsTableSeeder extends Seeder
             ),
             12 => 
             array (
-                'id' => 47,
                 'user_id' => 21,
                 'title' => 'Chăm sóc tinh thần bệnh nhân hậu Covid-19',
                 'type' => 'Chia sẻ',
@@ -149,7 +136,6 @@ class PostsTableSeeder extends Seeder
             ),
             13 => 
             array (
-                'id' => 48,
                 'user_id' => 22,
                 'title' => 'Kiến thức cơ bản về chăm sóc người bệnh hậu Covid-19',
                 'type' => 'Chung',
@@ -159,7 +145,6 @@ class PostsTableSeeder extends Seeder
             ),
             14 => 
             array (
-                'id' => 49,
                 'user_id' => 23,
                 'title' => 'Tập luyện và vận động thể chất cho trẻ sau nhiễm Covid',
                 'type' => 'Chia sẻ',
@@ -169,7 +154,6 @@ class PostsTableSeeder extends Seeder
             ),
             15 => 
             array (
-                'id' => 50,
                 'user_id' => 24,
                 'title' => 'Xây dựng khả năng phục hồi sức khỏe cho con bạn',
                 'type' => 'Chung',

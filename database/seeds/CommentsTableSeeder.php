@@ -19,7 +19,6 @@ class CommentsTableSeeder extends Seeder
         \DB::table('comments')->insert(array (
             0 => 
             array (
-                'id' => 1,
                 'user_id' => 1,
                 'post_id' => 29,
                 'content' => 'test
@@ -29,7 +28,6 @@ test',
             ),
             1 => 
             array (
-                'id' => 2,
                 'user_id' => 1,
                 'post_id' => 29,
                 'content' => 'test',
@@ -38,7 +36,6 @@ test',
             ),
             2 => 
             array (
-                'id' => 3,
                 'user_id' => 1,
                 'post_id' => 29,
                 'content' => 'chán quá',
@@ -47,7 +44,6 @@ test',
             ),
             3 => 
             array (
-                'id' => 4,
                 'user_id' => 1,
                 'post_id' => 29,
                 'content' => 'xóa bài đi',
@@ -56,7 +52,6 @@ test',
             ),
             4 => 
             array (
-                'id' => 6,
                 'user_id' => 1,
                 'post_id' => 29,
                 'content' => 'ko hay',
@@ -65,7 +60,6 @@ test',
             ),
             5 => 
             array (
-                'id' => 8,
                 'user_id' => 1,
                 'post_id' => 29,
                 'content' => 'hello',
@@ -74,7 +68,6 @@ test',
             ),
             6 => 
             array (
-                'id' => 9,
                 'user_id' => 1,
                 'post_id' => 29,
                 'content' => 'hiiii',
@@ -83,7 +76,6 @@ test',
             ),
             7 => 
             array (
-                'id' => 11,
                 'user_id' => 1,
                 'post_id' => 29,
                 'content' => 'ôi bạn ơi',
@@ -92,7 +84,6 @@ test',
             ),
             8 => 
             array (
-                'id' => 19,
                 'user_id' => 1,
                 'post_id' => 29,
                 'content' => 'hehe',
@@ -101,7 +92,6 @@ test',
             ),
             9 => 
             array (
-                'id' => 24,
                 'user_id' => 1,
                 'post_id' => 29,
                 'content' => 'hahaha',
@@ -110,7 +100,6 @@ test',
             ),
             10 => 
             array (
-                'id' => 26,
                 'user_id' => 1,
                 'post_id' => 16,
                 'content' => 'hay',
@@ -119,7 +108,6 @@ test',
             ),
             11 => 
             array (
-                'id' => 30,
                 'user_id' => 14,
                 'post_id' => 40,
                 'content' => 'Chào bạn,
@@ -134,7 +122,6 @@ Trường hợp của bạn đang điều trị Covid ngày thứ ba, không có
             ),
             12 => 
             array (
-                'id' => 31,
                 'user_id' => 15,
                 'post_id' => 41,
                 'content' => 'Chào bạn,

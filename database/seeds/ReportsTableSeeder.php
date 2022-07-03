@@ -19,7 +19,6 @@ class ReportsTableSeeder extends Seeder
         \DB::table('reports')->insert(array (
             0 => 
             array (
-                'id' => 1,
                 'user_id' => 1,
                 'admin_id' => NULL,
                 'status' => NULL,

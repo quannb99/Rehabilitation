@@ -19,7 +19,6 @@ class MessagesTableSeeder extends Seeder
         \DB::table('messages')->insert(array (
             0 => 
             array (
-                'id' => 28,
                 'user_a_id' => 1,
                 'user_b_id' => 3,
                 'content' => 'Chào Bs Mận',
@@ -28,7 +27,6 @@ class MessagesTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 29,
                 'user_a_id' => 1,
                 'user_b_id' => 4,
                 'content' => 'Chào bác sĩ Đỗ Doãn Lợi',
@@ -37,7 +35,6 @@ class MessagesTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'id' => 51,
                 'user_a_id' => 2,
                 'user_b_id' => 3,
                 'content' => 'alo',
@@ -46,7 +43,6 @@ class MessagesTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 140,
                 'user_a_id' => 1,
                 'user_b_id' => 2,
                 'content' => 'chào bác sĩ',
@@ -55,7 +51,6 @@ class MessagesTableSeeder extends Seeder
             ),
             4 => 
             array (
-                'id' => 141,
                 'user_a_id' => 2,
                 'user_b_id' => 1,
                 'content' => 'chào bạn',
@@ -64,7 +59,6 @@ class MessagesTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => 142,
                 'user_a_id' => 1,
                 'user_b_id' => 2,
                 'content' => 'alo',
@@ -73,7 +67,6 @@ class MessagesTableSeeder extends Seeder
             ),
             6 => 
             array (
-                'id' => 143,
                 'user_a_id' => 1,
                 'user_b_id' => 2,
                 'content' => 'test',
@@ -82,7 +75,6 @@ class MessagesTableSeeder extends Seeder
             ),
             7 => 
             array (
-                'id' => 144,
                 'user_a_id' => 2,
                 'user_b_id' => 1,
                 'content' => 'ok',
@@ -91,7 +83,6 @@ class MessagesTableSeeder extends Seeder
             ),
             8 => 
             array (
-                'id' => 145,
                 'user_a_id' => 1,
                 'user_b_id' => 2,
                 'content' => '1',
@@ -100,7 +91,6 @@ class MessagesTableSeeder extends Seeder
             ),
             9 => 
             array (
-                'id' => 147,
                 'user_a_id' => 2,
                 'user_b_id' => 1,
                 'content' => '2',
@@ -109,7 +99,6 @@ class MessagesTableSeeder extends Seeder
             ),
             10 => 
             array (
-                'id' => 219,
                 'user_a_id' => 1,
                 'user_b_id' => 2,
                 'content' => 'ok',
@@ -118,7 +107,6 @@ class MessagesTableSeeder extends Seeder
             ),
             11 => 
             array (
-                'id' => 220,
                 'user_a_id' => 1,
                 'user_b_id' => 10,
                 'content' => 'hello',
@@ -127,7 +115,6 @@ class MessagesTableSeeder extends Seeder
             ),
             12 => 
             array (
-                'id' => 221,
                 'user_a_id' => 1,
                 'user_b_id' => 26,
                 'content' => 'hi',
@@ -136,7 +123,6 @@ class MessagesTableSeeder extends Seeder
             ),
             13 => 
             array (
-                'id' => 222,
                 'user_a_id' => 1,
                 'user_b_id' => 25,
                 'content' => 'xin chào',
@@ -145,7 +131,6 @@ class MessagesTableSeeder extends Seeder
             ),
             14 => 
             array (
-                'id' => 223,
                 'user_a_id' => 1,
                 'user_b_id' => 24,
                 'content' => 'hello',
@@ -154,7 +139,6 @@ class MessagesTableSeeder extends Seeder
             ),
             15 => 
             array (
-                'id' => 239,
                 'user_a_id' => 2,
                 'user_b_id' => 1,
                 'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
@@ -163,7 +147,6 @@ class MessagesTableSeeder extends Seeder
             ),
             16 => 
             array (
-                'id' => 240,
                 'user_a_id' => 2,
                 'user_b_id' => 1,
                 'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
@@ -172,7 +155,6 @@ class MessagesTableSeeder extends Seeder
             ),
             17 => 
             array (
-                'id' => 241,
                 'user_a_id' => 2,
                 'user_b_id' => 1,
                 'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',

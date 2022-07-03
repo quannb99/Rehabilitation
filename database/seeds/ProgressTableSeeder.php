@@ -19,7 +19,6 @@ class ProgressTableSeeder extends Seeder
         \DB::table('progress')->insert(array (
             0 => 
             array (
-                'id' => 3,
                 'record_id' => 1,
                 'progress' => 'Triệu chứng tức ngực đã giảm bớt',
                 'evaluate' => NULL,
@@ -29,7 +28,6 @@ class ProgressTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 9,
                 'record_id' => 6,
                 'progress' => '5/10',
                 'evaluate' => NULL,
@@ -39,7 +37,6 @@ class ProgressTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'id' => 10,
                 'record_id' => 1,
                 'progress' => 'Đã hồi phục được 80%',
                 'evaluate' => NULL,
@@ -49,7 +46,6 @@ class ProgressTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 11,
                 'record_id' => 6,
                 'progress' => 'đã hồi phục 80%',
                 'evaluate' => NULL,

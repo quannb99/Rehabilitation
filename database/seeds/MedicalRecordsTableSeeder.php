@@ -19,7 +19,6 @@ class MedicalRecordsTableSeeder extends Seeder
         \DB::table('medical_records')->insert(array (
             0 => 
             array (
-                'id' => 1,
                 'user_id' => 1,
                 'doctor_id' => 2,
                 'status' => 'Khó thở, tức ngực sau khi hồi phục từ COVID-19',
@@ -31,7 +30,6 @@ class MedicalRecordsTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 6,
                 'user_id' => 9,
                 'doctor_id' => 2,
                 'status' => 'Khó thở, tức ngực sau khi hồi phục từ COVID-19',

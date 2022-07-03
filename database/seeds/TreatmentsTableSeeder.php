@@ -19,7 +19,6 @@ class TreatmentsTableSeeder extends Seeder
         \DB::table('treatments')->insert(array (
             0 => 
             array (
-                'id' => 1,
                 'user_id' => 2,
                 'title' => 'Tập thở khi nằm ngửa',
                 'privacy' => '1',
@@ -33,7 +32,6 @@ class TreatmentsTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 2,
                 'user_id' => 2,
                 'title' => 'Tập thở khi nằm sấp',
                 'privacy' => '1',
@@ -47,7 +45,6 @@ class TreatmentsTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'id' => 3,
                 'user_id' => 3,
                 'title' => 'Tập thở khi ngồi',
                 'privacy' => '1',
@@ -61,7 +58,6 @@ class TreatmentsTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 4,
                 'user_id' => 3,
                 'title' => 'Tập thở khi đứng',
                 'privacy' => '2',
@@ -75,7 +71,6 @@ class TreatmentsTableSeeder extends Seeder
             ),
             4 => 
             array (
-                'id' => 5,
                 'user_id' => 2,
                 'title' => 'Tập thở ngáp cười',
                 'privacy' => '1',
@@ -89,7 +84,6 @@ class TreatmentsTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => 6,
                 'user_id' => 2,
                 'title' => 'Tập thở tạo âm',
                 'privacy' => '1',
