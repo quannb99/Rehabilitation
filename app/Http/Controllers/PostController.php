@@ -58,7 +58,9 @@ class PostController extends Controller
         }
 
         if ($getFeaturePosts) {
-            $items = $query->whereIn('posts.id', [43, 46, 48])->orderBy('created_at')->take(3)->get();
+            $items = $query->whereIn('posts.title',
+            ['Chế độ ăn uống cho người nhiễm Covid-19', 'Làm việc từ xa trong mùa Covid-19: Góc nhìn từ phía y học', 'Kiến thức cơ bản về chăm sóc người bệnh hậu Covid-19'])
+            ->orderBy('created_at')->take(3)->get();
             return $this->sendSuccess($items);
         }
 

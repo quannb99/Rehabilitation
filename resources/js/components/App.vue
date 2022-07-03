@@ -554,7 +554,7 @@ export default BaseComponent.extend({
   computed: {},
 
   async mounted() {
-    await this.getMessages();
+    // await this.getMessages();
     if (User.deactive == 1) {
       this.$refs["deactive-modal"].show();
       setTimeout(() => {

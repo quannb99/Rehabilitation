@@ -266,6 +266,9 @@ export default BaseComponent.extend({
   async mounted() {
     if (this.user != null) {
       await this.getMsgHistory();
+    }
+
+    if (this.user != null && this.user.role == 3) {
       await this.getNotifications();
     }
   },
