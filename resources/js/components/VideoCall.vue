@@ -248,9 +248,9 @@ export default BaseComponent.extend({
       isRecording: false,
       peerOptions: {
         iceServers: [
-          // {
-          //   urls: "stun:openrelay.metered.ca:80",
-          // },
+          {
+            urls: "stun:openrelay.metered.ca:80",
+          },
           {
             urls: "turn:openrelay.metered.ca:80",
             username: "openrelayproject",
