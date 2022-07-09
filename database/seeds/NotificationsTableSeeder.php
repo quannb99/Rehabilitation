@@ -19,6 +19,18 @@ class NotificationsTableSeeder extends Seeder
         \DB::table('notifications')->insert(array (
             0 => 
             array (
+                'id' => '36dde5bd-b4aa-4091-968c-4e0ff19787e5',
+                'type' => 'App\\Notifications\\UpdateRecord',
+                'notifiable_type' => 'App\\Models\\User',
+                'notifiable_id' => 1,
+                'data' => '{"user_name":"Nguy\\u1ec5n Thanh Li\\u00eam","avatar":"..\\/..\\/uploads\\/62af2722e317612_01_2019_11_08_54_075889.jpeg","created_at":"2022-07-09T13:25:00.000000Z","record_id":1}',
+                'solved' => NULL,
+                'read_at' => NULL,
+                'created_at' => '2022-07-09 20:25:00',
+                'updated_at' => '2022-07-09 20:25:00',
+            ),
+            1 => 
+            array (
                 'id' => '3e32d836-53e5-4688-9dd8-ee52c3961f43',
                 'type' => 'App\\Notifications\\ReportPost',
                 'notifiable_type' => 'App\\Models\\User',
@@ -29,7 +41,7 @@ class NotificationsTableSeeder extends Seeder
                 'created_at' => '2022-06-21 21:33:30',
                 'updated_at' => '2022-06-21 22:38:52',
             ),
-            1 => 
+            2 => 
             array (
                 'id' => 'c98251c0-aa87-4e47-9e3a-2e5cd2e3e1ae',
                 'type' => 'App\\Notifications\\ReportPost',
@@ -41,7 +53,7 @@ class NotificationsTableSeeder extends Seeder
                 'created_at' => '2022-06-26 16:15:17',
                 'updated_at' => '2022-06-26 16:15:17',
             ),
-            2 => 
+            3 => 
             array (
                 'id' => 'd059783b-e521-4902-8420-0761183bb90d',
                 'type' => 'App\\Notifications\\ReportComment',
@@ -53,7 +65,19 @@ class NotificationsTableSeeder extends Seeder
                 'created_at' => '2022-06-21 21:14:00',
                 'updated_at' => '2022-06-25 10:47:04',
             ),
-            3 => 
+            4 => 
+            array (
+                'id' => 'ee44ce54-47c4-49fb-924e-7704fc85969f',
+                'type' => 'App\\Notifications\\BookAppointment',
+                'notifiable_type' => 'App\\Models\\User',
+                'notifiable_id' => 2,
+                'data' => '{"user_name":"Nguy\\u1ec5n B\\u00e1 Qu\\u00e2n","avatar":"..\\/..\\/uploads\\/62a9c399bb202269691465_2136015413203455_4731070248963071192_n.jpg","created_at":"2022-07-09T13:25:33.000000Z","start_at":"2022-07-11T01:00:00.000Z","end_at":"2022-07-11T04:00:00.000Z"}',
+                'solved' => NULL,
+                'read_at' => NULL,
+                'created_at' => '2022-07-09 20:25:33',
+                'updated_at' => '2022-07-09 20:25:33',
+            ),
+            5 => 
             array (
                 'id' => 'f2c00968-144d-447b-aba2-bc4576c6c740',
                 'type' => 'App\\Notifications\\ReportComment',
