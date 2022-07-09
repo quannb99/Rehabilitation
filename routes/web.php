@@ -72,6 +72,7 @@ Route::resources([
     'progress' => 'ProgressController',
     'treatments' => 'TreatmentController',
     'rates' => 'RateController',
+    'calls' => 'CallController',
 ]);
 Route::get('/csrf', function () {
     return csrf_token();

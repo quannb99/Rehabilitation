@@ -10,6 +10,7 @@ use App\Repositories\AppointmentRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\MedicalRecordRepository;
 use App\Repositories\MessageRepository;
+use App\Repositories\CallRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\ReportRepository;
 use App\Repositories\UserRepository;
@@ -26,13 +27,14 @@ class HomeController extends Controller
     protected $medicalRecordRepository;
     protected $commentRepository;
     protected $reportRepository;
+    protected $callRepository;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository, MessageRepository $messageRepository, PostRepository $postRepository, AppointmentRepository $appointmentRepository, MedicalRecordRepository $medicalRecordRepository, CommentRepository $commentRepository, ReportRepository $reportRepository)
+    public function __construct(UserRepository $userRepository, MessageRepository $messageRepository, PostRepository $postRepository, AppointmentRepository $appointmentRepository, MedicalRecordRepository $medicalRecordRepository, CommentRepository $commentRepository, ReportRepository $reportRepository, CallRepository $callRepository)
     {
         $this->userRepository = $userRepository;
         $this->messageRepository = $messageRepository;
@@ -41,6 +43,7 @@ class HomeController extends Controller
         $this->medicalRecordRepository = $medicalRecordRepository;
         $this->commentRepository = $commentRepository;
         $this->reportRepository = $reportRepository;
+        $this->callRepository = $callRepository;
         $this->middleware('auth');
     }
 
@@ -80,6 +83,13 @@ class HomeController extends Controller
             'content' => '📲 ' . $user->name . ' đã gọi cho bạn',
         ];
         $this->messageRepository->create($form);
+
+        $form = [
+            'user_a_id' => $user->id,
+            'user_b_id' => $otherUserId,
+        ];
+        $this->callRepository ->create($form);
+
         $otherUser = $this->userRepository->detail($otherUserId);
         broadcast(new IncomingCall($user, $otherUser))->toOthers();
     }
@@ -95,6 +105,17 @@ class HomeController extends Controller
                 'content' => '📞 Bạn đã bỏ lỡ cuộc gọi từ ' . $user->name,
             ];
             $this->messageRepository->create($form);
+        }
+
+        if ($res == 'accept') {
+            $call = $this->callRepository->getCollection('')
+                ->where('user_a_id', $request->userId)
+                ->where('user_b_id', $user->id)
+                ->orderByDesc('created_at')
+                ->get()
+                ->first();
+            $call->status = 'success';
+            $call->save();
         }
         broadcast(new CallResponse($user, $res))->toOthers();
     }

@@ -28,7 +28,10 @@
                     class="mr-2"
                   ></b-img>
                   <span style="display: inline-block"></span>
-                  <a style="margin-left: -4px" target="_blank" :href="'/user-info/' + item.user_id"
+                  <a
+                    style="margin-left: -4px"
+                    target="_blank"
+                    :href="'/user-info/' + item.user_id"
                     ><strong>{{ item.user_name }}</strong></a
                   >
                   đã đặt lịch hẹn <br />
@@ -63,6 +66,66 @@
               :per-page="appointments_paging.per_page"
               align="center"
               @input="changeAppointmentPage"
+            ></b-pagination>
+          </div>
+          <hr v-if="calls[0]" />
+          <div v-if="calls[0]">
+            <h5 class="text-left">Lịch sử gọi</h5>
+            <b-list-group class="mb-3">
+              <b-list-group-item
+                style="text-align: left"
+                v-for="(item, index) in calls"
+                :key="index"
+              >
+                <div v-if="item.user_a_id == User.id" class="d-inline-block">
+                  <b-img
+                    style="width: 60px; height: 60px"
+                    left
+                    :src="item.user_b.avatar"
+                    rounded="circle"
+                    class="mr-2"
+                  ></b-img>
+                  <span style="display: inline-block"></span>
+                  <span style="margin-left: -4px">Bạn đã gọi cho </span>
+                  <a target="_blank" :href="'/user-info/' + item.user_b_id"
+                    ><strong>{{ item.user_b.name }}</strong></a
+                  ><br />
+                  <span style="font-size: 14px"
+                    >lúc
+                    {{
+                      moment(item.created_at).format("HH:mm DD-MM-YYYY")
+                    }}</span
+                  >
+                </div>
+                <div v-if="item.user_b_id == User.id" class="d-inline-block">
+                  <b-img
+                    style="width: 60px; height: 60px"
+                    left
+                    :src="item.user_a.avatar"
+                    rounded="circle"
+                    class="mr-2"
+                  ></b-img>
+                  <span style="display: inline-block"></span>
+                  <a style="margin-left: -4px" target="_blank" :href="'/user-info/' + item.user_a_id"
+                    ><strong>{{ item.user_a.name }}</strong></a
+                  > đã gọi cho bạn<br />
+                  <span style="font-size: 14px"
+                    >lúc
+                    {{
+                      moment(item.created_at).format("HH:mm DD-MM-YYYY")
+                    }}</span
+                  >
+                </div>
+              </b-list-group-item>
+            </b-list-group>
+            <b-pagination
+              pills
+              v-if="calls_paging.last_page > 1"
+              v-model="calls_paging.current_page"
+              :total-rows="calls_paging.total"
+              :per-page="calls_paging.per_page"
+              align="center"
+              @input="changeCallPage"
             ></b-pagination>
           </div>
         </div>
@@ -128,6 +191,7 @@ export default BaseComponent.extend({
   data() {
     return {
       model: "schedules",
+      User: User,
       dateFormat: "dd/MM/yyyy",
       selectedDate: new Date(),
       timeScale: {
@@ -146,6 +210,8 @@ export default BaseComponent.extend({
       },
       appointments: {},
       appointments_paging: {},
+      calls: {},
+      calls_paging: {},
       start_at: "",
       end_at: "",
     };
@@ -166,21 +232,46 @@ export default BaseComponent.extend({
       this.appointments_paging = res.data.data;
       this.appointments = res.data.data.data;
     },
+
+    async changeCallPage(page) {
+      params = {
+        start_at: moment(this.start_at).format("YYYY-MM-DD HH:mm:ss"),
+        end_at: moment(this.end_at).format("YYYY-MM-DD HH:mm:ss"),
+        doctor_id: User.id,
+        status: "success",
+        page: page,
+      };
+      const res = await getModel("calls", params);
+      this.calls_paging = res.data.data;
+      this.calls = res.data.data.data;
+    },
     async onPopupOpen(arg) {
       if (arg.type == "QuickInfo") {
         if (arg.data.Id) {
+          console.log(arg.data);
           arg.cancel = true;
           this.start_at = moment(arg.data.StartTime).toISOString();
           this.end_at = moment(arg.data.EndTime).toISOString();
-          const params = {
+          let params = {
             start_at: this.start_at,
             end_at: this.end_at,
             doctor_id: User.id,
           };
-          const res = await getModel("appointments", params);
+          let res = await getModel("appointments", params);
           this.appointments_paging = res.data.data;
           this.appointments = res.data.data.data;
           this.$refs["appointment-modal"].show();
+
+          params = {
+            start_at: moment(arg.data.StartTime).format("YYYY-MM-DD HH:mm:ss"),
+            end_at: moment(arg.data.EndTime).format("YYYY-MM-DD HH:mm:ss"),
+            doctor_id: User.id,
+            status: "success",
+          };
+          res = await getModel("calls", params);
+          this.calls_paging = res.data.data;
+          this.calls = res.data.data.data;
+
           setTimeout(() => {
             document
               .querySelector(".modal-content")
@@ -212,9 +303,9 @@ export default BaseComponent.extend({
     schedule: [Day, Week, WorkWeek, Month, Agenda],
   },
   mounted() {
-    let openDate = new URLSearchParams(window.location.search).get("openDate")
+    let openDate = new URLSearchParams(window.location.search).get("openDate");
     if (openDate) {
-      this.selectedDate = moment(openDate).toISOString()
+      this.selectedDate = moment(openDate).toISOString();
     }
   },
 });

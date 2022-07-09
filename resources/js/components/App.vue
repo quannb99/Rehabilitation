@@ -4,7 +4,10 @@
       <nav-bar :user="user" @setChatParticipant="setChatParticipant" />
       <message-modal ref="msg-modal"></message-modal>
       <div class="divider"></div>
-      <router-view :key="$route.fullPath" @setChatParticipant="setChatParticipant" />
+      <router-view
+        :key="$route.fullPath"
+        @setChatParticipant="setChatParticipant"
+      />
       <Footer @setChatParticipant="setChatParticipant" />
     </template>
     <template v-if="user.role == 3">
@@ -39,8 +42,11 @@
                 @click="navigateTo('postManage')"
                 >Quản lý bài viết</b-nav-item
               >
-              <b-nav-item :active="getActiveNav() == 3"
-                @click="navigateTo('reportManage')">Quản lý báo cáo</b-nav-item>
+              <b-nav-item
+                :active="getActiveNav() == 3"
+                @click="navigateTo('reportManage')"
+                >Quản lý báo cáo</b-nav-item
+              >
             </b-nav>
           </div>
         </template>
@@ -216,6 +222,7 @@
       ref="call-modal"
       :title="'Cuộc gọi đến'"
       :hide-footer="true"
+      :hide-header-close="true"
       :no-close-on-backdrop="true"
       centered
       no-fade
@@ -405,7 +412,7 @@ export default BaseComponent.extend({
       let roomId = ids.join("-");
       this.audio.pause();
       window.open(window.location.origin + "/call/" + roomId);
-      await postModel("callResponse", { response: "accept" });
+      await postModel("callResponse", { response: "accept", userId: this.callingUser.id });
     },
     async decline() {
       this.$refs["call-modal"].hide();
@@ -420,6 +427,9 @@ export default BaseComponent.extend({
     },
     async videoCall(id) {
       this.$refs["calling-modal"].show();
+      setTimeout(() => {
+        this.$refs["calling-modal"].hide();
+      }, 35000);
       this.chatVisible = false;
       await postModel("call", { id: id });
     },
@@ -584,8 +594,12 @@ export default BaseComponent.extend({
       if (data.type == `App\\Notifications\\BookAppointment`) {
         this.notiAudio.play();
         this.makeLinkToast(
-          data.user_name + " đã đặt lịch hẹn vào ngày " + this.moment(data.start_at).format('DD-MM-YYYY'),
-          window.location.origin + "/schedule?openDate=" + this.moment(data.start_at).format('YYYY-MM-DD'),
+          data.user_name +
+            " đã đặt lịch hẹn vào ngày " +
+            this.moment(data.start_at).format("DD-MM-YYYY"),
+          window.location.origin +
+            "/schedule?openDate=" +
+            this.moment(data.start_at).format("YYYY-MM-DD"),
           10000
         );
       }

@@ -25,11 +25,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-06T01:00:00.000Z',
                 'end_at' => '2022-06-06T04:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             1 => 
             array (
@@ -39,11 +39,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-10T01:00:00.000Z',
                 'end_at' => '2022-06-10T04:00:00.000Z',
-                'created_at' => '2022-06-05 15:14:33',
-                'updated_at' => '2022-06-05 15:14:33',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=FR;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 15:14:33',
+                'updated_at' => '2022-06-05 15:14:33',
             ),
             2 => 
             array (
@@ -53,11 +53,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-06T07:00:00.000Z',
                 'end_at' => '2022-06-06T10:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             3 => 
             array (
@@ -67,11 +67,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-07T07:00:00.000Z',
                 'end_at' => '2022-06-07T10:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             4 => 
             array (
@@ -81,11 +81,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-08T01:00:00.000Z',
                 'end_at' => '2022-06-08T03:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             5 => 
             array (
@@ -95,11 +95,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-09T01:00:00.000Z',
                 'end_at' => '2022-06-09T04:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             6 => 
             array (
@@ -109,11 +109,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-09T01:00:00.000Z',
                 'end_at' => '2022-06-09T04:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             7 => 
             array (
@@ -123,11 +123,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-09T01:00:00.000Z',
                 'end_at' => '2022-06-09T04:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             8 => 
             array (
@@ -137,11 +137,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-09T01:00:00.000Z',
                 'end_at' => '2022-06-09T04:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             9 => 
             array (
@@ -151,11 +151,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-09T01:00:00.000Z',
                 'end_at' => '2022-06-09T04:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             10 => 
             array (
@@ -165,11 +165,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-06T01:00:00.000Z',
                 'end_at' => '2022-06-06T03:30:00.000Z',
-                'created_at' => '2022-06-05 10:39:52',
-                'updated_at' => '2022-06-05 11:42:08',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 10:39:52',
+                'updated_at' => '2022-06-05 11:42:08',
             ),
             11 => 
             array (
@@ -179,11 +179,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-06T01:00:00.000Z',
                 'end_at' => '2022-06-06T04:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             12 => 
             array (
@@ -193,11 +193,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-10T01:00:00.000Z',
                 'end_at' => '2022-06-10T04:00:00.000Z',
-                'created_at' => '2022-06-05 15:14:33',
-                'updated_at' => '2022-06-05 15:14:33',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=FR;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 15:14:33',
+                'updated_at' => '2022-06-05 15:14:33',
             ),
             13 => 
             array (
@@ -207,11 +207,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-07T01:00:00.000Z',
                 'end_at' => '2022-06-07T03:00:00.000Z',
-                'created_at' => '2022-06-05 17:41:38',
-                'updated_at' => '2022-06-05 17:41:38',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=FR;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 17:41:38',
+                'updated_at' => '2022-06-05 17:41:38',
             ),
             14 => 
             array (
@@ -221,11 +221,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-06T07:00:00.000Z',
                 'end_at' => '2022-06-06T10:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             15 => 
             array (
@@ -235,11 +235,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-07T07:00:00.000Z',
                 'end_at' => '2022-06-07T10:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             16 => 
             array (
@@ -249,11 +249,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-08T01:00:00.000Z',
                 'end_at' => '2022-06-08T03:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             17 => 
             array (
@@ -263,11 +263,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-09T07:00:00.000Z',
                 'end_at' => '2022-06-09T10:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             18 => 
             array (
@@ -277,11 +277,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-07T07:00:00.000Z',
                 'end_at' => '2022-06-07T10:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             19 => 
             array (
@@ -291,11 +291,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-08T01:00:00.000Z',
                 'end_at' => '2022-06-08T04:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             20 => 
             array (
@@ -305,11 +305,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-09T01:00:00.000Z',
                 'end_at' => '2022-06-09T04:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             21 => 
             array (
@@ -319,11 +319,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-07T07:00:00.000Z',
                 'end_at' => '2022-06-07T10:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             22 => 
             array (
@@ -333,11 +333,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-10T07:00:00.000Z',
                 'end_at' => '2022-06-10T10:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             23 => 
             array (
@@ -347,11 +347,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-08T07:00:00.000Z',
                 'end_at' => '2022-06-08T10:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             24 => 
             array (
@@ -361,11 +361,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-10T01:00:00.000Z',
                 'end_at' => '2022-06-10T03:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
             25 => 
             array (
@@ -375,11 +375,11 @@ class SchedulesTableSeeder extends Seeder
                 'status' => NULL,
                 'start_at' => '2022-06-07T07:00:00.000Z',
                 'end_at' => '2022-06-07T10:00:00.000Z',
-                'created_at' => '2022-06-05 14:21:34',
-                'updated_at' => '2022-06-05 14:27:41',
                 'recurrence_rule' => 'FREQ=WEEKLY;BYDAY=MO;INTERVAL=1;',
                 'recurrence_exception' => NULL,
                 'recurrence_id' => NULL,
+                'created_at' => '2022-06-05 14:21:34',
+                'updated_at' => '2022-06-05 14:27:41',
             ),
         ));
         

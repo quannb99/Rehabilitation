@@ -15,7 +15,7 @@ class CreateSpecialistsTable extends Migration
     {
         Schema::create('specialists', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('name');
+            $table->text('name')->nullable();
             $table->timestamps();
         });
     }

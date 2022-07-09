@@ -145,6 +145,54 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-07-02 00:10:05',
                 'updated_at' => '2022-07-02 00:10:05',
             ),
+            16 => 
+            array (
+                'user_a_id' => 2,
+                'user_b_id' => 1,
+                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
+                'created_at' => '2022-07-09 20:32:33',
+                'updated_at' => '2022-07-09 20:32:33',
+            ),
+            17 => 
+            array (
+                'user_a_id' => 2,
+                'user_b_id' => 1,
+                'content' => '📞 Bạn đã bỏ lỡ cuộc gọi từ Nguyễn Thanh Liêm',
+                'created_at' => '2022-07-09 20:32:37',
+                'updated_at' => '2022-07-09 20:32:37',
+            ),
+            18 => 
+            array (
+                'user_a_id' => 2,
+                'user_b_id' => 1,
+                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
+                'created_at' => '2022-07-09 20:32:58',
+                'updated_at' => '2022-07-09 20:32:58',
+            ),
+            19 => 
+            array (
+                'user_a_id' => 2,
+                'user_b_id' => 1,
+                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
+                'created_at' => '2022-07-09 20:34:02',
+                'updated_at' => '2022-07-09 20:34:02',
+            ),
+            20 => 
+            array (
+                'user_a_id' => 2,
+                'user_b_id' => 1,
+                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
+                'created_at' => '2022-07-09 20:36:03',
+                'updated_at' => '2022-07-09 20:36:03',
+            ),
+            21 => 
+            array (
+                'user_a_id' => 2,
+                'user_b_id' => 1,
+                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
+                'created_at' => '2022-07-09 20:37:05',
+                'updated_at' => '2022-07-09 20:37:05',
+            ),
         ));
         
         

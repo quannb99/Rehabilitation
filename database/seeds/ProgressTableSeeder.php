@@ -37,21 +37,21 @@ class ProgressTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'record_id' => 1,
-                'progress' => 'Đã cải thiện được tình trạng khó thở',
-                'evaluate' => 'Đã phục hồi được 80%',
-                'note' => 'Tiếp tục duy trì luyện tập',
-                'created_at' => '2022-07-03 15:36:25',
-                'updated_at' => '2022-07-03 15:36:25',
-            ),
-            3 => 
-            array (
                 'record_id' => 6,
                 'progress' => 'Triệu chứng tức ngực đã giảm bớt',
                 'evaluate' => 'Đã phục hồi được 80%',
                 'note' => 'tiếp tục tập luyện',
                 'created_at' => '2022-07-02 00:02:58',
                 'updated_at' => '2022-07-02 00:02:58',
+            ),
+            3 => 
+            array (
+                'record_id' => 1,
+                'progress' => 'Đã cải thiện được tình trạng khó thở',
+                'evaluate' => 'Đã phục hồi được 80%',
+                'note' => 'Tiếp tục duy trì luyện tập',
+                'created_at' => '2022-07-09 20:25:00',
+                'updated_at' => '2022-07-09 20:25:00',
             ),
         ));
         

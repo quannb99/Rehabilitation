@@ -117,6 +117,16 @@ class AppointmentsTableSeeder extends Seeder
                 'created_at' => '2022-06-26 16:18:03',
                 'updated_at' => '2022-06-26 16:18:03',
             ),
+            10 => 
+            array (
+                'user_id' => 1,
+                'doctor_id' => 2,
+                'note' => 'hẹn gặp để khám bệnh',
+                'start_at' => '2022-07-08T01:00:00.000Z',
+                'end_at' => '2022-07-08T04:00:00.000Z',
+                'created_at' => '2022-07-09 20:25:33',
+                'updated_at' => '2022-07-09 20:25:33',
+            ),
         ));
         
         
