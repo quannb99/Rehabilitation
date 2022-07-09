@@ -17,7 +17,6 @@
       width="100%"
       :cameraHeight="authUser.role != 3 ? 550 : 450"
       :roomId="roomId"
-      :peerOptions="peerOptions"
     >
     </vue-webrtc>
     <div class="row mt-3">
@@ -249,28 +248,23 @@ export default BaseComponent.extend({
       peerOptions: {
         iceServers: [
           {
-            url: "turn:192.158.29.39:3478?transport=tcp",
-            credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
-            username: "28224511:1379330808",
+            urls: "stun:openrelay.metered.ca:80",
           },
-          // {
-          //   urls: "stun:openrelay.metered.ca:80",
-          // },
-          // {
-          //   urls: "turn:openrelay.metered.ca:80",
-          //   username: "openrelayproject",
-          //   credential: "openrelayproject",
-          // },
-          // {
-          //   urls: "turn:openrelay.metered.ca:443",
-          //   username: "openrelayproject",
-          //   credential: "openrelayproject",
-          // },
-          // {
-          //   urls: "turn:openrelay.metered.ca:443?transport=tcp",
-          //   username: "openrelayproject",
-          //   credential: "openrelayproject",
-          // },
+          {
+            urls: "turn:openrelay.metered.ca:80",
+            username: "openrelayproject",
+            credential: "openrelayproject",
+          },
+          {
+            urls: "turn:openrelay.metered.ca:443",
+            username: "openrelayproject",
+            credential: "openrelayproject",
+          },
+          {
+            urls: "turn:openrelay.metered.ca:443?transport=tcp",
+            username: "openrelayproject",
+            credential: "openrelayproject",
+          },
         ],
       },
     };
