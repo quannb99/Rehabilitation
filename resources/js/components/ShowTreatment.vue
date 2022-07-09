@@ -14,6 +14,7 @@
               variant="link"
               toggle-class="text-decoration-none"
               no-caret
+              v-if="authUser.id == item.user_id"
             >
               <template #button-content>
                 <i
