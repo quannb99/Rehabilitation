@@ -124,8 +124,28 @@ class AppointmentsTableSeeder extends Seeder
                 'note' => 'hẹn gặp để khám bệnh',
                 'start_at' => '2022-07-08T01:00:00.000Z',
                 'end_at' => '2022-07-08T04:00:00.000Z',
-                'created_at' => '2022-07-09 20:25:33',
-                'updated_at' => '2022-07-09 20:25:33',
+                'created_at' => '2022-07-07 20:25:33',
+                'updated_at' => '2022-07-07 20:25:33',
+            ),
+            11 => 
+            array (
+                'user_id' => 1,
+                'doctor_id' => 2,
+                'note' => 'khám bệnh',
+                'start_at' => '2022-07-11T01:00:00.000Z',
+                'end_at' => '2022-07-11T04:00:00.000Z',
+                'created_at' => '2022-07-09 21:56:29',
+                'updated_at' => '2022-07-09 21:56:29',
+            ),
+            12 => 
+            array (
+                'user_id' => 1,
+                'doctor_id' => 2,
+                'note' => 'khám bệnh',
+                'start_at' => '2022-07-15T01:00:00.000Z',
+                'end_at' => '2022-07-15T04:00:00.000Z',
+                'created_at' => '2022-07-09 21:56:48',
+                'updated_at' => '2022-07-09 21:56:48',
             ),
         ));
         

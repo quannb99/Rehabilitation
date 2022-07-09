@@ -248,7 +248,6 @@ export default BaseComponent.extend({
     async onPopupOpen(arg) {
       if (arg.type == "QuickInfo") {
         if (arg.data.Id) {
-          console.log(arg.data);
           arg.cancel = true;
           this.start_at = moment(arg.data.StartTime).toISOString();
           this.end_at = moment(arg.data.EndTime).toISOString();

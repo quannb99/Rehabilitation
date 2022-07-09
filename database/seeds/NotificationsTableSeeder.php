@@ -67,6 +67,30 @@ class NotificationsTableSeeder extends Seeder
             ),
             4 => 
             array (
+                'id' => 'd4d13f5f-57f5-44fd-a151-6c54f2861e4f',
+                'type' => 'App\\Notifications\\BookAppointment',
+                'notifiable_type' => 'App\\Models\\User',
+                'notifiable_id' => 2,
+                'data' => '{"user_name":"Nguy\\u1ec5n B\\u00e1 Qu\\u00e2n","avatar":"..\\/..\\/uploads\\/62a9c399bb202269691465_2136015413203455_4731070248963071192_n.jpg","created_at":"2022-07-09T14:56:29.000000Z","start_at":"2022-07-08T01:00:00.000Z","end_at":"2022-07-08T04:00:00.000Z"}',
+                'solved' => NULL,
+                'read_at' => NULL,
+                'created_at' => '2022-07-09 21:56:29',
+                'updated_at' => '2022-07-09 21:56:29',
+            ),
+            5 => 
+            array (
+                'id' => 'e4ffe2db-4155-4221-807a-c6094eb7daea',
+                'type' => 'App\\Notifications\\BookAppointment',
+                'notifiable_type' => 'App\\Models\\User',
+                'notifiable_id' => 2,
+                'data' => '{"user_name":"Nguy\\u1ec5n B\\u00e1 Qu\\u00e2n","avatar":"..\\/..\\/uploads\\/62a9c399bb202269691465_2136015413203455_4731070248963071192_n.jpg","created_at":"2022-07-09T14:56:48.000000Z","start_at":"2022-07-15T01:00:00.000Z","end_at":"2022-07-15T04:00:00.000Z"}',
+                'solved' => NULL,
+                'read_at' => NULL,
+                'created_at' => '2022-07-09 21:56:48',
+                'updated_at' => '2022-07-09 21:56:48',
+            ),
+            6 => 
+            array (
                 'id' => 'ee44ce54-47c4-49fb-924e-7704fc85969f',
                 'type' => 'App\\Notifications\\BookAppointment',
                 'notifiable_type' => 'App\\Models\\User',
@@ -77,7 +101,7 @@ class NotificationsTableSeeder extends Seeder
                 'created_at' => '2022-07-09 20:25:33',
                 'updated_at' => '2022-07-09 20:25:33',
             ),
-            5 => 
+            7 => 
             array (
                 'id' => 'f2c00968-144d-447b-aba2-bc4576c6c740',
                 'type' => 'App\\Notifications\\ReportComment',
