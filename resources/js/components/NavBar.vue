@@ -94,6 +94,7 @@
             right
             no-caret
             class="msg-history"
+            style="margin-right: 5px"
           >
             <template #button-content>
               <b-button pill @click="getMsgHistory()"
@@ -156,6 +157,7 @@
             right
             no-caret
             class="noti-list"
+            style="margin-right: 5px"
           >
             <template #button-content>
               <b-button pill @click="getNotifications()"
