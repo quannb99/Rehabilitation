@@ -99,9 +99,12 @@
                       <ul>
                         <li v-for="(item, index) in newPosts" :key="index">
                           <h4>
-                            <a href="#" @click.prevent="openInNewTab('/posts/' + item.id)"
+                            <a href="#" @click="navigateTo('show-post', item.id)"
                               >{{ item.title }}</a
                             >
+                            <!-- <a href="#" @click.prevent="openInNewTab('/posts/' + item.id)"
+                              >{{ item.title }}</a
+                            > -->
                           </h4>
                           <span class="time">{{ moment(item.created_at).format('L') }}</span>
                         </li>
