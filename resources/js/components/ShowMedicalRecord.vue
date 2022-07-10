@@ -57,26 +57,45 @@
                 <p>{{ medicalRecord.note }}</p>
               </div>
             </div>
-            <h5 class="mt-2 mb-3"><b>III. CÁC HOẠT ĐỘNG ĐIỀU TRỊ</b></h5>
-            <div v-for="(item, index) in recordTreatmentsList" :key="index">
-              <b-button
+            <h5 class="mt-2 mb-2"><b>III. CÁC HOẠT ĐỘNG ĐIỀU TRỊ</b></h5>
+            <ul>
+              <li
+                style="margin-left: 45px; margin-bottom: 8px"
+                v-for="(item, index) in recordTreatmentsList"
+                :key="index"
+              >
+                <!-- <b-button
                 size="md"
                 class="mr-3 mb-3"
-                variant="theme"
+                variant="light"
                 @click="navigateTo('showTreatment', item.id)"
               >
                 {{ item.title }}
-              </b-button>
-              <b-button
-                v-if="getRole() == 2"
-                size="md"
-                class="mr-3 mb-3"
-                variant="danger"
-                @click="deleteRecordTreatment(item.id)"
-              >
-                <i class="fa fa-times" aria-hidden="true"></i>
-              </b-button>
-            </div>
+              </b-button> -->
+                <a
+                  href="#"
+                  class="mb-3"
+                  @click.prevent="navigateTo('showTreatment', item.id)"
+                >
+                  {{ item.title }}
+                  <!-- <b-button
+                  v-if="getRole() == 2"
+                  size="sm"
+                  class="mr-3 mb-3"
+                  variant="light"
+                  @click.stop="deleteRecordTreatment(item.id)"
+                >
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </b-button> -->
+                </a>
+                <i
+                  v-if="getRole() == 2"
+                  @click.stop="deleteRecordTreatment(item.id)"
+                  class="fa fa-times delete-btn"
+                  aria-hidden="true"
+                ></i>
+              </li>
+            </ul>
 
             <b-form-group
               style="display: inline-block; width: 80%"
@@ -433,5 +452,13 @@ export default BaseComponent.extend({
   position: absolute;
   width: 50%;
   z-index: 1000;
+}
+
+.delete-btn {
+  cursor: pointer;
+  color: #7f8c8d;
+}
+.delete-btn:hover {
+  color: #95a5a6;
 }
 </style>
