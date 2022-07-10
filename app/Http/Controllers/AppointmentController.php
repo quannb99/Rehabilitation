@@ -29,6 +29,24 @@ class AppointmentController extends Controller
         $start = $request['start_at'] ?? '';
         $end = $request['end_at'] ?? '';
         $doctorId = $request['doctor_id'] ?? '';
+        $userId = $request['userId'] ?? '';
+        $doctorNameQuery = $request['doctorNameQuery'] ?? '';
+
+        if ($userId) {
+            $items = $this->appointmentRepository->getCollection($request)
+                ->where('user_id', $userId)
+                ->select([
+                    'appointments.*',
+                    'users.name as doctor_name',
+                ])
+                ->leftJoin('users', 'appointments.doctor_id', 'users.id');
+            if ($doctorNameQuery) {
+                $items->where('users.name', 'like', '%' . $doctorNameQuery . '%');
+            }
+
+            $res = $items->orderByDesc('created_at')->paginate(5);
+            return $this->sendSuccess($res);
+        }
 
         $query = $this->appointmentRepository->getCollection($request)
             ->select([

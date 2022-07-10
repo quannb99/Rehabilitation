@@ -52,7 +52,13 @@
 
           <b-nav-item
             v-if="user && user.role == 1"
-            @click="navigateTo('rateHistory')"
+            @click="navigateTo('appointmentHistory')"
+            >Lịch hẹn đã đặt</b-nav-item
+          >
+
+          <b-nav-item
+            v-if="user && user.role == 1"
+            @click="navigateTo('evaluateHistory')"
             >Lịch sử đánh giá hoạt động</b-nav-item
           >
 

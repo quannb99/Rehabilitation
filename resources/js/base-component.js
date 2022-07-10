@@ -115,6 +115,10 @@ const BaseComponent = Vue.extend({
         this.navigateTo("home");
       }
     },
+
+    setChatParticipant(param) {
+      this.$emit("setChatParticipant", param);
+    },
   },
 
   computed: {},

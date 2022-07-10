@@ -76,6 +76,7 @@ class MedicalRecordController extends Controller
         $user_id = $request['user_id'] ?? '';
         $doctor_id = $request['doctor_id'] ?? '';
         $userNameQuery = $request['userNameQuery'] ?? '';
+        $diagnoseQuery = $request['diagnoseQuery'] ?? '';
 
         $query = $this->medicalRecordRepository->getCollection($request);
 
@@ -95,6 +96,10 @@ class MedicalRecordController extends Controller
             ])
                 ->leftJoin('users', 'medical_records.user_id', 'users.id')
                 ->where('users.name', 'like', '%' . $userNameQuery . '%');;
+        }
+
+        if ($diagnoseQuery) {
+            $query->where('diagnose', 'like', '%' . $diagnoseQuery . '%');;
         }
 
         $items = $query->orderByDesc('created_at')->paginate(5);

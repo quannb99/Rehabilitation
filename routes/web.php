@@ -32,6 +32,7 @@ Route::get('/scheduleDate', 'HomeController@index');
 Route::post('/getSchedule', 'ScheduleController@getSchedule');
 Route::get('/doctors', 'HomeController@index');
 Route::get('/appointments', 'HomeController@index');
+Route::get('/appointmentHistory', 'HomeController@index');
 Route::get('/user-info', 'HomeController@index');
 Route::get('/create-medical-record', 'HomeController@index');
 Route::get('/show-medical-record/{id}', 'HomeController@index');

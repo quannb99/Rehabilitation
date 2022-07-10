@@ -47,6 +47,19 @@
             ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Chỉnh
             sửa</b-button
           >
+          <b-button
+            v-if="authUser.role != 3"
+            variant="theme"
+            class="float-right"
+            @click="
+              setChatParticipant({
+                name: user.name,
+                id: user.id,
+                profilePicture: user.avatar,
+              })
+            "
+            ><i class="fa fa-comments" aria-hidden="true"></i> Nhắn tin
+          </b-button>
           <h6 class="mb-3"><strong>Họ tên: </strong>{{ user.name }}</h6>
           <h6 class="mb-3"><strong>Email: </strong>{{ user.email }}</h6>
           <h6 class="mb-3">

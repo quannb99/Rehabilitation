@@ -14,6 +14,14 @@
                 fieldFilter.userNameQuery
               }}":
             </h4>
+            <h4
+              style="display: inline-block"
+              v-if="this.fieldFilter.diagnoseQuery"
+            >
+              Kết quả tìm kiếm hồ sơ theo từ khóa: "{{
+                fieldFilter.diagnoseQuery
+              }}":
+            </h4>
           </div>
           <div class="mb-3" v-if="!this.items[0]">
             <h4
@@ -22,6 +30,14 @@
             >
               Không có kết quả nào khi tìm kiếm hồ sơ theo từ khóa: "{{
                 fieldFilter.userNameQuery
+              }}"
+            </h4>
+            <h4
+              style="display: inline-block"
+              v-if="this.fieldFilter.diagnoseQuery"
+            >
+              Không có kết quả nào khi tìm kiếm hồ sơ theo từ khóa: "{{
+                fieldFilter.diagnoseQuery
               }}"
             </h4>
           </div>
@@ -63,7 +79,7 @@
         ></b-pagination>
       </div>
 
-      <div class="col-lg-4">
+      <div class="mt-3 col-lg-4" v-if="authUser.role == 2">
         <b-button
           style="font-size: 18px"
           variant="theme"
@@ -92,6 +108,29 @@
           </b-nav-form>
         </b-card>
       </div>
+
+      <div class="mt-3 col-lg-4" v-if="authUser.role == 1">
+        <b-card>
+          <b-nav-form id="search-form">
+            <b-form-input
+              size="md"
+              class="mr-3"
+              placeholder="Tìm kiếm theo chẩn đoán"
+              style="width: 80%"
+              v-model="diagnoseQuery"
+              @input="getItemsByDiagnose()"
+            ></b-form-input>
+            <b-button
+              style="width: 15%"
+              size="md"
+              variant="theme"
+              class="my-2 my-sm-0"
+              type="submit"
+              ><i class="fa fa-search" aria-hidden="true"></i
+            ></b-button>
+          </b-nav-form>
+        </b-card>
+      </div>
     </div>
   </div>
 </template>
@@ -107,6 +146,7 @@ export default BaseComponent.extend({
       usersList: [],
       isInput: false,
       userNameQuery: "",
+      diagnoseQuery: "",
       medicalRecord: "",
       currentUser: "",
       authUser: User,
@@ -122,6 +162,11 @@ export default BaseComponent.extend({
   methods: {
     async getItemsByUserName() {
       this.fieldFilter.userNameQuery = this.userNameQuery;
+      await this.getItems();
+    },
+
+    async getItemsByDiagnose() {
+      this.fieldFilter.diagnoseQuery = this.diagnoseQuery;
       await this.getItems();
     },
 
