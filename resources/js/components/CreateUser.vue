@@ -55,7 +55,7 @@
               <b-form-input
                 id="input-1"
                 v-model="user.email"
-                type="text"
+                type="email"
                 placeholder="Nhập email"
                 required
               ></b-form-input>

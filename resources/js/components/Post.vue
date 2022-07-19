@@ -358,7 +358,7 @@ export default BaseComponent.extend({
       if (params.type == "delete-post") {
         try {
           await deleteModel(this.model, this.$route.params.id);
-          // this.makeToast('Xóa bài viết thành công')
+          this.makeToast('Xóa bài viết thành công')
           this.navigateTo("forum");
         } catch (error) {
           this.handleErr(error);
