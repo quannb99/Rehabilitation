@@ -97,7 +97,7 @@ export default BaseComponent.extend({
   },
   methods: {
     async handleConfirm(params) {
-      if (params.type == "delete-post") {
+      if (params.type == 'delete-treatment') {
         try {
           await deleteModel(this.model, this.$route.params.id);
           this.makeToast('Xóa hoạt động điều trị thành công')
