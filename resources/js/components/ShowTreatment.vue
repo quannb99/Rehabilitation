@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navigation :title="'Chi tiết hồ sơ bệnh án'" :page="null" />
+    <Navigation :title="'Chi tiết hoạt động điều trị'" :page="null" />
     <confirm-modal @confirm="handleConfirm" ref="cf-modal"></confirm-modal>
     <message-modal ref="msg-modal"></message-modal>
     <div class="row col-lg-10 m-auto pt-5">
