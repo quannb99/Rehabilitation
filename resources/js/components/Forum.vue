@@ -42,6 +42,10 @@
             :key="index"
           >
             <h4>{{ item.title }}</h4>
+            <div class="d-flex">
+              <img style="height: 120px" :src="item.image ? item.image : previewImages[index]" alt="">
+              <div class="preview" v-html="item.content"></div>
+            </div>
             <div>
               <b-img
                 :src="item.user_avatar"
@@ -136,30 +140,55 @@ export default BaseComponent.extend({
       model: "posts",
       types: ["Chung", "Hỏi đáp", "Chia sẻ", "Thảo luận", "Tin tức"],
       titleQuery: "",
+      previewImages: [
+        '../../images/preview/1.jpg',
+        '../../images/preview/2.jpg',
+        '../../images/preview/3.jpg',
+        '../../images/preview/4.jpg',
+        '../../images/preview/5.jpg',
+        '../../images/preview/6.jpg',
+        '../../images/preview/7.jpg',
+        '../../images/preview/8.jpg',
+        '../../images/preview/9.jpg',
+        '../../images/preview/10.jpg',
+      ]
     };
   },
   methods: {
+    shuffleImages() {
+      this.previewImages = _.shuffle(this.previewImages)
+    },
     clearFilter() {
       this.fieldFilter.type = null;
+      this.shuffleImages();
       this.getItems();
     },
     async getPostsByTitle() {
       this.fieldFilter.titleQuery = this.titleQuery;
+      this.shuffleImages();
       await this.getItems();
     },
 
     async getPostsByType(type) {
       this.fieldFilter.type = type;
+      this.shuffleImages();
       await this.getItems();
     },
   },
   mounted() {
     this.getItems();
+    this.shuffleImages();
   },
 });
 </script>
 
 <style lang="scss" scoped>
+.preview {
+  overflow-y: hidden;
+  height: 116px;
+  font-weight: 300;
+  padding-left: 20px;
+}
 .post-form {
   width: 60%;
 }
@@ -168,5 +197,26 @@ export default BaseComponent.extend({
   margin-bottom: 10px;
   border-radius: 15px;
   border-top-width: 1px !important;
+}
+</style>
+
+<style>
+.preview h1 {
+  display: none !important;
+}
+.preview h2 {
+  display: none !important;
+}
+.preview h3 {
+  display: none !important;
+}
+.preview h4 {
+  display: none !important;
+}
+.preview h5 {
+  display: none !important;
+}
+.preview h6 {
+  display: none !important;
 }
 </style>

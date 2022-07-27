@@ -3,7 +3,9 @@
     <Navigation :title="'Lịch sử đánh giá hoạt động'" :page="null" />
     <div class="row col-lg-10 m-auto pt-5">
       <div class="col-lg-8">
-        <h3 v-if="!this.items[0] && !this.fieldFilter.titleQuery">Chưa có lịch sử đánh giá hoạt động</h3>
+        <h3 v-if="!this.items[0] && !this.fieldFilter.titleQuery">
+          Chưa có lịch sử đánh giá hoạt động
+        </h3>
         <b-list-group id="posts-container">
           <div class="mb-3" v-if="this.items[0]">
             <h4
@@ -31,7 +33,15 @@
             :key="index"
           >
             <h4>{{ item.title }}</h4>
-            <div>
+            <b-progress :max="100">
+                <b-progress-bar
+                  :value="item.rate"
+                  :label="`${item.rate}%`"
+                  variant="theme"
+                ></b-progress-bar>
+              </b-progress>
+            <div class="mt-2">
+
               <!-- <b-img
                 :src="item.user_avatar"
                 width="20"
@@ -42,10 +52,10 @@
               <strong class="mr-2" style="font-size: 14px"
                 ><span>Bs. </span> {{ item.doctor_name }}</strong
               >
-              <i class="ml-1 theme-icon fa fa-star" aria-hidden="true"></i>
+              <!-- <i class="ml-1 theme-icon fa fa-star" aria-hidden="true"></i>
               <span style="font-size: 14px"
                 ><b>{{ item.rate }}%</b>
-              </span>
+              </span> -->
               <i class="ml-2 theme-icon fa fa-clock-o" aria-hidden="true"></i>
               <span style="font-size: 14px"
                 ><b>{{ moment(item.created_at).fromNow() }}</b>
@@ -105,14 +115,18 @@
           >
             <h4
               style="cursor: pointer"
-              @click="openInNewTab('/show-treatment/' + selectedItem.treatment_id)"
+              @click="
+                openInNewTab('/show-treatment/' + selectedItem.treatment_id)
+              "
               class="text-center"
             >
               {{ selectedItem.title }}
             </h4>
             <h6 class="my-4"><b>Mục tiêu:</b> {{ selectedItem.objective }}</h6>
             <h6 class="my-4"><b>Độ khó:</b> {{ selectedItem.difficulty }}</h6>
-            <h6 class="my-4"><b>Mức độ hoàn thành:</b> {{ selectedItem.rate }}%</h6>
+            <h6 class="my-4">
+              <b>Mức độ hoàn thành:</b> {{ selectedItem.rate }}%
+            </h6>
             <h6 class="my-4"><b>Ghi chú:</b> {{ selectedItem.note }}</h6>
           </b-card>
         </div>
@@ -140,10 +154,10 @@ export default BaseComponent.extend({
   methods: {
     chooseItem(item) {
       this.selectedItem = item;
-      this.$refs['info-modal'].show();
+      this.$refs["info-modal"].show();
     },
     hideModal() {
-      this.$refs['info-modal'].hide();
+      this.$refs["info-modal"].hide();
     },
     clearFilter() {
       this.fieldFilter.type = null;
