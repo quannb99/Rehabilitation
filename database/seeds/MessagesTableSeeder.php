@@ -19,13 +19,21 @@ class MessagesTableSeeder extends Seeder
         \DB::table('messages')->insert(array (
             0 => 
             array (
+                'user_a_id' => 2,
+                'user_b_id' => 1,
+                'content' => 'ok',
+                'created_at' => '2022-06-10 19:31:43',
+                'updated_at' => '2022-06-10 19:31:43',
+            ),
+            1 => 
+            array (
                 'user_a_id' => 1,
                 'user_b_id' => 3,
                 'content' => 'Chào Bs Mận',
                 'created_at' => '2022-06-06 22:44:22',
                 'updated_at' => '2022-06-06 22:44:22',
             ),
-            1 => 
+            2 => 
             array (
                 'user_a_id' => 1,
                 'user_b_id' => 4,
@@ -33,7 +41,7 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-06-06 22:44:39',
                 'updated_at' => '2022-06-06 22:44:39',
             ),
-            2 => 
+            3 => 
             array (
                 'user_a_id' => 2,
                 'user_b_id' => 3,
@@ -41,7 +49,7 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-06-10 11:20:39',
                 'updated_at' => '2022-06-10 11:20:39',
             ),
-            3 => 
+            4 => 
             array (
                 'user_a_id' => 1,
                 'user_b_id' => 2,
@@ -49,7 +57,7 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-06-10 19:28:39',
                 'updated_at' => '2022-06-10 19:28:39',
             ),
-            4 => 
+            5 => 
             array (
                 'user_a_id' => 2,
                 'user_b_id' => 1,
@@ -57,31 +65,15 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-06-10 19:28:45',
                 'updated_at' => '2022-06-10 19:28:45',
             ),
-            5 => 
-            array (
-                'user_a_id' => 1,
-                'user_b_id' => 2,
-                'content' => 'alo',
-                'created_at' => '2022-06-10 19:31:24',
-                'updated_at' => '2022-06-10 19:31:24',
-            ),
             6 => 
             array (
                 'user_a_id' => 1,
                 'user_b_id' => 2,
-                'content' => 'test',
-                'created_at' => '2022-06-10 19:31:34',
-                'updated_at' => '2022-06-10 19:31:34',
+                'content' => 'chúng ta có thể gọi video trao đổi vào 10 giờ thứ 6 tuần này được không?',
+                'created_at' => '2022-06-10 19:31:24',
+                'updated_at' => '2022-06-10 19:31:24',
             ),
             7 => 
-            array (
-                'user_a_id' => 2,
-                'user_b_id' => 1,
-                'content' => 'ok',
-                'created_at' => '2022-06-10 19:31:43',
-                'updated_at' => '2022-06-10 19:31:43',
-            ),
-            8 => 
             array (
                 'user_a_id' => 1,
                 'user_b_id' => 2,
@@ -89,7 +81,7 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-06-10 19:31:47',
                 'updated_at' => '2022-06-10 19:31:47',
             ),
-            9 => 
+            8 => 
             array (
                 'user_a_id' => 2,
                 'user_b_id' => 1,
@@ -97,7 +89,7 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-06-10 19:31:54',
                 'updated_at' => '2022-06-10 19:31:54',
             ),
-            10 => 
+            9 => 
             array (
                 'user_a_id' => 1,
                 'user_b_id' => 2,
@@ -105,7 +97,7 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-06-25 10:34:24',
                 'updated_at' => '2022-06-25 10:34:24',
             ),
-            11 => 
+            10 => 
             array (
                 'user_a_id' => 1,
                 'user_b_id' => 10,
@@ -113,7 +105,7 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-06-25 17:56:42',
                 'updated_at' => '2022-06-25 17:56:42',
             ),
-            12 => 
+            11 => 
             array (
                 'user_a_id' => 1,
                 'user_b_id' => 26,
@@ -121,7 +113,7 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-06-25 18:30:23',
                 'updated_at' => '2022-06-25 18:30:23',
             ),
-            13 => 
+            12 => 
             array (
                 'user_a_id' => 1,
                 'user_b_id' => 25,
@@ -129,69 +121,13 @@ class MessagesTableSeeder extends Seeder
                 'created_at' => '2022-06-25 18:30:31',
                 'updated_at' => '2022-06-25 18:30:31',
             ),
-            14 => 
+            13 => 
             array (
                 'user_a_id' => 1,
                 'user_b_id' => 24,
                 'content' => 'hello',
                 'created_at' => '2022-06-25 18:30:45',
                 'updated_at' => '2022-06-25 18:30:45',
-            ),
-            15 => 
-            array (
-                'user_a_id' => 2,
-                'user_b_id' => 1,
-                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
-                'created_at' => '2022-07-02 00:10:05',
-                'updated_at' => '2022-07-02 00:10:05',
-            ),
-            16 => 
-            array (
-                'user_a_id' => 2,
-                'user_b_id' => 1,
-                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
-                'created_at' => '2022-07-09 20:32:33',
-                'updated_at' => '2022-07-09 20:32:33',
-            ),
-            17 => 
-            array (
-                'user_a_id' => 2,
-                'user_b_id' => 1,
-                'content' => '📞 Bạn đã bỏ lỡ cuộc gọi từ Nguyễn Thanh Liêm',
-                'created_at' => '2022-07-09 20:32:37',
-                'updated_at' => '2022-07-09 20:32:37',
-            ),
-            18 => 
-            array (
-                'user_a_id' => 2,
-                'user_b_id' => 1,
-                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
-                'created_at' => '2022-07-09 20:32:58',
-                'updated_at' => '2022-07-09 20:32:58',
-            ),
-            19 => 
-            array (
-                'user_a_id' => 2,
-                'user_b_id' => 1,
-                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
-                'created_at' => '2022-07-09 20:34:02',
-                'updated_at' => '2022-07-09 20:34:02',
-            ),
-            20 => 
-            array (
-                'user_a_id' => 2,
-                'user_b_id' => 1,
-                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
-                'created_at' => '2022-07-09 20:36:03',
-                'updated_at' => '2022-07-09 20:36:03',
-            ),
-            21 => 
-            array (
-                'user_a_id' => 2,
-                'user_b_id' => 1,
-                'content' => '📲 Nguyễn Thanh Liêm đã gọi cho bạn',
-                'created_at' => '2022-07-09 20:37:05',
-                'updated_at' => '2022-07-09 20:37:05',
             ),
         ));
         

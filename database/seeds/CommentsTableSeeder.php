@@ -102,7 +102,7 @@ test',
             array (
                 'user_id' => 1,
                 'post_id' => 16,
-                'content' => 'hay',
+                'content' => 'bài viết rất hay',
                 'created_at' => '2022-05-28 10:44:55',
                 'updated_at' => '2022-05-28 10:44:55',
             ),
@@ -131,6 +131,30 @@ Với câu hỏi “Người mắc Covid ho kèm sốt 4 ngày có nên đi bệ
 Sốt và ho là những triệu chứng thường gặp của nhiễm Sars-CoV2. Tuy nhiên, ho ra máu là triệu chứng rất hiếm gặp ở bệnh nhân Covid 19. Vì vậy, nếu người thân của bạn ho rất nhiều và/hoặc ho ra máu thì bạn cần đưa người thân đến ngay cơ sở y tế để bác sĩ khám, đánh giá mức độ ho, mức độ ho ra máu để có phương án xử trí kịp thời.',
                 'created_at' => '2022-06-22 11:43:32',
                 'updated_at' => '2022-06-22 11:43:32',
+            ),
+            13 => 
+            array (
+                'user_id' => 1,
+                'post_id' => 1,
+                'content' => 'sdasdas',
+                'created_at' => '2022-07-24 15:03:18',
+                'updated_at' => '2022-07-24 15:03:18',
+            ),
+            14 => 
+            array (
+                'user_id' => 2,
+                'post_id' => 16,
+                'content' => 'Cảm ơn những chia sẻ của bạn, rất hữu ích!',
+                'created_at' => '2022-07-24 16:00:15',
+                'updated_at' => '2022-07-24 16:00:15',
+            ),
+            15 => 
+            array (
+                'user_id' => 3,
+                'post_id' => 16,
+                'content' => 'thông tin rất hữu ích',
+                'created_at' => '2022-06-28 10:44:55',
+                'updated_at' => '2022-06-28 10:44:55',
             ),
         ));
         

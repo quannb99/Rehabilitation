@@ -41,16 +41,9 @@ class RecordTreatmentsTableSeeder extends Seeder
             3 => 
             array (
                 'record_id' => 1,
-                'treatment_id' => 5,
-                'created_at' => '2022-07-02 00:07:56',
-                'updated_at' => '2022-07-02 00:07:56',
-            ),
-            4 => 
-            array (
-                'record_id' => 1,
-                'treatment_id' => 1,
-                'created_at' => '2022-07-02 21:15:01',
-                'updated_at' => '2022-07-02 21:15:01',
+                'treatment_id' => 6,
+                'created_at' => '2022-07-10 10:36:02',
+                'updated_at' => '2022-07-10 10:36:02',
             ),
         ));
         
