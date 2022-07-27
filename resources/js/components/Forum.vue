@@ -81,7 +81,7 @@
           :total-rows="paging.total"
           :per-page="paging.per_page"
           align="center"
-          @input="changePage"
+          @input="changePageAndShuffle"
         ></b-pagination>
       </div>
 
@@ -155,6 +155,10 @@ export default BaseComponent.extend({
     };
   },
   methods: {
+    changePageAndShuffle(page) {
+      this.shuffleImages();
+      this.getItems(this.model, page);
+    },
     shuffleImages() {
       this.previewImages = _.shuffle(this.previewImages)
     },
@@ -176,8 +180,8 @@ export default BaseComponent.extend({
     },
   },
   mounted() {
-    this.getItems();
     this.shuffleImages();
+    this.getItems();
   },
 });
 </script>

@@ -307,6 +307,7 @@ export default BaseComponent.extend({
     },
   },
   async mounted() {
+    this.shuffleImages();
     this.fieldFilter.user_id = window.User.id;
     await this.getItems();
     if (User.role == 1) {
@@ -332,7 +333,7 @@ export default BaseComponent.extend({
       });
       this.treatments = res.data.data.data;
     }
-    this.shuffleImages();
+
   },
 });
 </script>
