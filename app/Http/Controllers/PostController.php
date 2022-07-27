@@ -26,6 +26,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $id = $request['id'] ?? '';
+        $userId = $request['user_id'] ?? '';
         $titleQuery = $request['titleQuery'] ?? '';
         $type = $request['type'] ?? '';
         $getNewPosts = $request['getNewPosts'] ?? '';
@@ -42,6 +43,10 @@ class PostController extends Controller
 
         if ($id) {
             $query->where('posts.id', $id);
+        }
+
+        if ($userId) {
+            $query->where('posts.user_id', $userId);
         }
 
         if ($titleQuery) {

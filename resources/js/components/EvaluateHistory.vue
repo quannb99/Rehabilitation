@@ -169,7 +169,15 @@ export default BaseComponent.extend({
     },
   },
   mounted() {
-    this.getItems();
+    if (User.role == 1) {
+      this.fieldFilter.user_id = window.User.id
+      this.getItems();
+    }
+
+    if (User.role == 2) {
+      this.fieldFilter.doctor_id = window.User.id
+      this.getItems();
+    }
   },
 });
 </script>

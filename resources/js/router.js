@@ -1,6 +1,7 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
 import Forum from "./components/Forum.vue"
+import Dashboard from "./components/Dashboard.vue"
 import NewPost from "./components/NewPost.vue"
 import Post from "./components/Post.vue"
 import EditPost from "./components/EditPost.vue"
@@ -78,6 +79,11 @@ const routes = [
     path: "/forum",
     name: "forum",
     component: Forum
+  },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: Dashboard
   },
   {
     path: "/create-medical-record",

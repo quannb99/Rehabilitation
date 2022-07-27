@@ -108,7 +108,7 @@ export default BaseComponent.extend({
 
   async mounted() {
     this.checkAdmin();
-    let res = await getModel("dashboard");
+    let res = await getModel("getDashboard");
     this.countInfo = res.data.data;
   },
 });

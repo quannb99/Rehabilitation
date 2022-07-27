@@ -32,6 +32,8 @@ class RateController extends Controller
     {
         $id = $request['id'] ?? '';
         $titleQuery = $request['titleQuery'] ?? '';
+        $userId = $request['user_id'] ?? '';
+        $doctorId = $request['doctor_id'] ?? '';
 
         $query = $this->rateRepository->getCollection($request)
             ->select([
@@ -44,6 +46,14 @@ class RateController extends Controller
 
         if ($id) {
             $query->where('rates.id', $id);
+        }
+
+        if ($userId) {
+            $query->where('rates.user_id', $userId);
+        }
+
+        if ($doctorId) {
+            $query->where('rates.doctor_id', $doctorId);
         }
 
         if ($titleQuery) {

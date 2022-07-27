@@ -226,6 +226,9 @@
               ></b-img>
               {{ user.name }}
             </template>
+            <b-dropdown-item v-if="user.role != 3" @click.prevent="navigateTo('dashboard')" href="#"
+              >Dashboard</b-dropdown-item
+            >
             <b-dropdown-item @click.prevent="navigateTo('userInfo')" href="#"
               >Thông tin cá nhân</b-dropdown-item
             >

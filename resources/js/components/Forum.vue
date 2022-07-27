@@ -46,7 +46,7 @@
               <img style="height: 120px" :src="item.image ? item.image : previewImages[index]" alt="">
               <div class="preview" v-html="item.content"></div>
             </div>
-            <div>
+            <div class="mt-2">
               <b-img
                 :src="item.user_avatar"
                 width="20"
